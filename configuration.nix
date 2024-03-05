@@ -96,8 +96,6 @@
     wget
     starship
     tmux
-    git
-    neovim
     clang
     firefox
   ];
