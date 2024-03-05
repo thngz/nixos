@@ -10,6 +10,7 @@
     lua-language-server
     ripgrep
     kitty
+    neofetch
   ];
 
   programs.git = {
