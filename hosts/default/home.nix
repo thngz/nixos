@@ -26,7 +26,7 @@
   };
     
   home.file = {
-   ".config/nvim/".source = ./nvim;
+   ".config/nvim/".source = ../../modules/nvim;
   };
 
   home.sessionVariables = {
