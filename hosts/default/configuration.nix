@@ -1,12 +1,8 @@
-
-# your system.  Help is available in the configuration.nix(5) man page
-# and in the NixOS manual (accessible by running ‘nixos-help’).
-
 { config, pkgs, inputs, ... }:
 
 {
   imports =
-    [ # Include the results of the hardware scan.
+    [ 
       ./hardware-configuration.nix
       inputs.home-manager.nixosModules.default
       ../../modules/main-user.nix
@@ -14,16 +10,12 @@
 
   main-user.enable = true;
   main-user.userName = "gkiviv";
-
-  # Bootloader.
+  
   boot.loader.grub.enable = true;
-
   boot.loader.grub.device = "nodev";
-
   boot.loader.grub.useOSProber = true;
 
-  networking.hostName = "nixos"; # Define your hostname.
-
+  networking.hostName = "nixos";
   networking.networkmanager.enable = true;
   time.timeZone = "Europe/Tallinn";
 

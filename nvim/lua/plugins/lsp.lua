@@ -11,12 +11,6 @@ return {
         end,
     },
 
-    {
-        'williamboman/mason.nvim',
-        lazy = false,
-        config = true,
-    },
-
     -- Autocompletion
     {
         'hrsh7th/nvim-cmp',
@@ -58,7 +52,6 @@ return {
         event = { 'BufReadPre', 'BufNewFile' },
         dependencies = {
             { 'hrsh7th/cmp-nvim-lsp' },
-            { 'williamboman/mason-lspconfig.nvim' },
         },
         config = function()
             -- This is where all the LSP shenanigans will live
@@ -70,11 +63,11 @@ return {
             end
 
             lsp_zero.on_attach(on_attach)
-            -- local lsp_capabilities = require('cmp_nvim_lsp').default_capabilities()
             local capabilities = vim.tbl_deep_extend("force",
                 vim.lsp.protocol.make_client_capabilities(),
                 require('cmp_nvim_lsp').default_capabilities()
             )
+
             require("roslyn").setup({
                 dotnet_cmd = "dotnet",
                 roslyn_version = "4.8.0-3.23475.7", -- this is the default
@@ -82,19 +75,8 @@ return {
                 capabilities = capabilities
             })
 
-            require('mason-lspconfig').setup({
-                handlers = {
-                    lsp_zero.default_setup,
-                    lua_ls = function()
-                        -- (Optional) Configure lua language server for neovim
-                        local lua_opts = lsp_zero.nvim_lua_ls()
-                        require('lspconfig').lua_ls.setup(lua_opts)
-                    end,
-                }
-            })
-             
-            local nil_path = 'bin/nil'
-            require('mason-lspconfig').nil_ls.setup {
+            local nil_path = '/run/current-system/sw/bin/nil'
+            require('lspconfig').nil_ls.setup {
                   autostart = true,
                   capabilities = capabilities,
                   cmd = { nil_path },
