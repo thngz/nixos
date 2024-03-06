@@ -93,8 +93,8 @@ return {
                 }
             })
              
-            local nil_path = vim.env.NIL_PATH or 'target/debug/nil'
-            require('lspconfig').nil_ls.setup {
+            local nil_path = 'bin/nil'
+            require('mason-lspconfig').nil_ls.setup {
                   autostart = true,
                   capabilities = capabilities,
                   cmd = { nil_path },

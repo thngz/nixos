@@ -7,6 +7,11 @@
        url = "github:nix-community/home-manager";
        inputs.nixpkgs.follows = "nixpkgs";
      };
+
+     nil = {
+        url = "github:oxalica/nil";
+        inputs.nixpkgs.follows = "nixpkgs";
+     };
   };
 
   outputs = { self, nixpkgs, ... }@inputs:
@@ -15,7 +20,6 @@
       pkgs = nixpkgs.legacyPackages.${system};
     in
     {
-    
       nixosConfigurations.default = nixpkgs.lib.nixosSystem {
           specialArgs = {inherit inputs;};
           modules = [ 
@@ -23,6 +27,5 @@
             inputs.home-manager.nixosModules.default
           ];
         };
-
     };
 }

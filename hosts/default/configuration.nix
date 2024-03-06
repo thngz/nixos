@@ -102,6 +102,7 @@
     firefox
     starship
     xclip
+    inputs.nil.packages.x86_64-linux.default
   ];
   
   programs.fish.enable = true;

@@ -12,7 +12,6 @@
     kitty
     neofetch
     tmux
-    nil
     discord
     jetbrains-mono
   ];
@@ -44,7 +43,7 @@
   };
 
   home.file = {
-   ".config/nvim/".source = ../../modules/nvim;
+   ".config/nvim/".source = ../../nvim;
    ".config/i3/config".source = ../../i3/config;
    ".config/i3status/config".source = ../../i3/i3status/config;
   };
