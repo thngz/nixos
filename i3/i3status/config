@@ -1,0 +1,43 @@
+general {
+        output_format = "i3bar"
+        colors = true
+        interval = 5
+}
+
+order += "disk /"
+order += "wireless wlan0"
+order += "battery 0"
+order += "memory"
+order += "tztime tallinn"
+
+wireless wlan0 {
+        format_down = "IP ADDRESS: 26.26.26.26"
+}
+
+
+battery 0 {
+        format = "%status %percentage, time until empty: %remaining"
+        format_down = "No battery"
+        status_chr = "⚡ CHR"
+        status_bat = "🔋 BAT"
+        status_unk = "? UNK"
+        status_full = "☻ FULL"
+        path = "/sys/class/power_supply/BAT%d/uevent"
+        low_threshold = 10
+}
+
+
+tztime tallinn {
+        format = "%Y-%m-%d %H:%M:%S %Z"
+        timezone = "Europe/Tallinn"
+}
+
+memory {
+        format = "USED RAM: %used"
+        threshold_degraded = "10%"
+        format_degraded = "MEMORY: %free"
+}
+
+disk "/" {
+        format = "%free"
+}

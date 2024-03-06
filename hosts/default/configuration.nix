@@ -9,7 +9,7 @@
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
       inputs.home-manager.nixosModules.default
-      ./main-user.nix
+      ../../modules/main-user.nix
     ];
 
   main-user.enable = true;
@@ -17,7 +17,6 @@
 
   # Bootloader.
   boot.loader.grub.enable = true;
-
 
   boot.loader.grub.device = "nodev";
 
@@ -97,27 +96,24 @@
     };
   };
 
-  # List packages installed in system profile. To search, run:
-  # $ nix search wget
   environment.systemPackages = with pkgs; [
     wget
     clang
     firefox
+    starship
     xclip
   ];
   
   programs.fish.enable = true;
-
+  programs.starship.enable = true;
 
   # Enable the OpenSSH daemon.
   services.openssh.enable = true;
   programs.ssh.startAgent = true; 
   
-  # Open ports in the firewall.
-  # networking.firewall.allowedTCPPorts = [ ... ];
-  # networking.firewall.allowedUDPPorts = [ ... ];
-  # Or disable the firewall altogether.
-  # networking.firewall.enable = false;
+  fonts.packages = with pkgs; [
+     jetbrains-mono
+  ];   
 
-  system.stateVersion = "23.11"; # Did you read the comment?
+  system.stateVersion = "23.11";
 }

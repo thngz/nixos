@@ -11,9 +11,10 @@
     ripgrep
     kitty
     neofetch
-    starship
     tmux
     nil
+    discord
+    jetbrains-mono
   ];
 
   programs.git = {
@@ -28,8 +29,8 @@
      withPython3 = true;
   };
 
-  programs.starship.enable = true;
-
+  nixpkgs.config.allowUnfree = true;
+  
   programs.tmux = {
     enable = true;
     extraConfig = ''
@@ -44,6 +45,8 @@
 
   home.file = {
    ".config/nvim/".source = ../../modules/nvim;
+   ".config/i3/config".source = ../../i3/config;
+   ".config/i3status/config".source = ../../i3/i3status/config;
   };
 
   home.sessionVariables = {
