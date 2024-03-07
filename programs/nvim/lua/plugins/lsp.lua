@@ -88,8 +88,8 @@ return {
                       },
                     },
                   },
-                }
-              '';
+                };
+              
 
             vim.keymap.set("n", "<leader>fm", function() vim.lsp.buf.format() end)
             vim.keymap.set("n", "<leader>ca", function() vim.lsp.buf.code_action() end)

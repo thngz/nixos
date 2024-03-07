@@ -3,9 +3,7 @@
 {
   imports =
     [ 
-      ./hardware-configuration.nix
       inputs.home-manager.nixosModules.default
-      ../../modules/main-user.nix
     ];
 
   main-user.enable = true;
@@ -32,35 +30,6 @@
     LC_TIME = "et_EE.UTF-8";
   };
 
-  services.xserver.enable = true;
-
-  services.xserver.displayManager.sddm.enable = true;
-  services.xserver.desktopManager = {
-    xterm.enable = false;
-    xfce = {
-        enable = true;
-        noDesktop = true;
-        enableXfwm = false;
-    };
-  };
-
-  services.xserver.displayManager.defaultSession = "xfce";
-  
-  services.xserver.windowManager.i3 = {
-     enable = true;
-
-     extraPackages = with pkgs; [
-        rofi
-        i3status
-        i3blocks
-     ];
-  };
-
-  services.xserver = {
-    xkb.layout = "us,ee";
-    xkbVariant = "";
-    xkbOptions = "ctrl:swapcaps, grp:rctrl_toggle";
-  };
 
   services.printing.enable = true;
 
@@ -94,7 +63,8 @@
     firefox
     starship
     xclip
-    inputs.nil.packages.x86_64-linux.default
+    inputs.nil.packages."${pkgs.system}".default
+    pavucontrol
   ];
   
   programs.fish.enable = true;

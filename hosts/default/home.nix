@@ -15,7 +15,7 @@
     discord
     jetbrains-mono
   ];
-
+  
   programs.git = {
      enable = true;
      userName = "gkiviv";
@@ -43,12 +43,9 @@
   };
 
   home.file = {
-   ".config/nvim/".source = ../../nvim;
-   ".config/i3/config".source = ../../i3/config;
-   ".config/i3status/config".source = ../../i3/i3status/config;
-  };
-
-  home.sessionVariables = {
+   ".config/nvim/".source = ../../programs/nvim;
+   ".config/i3/config".source = ../../programs/i3/config;
+   ".config/i3status/config".source = ../../programs/i3/i3status/config;
   };
 
   # Let Home Manager install and manage itself.
