@@ -8,9 +8,9 @@
 
   main-user.enable = true;
   main-user.userName = "gkiviv";
-  
+
   i3.enable = true;
-  i3.modKey = "Mod1";
+  i3.modKey = "Mod4";
   
   boot.loader.grub.enable = true;
   boot.loader.grub.device = "nodev";

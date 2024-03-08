@@ -21,19 +21,19 @@
           modules = [ 
             ./hosts/default/hardware-configuration.nix
             ./modules/main-user.nix
+            ./modules/xorg.nix
             ./hosts/default/configuration.nix
             inputs.home-manager.nixosModules.default
-            ./modules/xorg.nix
           ];
         };
      nixosConfigurations.laptop = nixpkgs.lib.nixosSystem {
          specialArgs = {inherit inputs;};
          modules = [
             ./hosts/laptop/hardware-configuration.nix
+                ./modules/xorg.nix
             ./modules/main-user.nix
-            ./hosts/default/configuration.nix
+            ./hosts/laptop/configuration.nix
             inputs.home-manager.nixosModules.default
-            ./modules/xorg.nix
          ];
      };
     };

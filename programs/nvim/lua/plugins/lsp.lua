@@ -80,14 +80,6 @@ return {
                   autostart = true,
                   capabilities = capabilities,
                   cmd = { nil_path },
-                  settings = {
-                    ['nil'] = {
-                      testSetting = 42,
-                      formatting = {
-                        command = { "nixpkgs-fmt" },
-                      },
-                    },
-                  },
                 };
               
 
