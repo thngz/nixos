@@ -44,7 +44,6 @@
 
   home.file = {
    ".config/nvim/".source = ../../programs/nvim;
-   ".config/i3status/config".source = ../../programs/i3/i3status/config;
   };
 
   # Let Home Manager install and manage itself.

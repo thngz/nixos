@@ -182,18 +182,8 @@ in
             bindsym $mod+r mode "resize"
 
             bar {
-                status_command i3status
-          }
-            }
-          '';
-          extraPackages = with pkgs; [
-              rofi
-              i3status
-              i3blocks
-          ];
-          statusBar = {
-             package = pkgs.i3status;
-             config = pkgs.writeText "i3status.conf" ''
+                status_command ${pkgs.i3status}/bin/i3status -c ${
+                pkgs.writeText "i3status-config" ''
                 general {
                         output_format = "i3bar"
                         colors = true
@@ -209,7 +199,6 @@ in
                 wireless wlan0 {
                         format_down = "IP ADDRESS: 26.26.26.26"
                 }
-
 
                 battery 0 {
                         format = "%status %percentage, time until empty: %remaining"
@@ -237,9 +226,15 @@ in
                 disk "/" {
                         format = "%free"
                 }
-             '';
-          };
+                ''
+                }
+            }
+          '';
+          extraPackages = with pkgs; [
+              rofi
+              i3status
+              i3blocks
+          ];
       };
-      
   };
 }
