@@ -26,5 +26,15 @@
             ./modules/xorg.nix
           ];
         };
+     nixosConfigurations.laptop = nixpkgs.lib.nixosSystem {
+         specialArgs = {inherit inputs;};
+         modules = [
+            ./hosts/laptop/hardware-configuration.nix
+            ./modules/main-user.nix
+            ./hosts/default/configuration.nix
+            inputs.home-manager.nixosModules.default
+            ./modules/xorg.nix
+         ];
+     };
     };
 }
