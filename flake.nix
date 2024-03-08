@@ -20,20 +20,26 @@
           specialArgs = {inherit inputs;};
           modules = [ 
             ./hosts/default/hardware-configuration.nix
-            ./modules/main-user.nix
-            ./modules/xorg.nix
-            ./hosts/default/configuration.nix
             inputs.home-manager.nixosModules.default
+            {
+                i3.enable = true;
+                i3.modKey = "Mod1";
+                system.stateVersion = "23.11";
+            }
+          ./modules
           ];
         };
      nixosConfigurations.laptop = nixpkgs.lib.nixosSystem {
          specialArgs = {inherit inputs;};
          modules = [
             ./hosts/laptop/hardware-configuration.nix
-                ./modules/xorg.nix
-            ./modules/main-user.nix
-            ./hosts/laptop/configuration.nix
             inputs.home-manager.nixosModules.default
+            {
+                i3.enable = true;
+                i3.modKey = "Mod4";
+                system.stateVersion = "23.11";
+            }     
+            ./modules
          ];
      };
     };

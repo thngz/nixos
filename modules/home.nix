@@ -1,9 +1,11 @@
 { config, pkgs, ... }:
 
 {
+  # Let Home Manager install and manage itself.
+  programs.home-manager.enable = true;
+  
   home.username = "gkiviv";
   home.homeDirectory = "/home/gkiviv";
-
   home.stateVersion = "23.11"; # Please read the comment before changing.
 
   home.packages = with pkgs; [
@@ -43,10 +45,7 @@
   };
 
   home.file = {
-   ".config/nvim/".source = ../../programs/nvim;
-   ".config/i3status/config".source = ../../programs/i3/i3status/config;
+   ".config/nvim/".source = ../programs/nvim;
   };
 
-  # Let Home Manager install and manage itself.
-  programs.home-manager.enable = true;
 }

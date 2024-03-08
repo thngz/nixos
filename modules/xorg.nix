@@ -25,10 +25,10 @@ in
             enableXfwm = false;
         };
       };
-      services.xserver = {
-        xkb.layout = "us,ee";
-        xkbVariant = "";
-        xkbOptions = "ctrl:swapcaps, grp:rctrl_toggle";
+      services.xserver.xkb = {
+        layout = "us,ee";
+        variant = "";
+        options = "ctrl:swapcaps, grp:rctrl_toggle";
       };
 
       services.xserver.displayManager.defaultSession = "xfce+i3";
@@ -71,8 +71,8 @@ in
 # change focus
             bindsym $mod+h focus left
             bindsym $mod+k focus down
-            bindsym $mod+l focus up
-            bindsym $mod+j focus right
+            bindsym $mod+j focus up
+            bindsym $mod+l focus right
 
 # alternatively, you can use the cursor keys:
             bindsym $mod+Left focus left
