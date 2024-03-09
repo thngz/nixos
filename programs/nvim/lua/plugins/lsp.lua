@@ -74,14 +74,22 @@ return {
                 on_attach = on_attach,
                 capabilities = capabilities
             })
-
+            
             local nil_path = '/run/current-system/sw/bin/nil'
+            local fileName = vim.api.nvim_buf_get_name(0)
             require('lspconfig').nil_ls.setup {
                   autostart = true,
                   capabilities = capabilities,
                   cmd = { nil_path },
-                };
-              
+                  formatting = {
+                      command = {"nixfmt" .. fileName}
+                  }
+            };
+
+            require('lspconfig').pylsp.setup {
+                autostart = true,
+                capabilities = capabilities,
+            }
 
             vim.keymap.set("n", "<leader>fm", function() vim.lsp.buf.format() end)
             vim.keymap.set("n", "<leader>ca", function() vim.lsp.buf.code_action() end)
