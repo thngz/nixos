@@ -55,10 +55,8 @@ in {
 
                     tiling_drag modifier titlebar
 
-                    bindsym $mod+Return exec i3-sensible-terminal
+                    bindsym $mod+shift+Return exec i3-sensible-terminal
 
-        # screenshot and copy to clipboard
-                    bindsym $mod+shift+s --release exec import ~/screenshots/ss.png && xclip -selection clipboard -t image/png -i ~/screenshots/ss.png
 
         # kill focused window
                     bindsym $mod+Shift+q kill
