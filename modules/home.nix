@@ -16,6 +16,9 @@
     tmux
     discord
     jetbrains-mono
+    okular
+    anki
+    qownnotes
   ];
 
   programs.git = {
