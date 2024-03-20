@@ -47,6 +47,14 @@
     '';
   };
 
+  programs.emacs = {
+    enable = true;
+  };
+
+  services.emacs = {
+    enable = true;
+  };
   home.file = { ".config/nvim/".source = ../programs/nvim; };
+  home.file = { ".config/doom/".source = ../programs/emacs; };
 
 }
