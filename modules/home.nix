@@ -1,5 +1,14 @@
-{ config, pkgs, ... }:
-
+{ config, pkgs, inputs, ... }:
+# let
+#     myEmacs = inputs.emacs-overlay.overlay {
+#         package = pkgs.emacsUnstable;
+#         config = ./init.el;
+#         extraEmacsPackages = epkgs: with epkgs; [
+#           use-package
+#         ];
+#         alwaysEnsure = true;
+#     };
+# in
 {
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
@@ -49,12 +58,14 @@
 
   programs.emacs = {
     enable = true;
+    package = pkgs.emacsGit;
   };
 
   services.emacs = {
     enable = true;
+    package = pkgs.emacsGit;
   };
+  
   home.file = { ".config/nvim/".source = ../programs/nvim; };
-  home.file = { ".config/doom/".source = ../programs/emacs; };
-
+  # home.file = { ".config/emacs/".source = ../programs/emacs; };
 }

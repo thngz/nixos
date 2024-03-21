@@ -1,0 +1,431 @@
+#+title: GEM  (Georg's Emacs) configuration
+#+PROPERTY: header-args:emacs-lisp :tangle ./init.el :mkdirp yes
+
+* Package system setup
+
+#+begin_src emacs-lisp
+
+  ;; Initialize package sources
+  (require 'package)
+
+  (setq package-archives '(("melpa" . "https://melpa.org/packages/")
+                           ("org" . "https://orgmode.org/elpa/")
+                           ("elpa" . "https://elpa.gnu.org/packages/")))
+
+  (package-initialize)
+  (unless package-archive-contents
+    (package-refresh-contents))
+
+    ;; Initialize use-package on non-Linux platforms
+  (unless (package-installed-p 'use-package)
+    (package-install 'use-package))
+
+  (require 'use-package)
+  (setq use-package-always-ensure t)
+
+#+end_src
+
+
+
+* UI configuration
+
+#+begin_src emacs-lisp
+    (setq inhibit-startup-message t) ;; Disable visible scrollbar
+
+    (scroll-bar-mode -1) ;; Disable the toolbar
+    (tool-bar-mode -1) ;; Disable tooltips
+    (set-fringe-mode 10)
+
+    (menu-bar-mode -1) ;; Disable the menu bar
+
+    (setq visible-bell t) ;; visual bell
+
+    (setq global-hl-line-modes nil) ;; disable line highlight
+    ;; Line numbers
+    (column-number-mode)
+  
+    ;; set relative line numbers
+    (setq display-line-numbers-type 'relative) 
+    (global-display-line-numbers-mode)
+
+    ;; Activate line numbering in programming modes
+    (add-hook 'prog-mode-hook 'display-line-numbers-mode)
+
+#+end_src
+
+
+** Font configuration
+
+#+begin_src emacs-lisp
+
+  (set-face-attribute 'default nil :font "JetBrains Mono" :height 128)
+
+  (use-package ligature
+    :config
+    (ligature-set-ligatures 'prog-mode '("|||>" "<|||" "<==>" "<!--" "####" "~~>" "***" "||=" "||>"
+                                            ":::" "::=" "=:=" "===" "==>" "=!=" "=>>" "=<<" "=/=" "!=="
+                                            "!!." ">=>" ">>=" ">>>" ">>-" ">->" "->>" "-->" "---" "-<<"
+                                            "<~~" "<~>" "<*>" "<||" "<|>" "<$>" "<==" "<=>" "<=<" "<->"
+                                            "<--" "<-<" "<<=" "<<-" "<<<" "<+>" "</>" "###" "#_(" "..<"
+                                            "..." "+++" "/==" "///" "_|_" "www" "&&" "^=" "~~" "~@" "~="
+                                            "~>" "~-" "**" "*>" "*/" "||" "|}" "|]" "|=" "|>" "|-" "{|"
+                                            "[|" "]#" "::" ":=" ":>" ":<" "$>" "==" "=>" "!=" "!!" ">:"
+                                            ">=" ">>" ">-" "-~" "-|" "->" "--" "-<" "<~" "<*" "<|" "<:"
+                                            "<$" "<=" "<>" "<-" "<<" "<+" "</" "#{" "#[" "#:" "#=" "#!"
+                                            "##" "#(" "#?" "#_" "%%" ".=" ".-" ".." ".?" "+>" "++" "?:"
+                                            "?=" "?." "??" ";;" "/*" "/=" "/>" "//" "__" "~~" "(*" "*)"
+                                            "\\\\" "://")))
+
+#+end_src
+
+
+** Doom modeline
+
+#+begin_src emacs-lisp
+(use-package all-the-icons)
+
+(use-package doom-modeline
+  :init (doom-modeline-mode 1))
+#+end_src
+
+
+** Doom themes
+
+#+begin_src emacs-lisp
+
+(use-package doom-themes
+  :init (load-theme 'modus-vivendi t))
+#+end_src
+
+
+* Ivy
+
+#+begin_src emacs-lisp
+
+(use-package ivy
+  :diminish
+  :bind (("C-s" . swiper)
+         :map ivy-minibuffer-map
+         ("TAB" . ivy-alt-done)
+         ("C-l" . ivy-alt-done)
+         ("C-j" . ivy-next-line)
+         ("C-k" . ivy-previous-line)
+         :map ivy-switch-buffer-map
+         ("C-k" . ivy-previous-line)
+         ("C-l" . ivy-done)
+         ("C-d" . ivy-switch-buffer-kill)
+         :map ivy-reverse-i-search-map
+         ("C-k" . ivy-previous-line)
+         ("C-d" . ivy-reverse-i-search-kill))
+  :config
+  (ivy-mode 1))
+#+end_src
+
+** Ivy-rich
+#+begin_src emacs-lisp
+
+(use-package ivy-rich
+  :init
+  (ivy-rich-mode 1))
+
+#+end_src
+
+
+* Counsel
+
+#+begin_src emacs-lisp
+
+  (use-package counsel
+    :bind (("M-x" . 'counsel-M-x)
+           ("C-M-j" . 'counsel-switch-buffer)
+           ("C-x b" . 'counsel-ibuffer)
+           ("C-x C-f" . 'counsel-find-file)
+           :map minibuffer-local-map
+           ("C-r" . 'counsel-minibuffer-history)))
+
+#+end_src
+
+* Helpful
+
+#+begin_src emacs-lisp
+
+  (use-package helpful
+  :commands (helpful-callable helpful-variable helpful-command helpful-key)
+  :custom
+  (counsel-describe-function-function #'helpful-callable)
+  (counsel-describe-variable-function #'helpful-variable)
+  :bind
+  ([remap describe-function] . counsel-describe-function)
+  ([remap describe-command] . helpful-command)
+  ([remap describe-variable] . counsel-describe-variable)
+  ([remap describe-key] . helpful-key))
+  
+#+end_src
+
+* Which key
+
+Which key is a plugin which shows all of the potential results after keypress
+
+#+begin_src emacs-lisp
+
+(use-package which-key
+  :init (which-key-mode)
+  :diminish which-key-mode
+  :config
+  (setq which-key-idle-delay 0.2))
+
+#+end_src
+
+* Keybinds
+
+#+begin_src emacs-lisp
+  (global-set-key (kbd "<escape>") 'keyboard-escape-quit)
+  (use-package general)
+  
+#+end_src
+
+* Terminal configuration
+
+** Term
+
+#+begin_src emacs-lisp
+  (use-package term
+      :config
+      (setq explicit-shell-file-name "bash")
+      (setq term-prompt-regexp "^[^#$%>\n]*[#$%>] *"))
+#+end_src
+
+* Org Mode
+
+"Organize your plain life in plain text"
+
+** Org setup
+
+This sets up org mode and agenda files.
+
+#+begin_src emacs-lisp
+
+    (defun gem/org-mode-setup ()
+      (org-indent-mode)
+      (visual-line-mode 1))
+
+    (use-package org
+      :hook (org-mode . gem/org-mode-setup)
+      :config
+      (setq org-ellipsis " ▾")
+      (setq org-agenda-files
+            '("~/Documents/org/Tasks.org"
+              "~/Documents/org/Birthdays.org"))
+
+      (setq org-todo-keywords '((sequence "TODO(t)" "NEXT(n)" "|" "DONE(d!)")))
+      (setq org-agenda-start-with-log-mode t)
+      (setq org-log-done 'time)
+      (setq org-log-into-drawer t))
+
+
+
+  (setq org-refile-targets
+        '(("Archive.org" :maxlevel . 1)))
+
+  (advice-add 'org-refile :after 'org-save-all-org-buffers)
+  
+  #+end_src
+
+
+** Auto tangle configuration files
+
+#+begin_src emacs-lisp
+
+  ;; Automatically tangle our config.org config file when we save it
+  (defun efs/org-babel-tangle-config ()
+    (when (string-equal (buffer-file-name)
+                        (expand-file-name "~/.config/emacs/config.org"))
+      ;; Dynamic scoping to the rescue
+      (let ((org-confirm-babel-evaluate nil))
+        (org-babel-tangle))))
+
+  (add-hook 'org-mode-hook (lambda () (add-hook 'after-save-hook #'efs/org-babel-tangle-config)))
+  
+#+end_src
+
+
+** Configure Babel languages
+
+#+begin_src emacs-lisp
+  (org-babel-do-load-languages
+   'org-babel-load-languages
+   '((emacs-lisp .t)
+     (python . t)))
+  (setq org-confirm-babel-evaluate nil)
+#+end_src
+
+** Babel structure templates
+
+#+begin_src emacs-lisp
+  (require 'org-tempo)
+  (add-to-list 'org-structure-template-alist '("py" . "src python"))
+  (add-to-list 'org-structure-template-alist '("el" . "src emacs-lisp"))
+#+end_src
+
+
+** Styling
+
+#+begin_src emacs-lisp
+
+  (use-package org-bullets
+     :after org
+     :hook (org-mode . org-bullets-mode))
+
+    (defun gem/org-font-setup ()
+    ;; Replace list hyphen with dot
+    (font-lock-add-keywords 'org-mode
+                            '(("^ *\\([-]\\) "
+                               (0 (prog1 () (compose-region (match-beginning 1) (match-end 1) "•")))))))
+  
+#+end_src
+
+* Evil
+
+Emacs with Vim keybindings
+
+#+begin_src emacs-lisp
+  (use-package evil
+    :init
+      (setq evil-want-integration t)
+      (setq evil-want-keybinding nil)
+      (setq evil-want-C-u-scroll t)
+      :config
+      (evil-mode 1)
+      (define-key evil-insert-state-map (kbd "C-g") 'evil-normal-state)
+      (define-key evil-insert-state-map (kbd "C-h") 'evil-delete-backward-char-and-join)
+
+      ;; Use visual line motions even outside of visual-line-mode buffers
+      (evil-global-set-key 'motion "j" 'evil-next-visual-line)
+      (evil-global-set-key 'motion "k" 'evil-previous-visual-line)
+      (setq-default evil-escape-key-sequence "jj")
+      (setq-default evil-escape-delay 0.2)
+      ;; set leader key in all states
+      (evil-set-leader nil (kbd "SPC"))
+
+      (evil-set-initial-state 'messages-buffer-mode 'normal)
+      (evil-set-initial-state 'dashboard-mode 'normal)
+      (evil-set-initial-state 'bs-mode 'emacs))
+      (evil-set-initial-state 'idris-repl-mode 'insert)
+      (evil-set-initial-state 'term-mode 'emacs)
+#+end_src
+
+** Evil collection
+
+#+begin_src emacs-lisp
+
+   (use-package evil-collection
+    :after evil
+    :config
+    (evil-collection-init))
+
+#+end_src
+
+* Development
+
+** Language server
+
+#+begin_src emacs-lisp
+
+  (defun efs/lsp-mode-setup ()
+    (setq lsp-headerline-breadcrumb-segments '(path-up-to-project file symbols))
+    (lsp-headerline-breadcrumb-mode))
+
+    (use-package lsp-mode
+    :commands (lsp lsp-deferred)
+    :hook (lsp-mode . efs/lsp-mode-setup)
+    :init
+    (setq lsp-keymap-prefix "C-c l")  ;; Or 'C-l', 's-l'
+    :config
+    (lsp-enable-which-key-integration t))
+
+  (use-package lsp-ui
+     :hook (lsp-mode . lsp-ui-mode))
+  
+#+end_src
+
+** Company mode
+
+Company mode provides better completions.
+
+#+begin_src emacs-lisp
+    (use-package company
+    :after lsp-mode
+    :hook (lsp-mode . company-mode)
+    :bind (:map company-active-map
+           ("<tab>" . company-complete-selection))
+          (:map lsp-mode-map
+           ("<tab>" . company-indent-or-complete-common))
+    :custom
+    (company-minimum-prefix-length 1)
+    (company-idle-delay 0.0))
+
+  (use-package company-box
+    :hook (company-mode . company-box-mode))
+
+  (global-company-mode 1)
+#+end_src
+
+
+** Magit
+
+#+begin_src emacs-lisp
+(use-package magit
+    :commands (magit-status magit-get-current-branch)
+    :custom
+    (magit-display-buffer-function #'magit-display-buffer-same-window-except-diff-v1))
+#+end_src
+
+** Flycheck
+Syntax checking for emacs
+
+#+begin_src emacs-lisp
+  (use-package flycheck)
+  (global-flycheck-mode 1)
+#+end_src
+
+* Document reading
+
+** PDF-reader
+
+#+begin_src emacs-lisp
+    (use-package pdf-tools)
+#+end_src
+
+* Random
+
+#+begin_src emacs-lisp
+
+  (setq make-backup-files nil) ; stop creating ~ files
+  (setq auto-save-default nil) ; stop creating #autosave# files
+  (global-auto-revert-mode 1) ;; enables auto revert
+  ;; (add-hook 'after-save-hook 'lsp-format-buffer)
+
+  ;; Fix tabs
+  (setq-default indent-tabs-mode nil)
+  (setq-default tab-width 4)
+  (setq indent-line-function 'insert-tab)
+
+  (keymap-global-set "C-/" 'comment-dwim) ;; Set comment toggle to match Jetbrains
+#+end_src
+
+** Simple-httpd
+
+This allows you to host files as a website which you can open in browser
+
+#+begin_src emacs-lisp
+
+  (use-package simple-httpd)
+    
+#+end_src
+
+** Control auto-save
+
+#+begin_src emacs-lisp
+  (setq auto-save-timeout 3)
+  (setq auto-save-interval 20)
+#+end_src
