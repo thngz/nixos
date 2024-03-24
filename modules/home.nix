@@ -1,16 +1,5 @@
 { config, pkgs, inputs, ... }:
-# let
-#     myEmacs = inputs.emacs-overlay.overlay {
-#         package = pkgs.emacsUnstable;
-#         config = ./init.el;
-#         extraEmacsPackages = epkgs: with epkgs; [
-#           use-package
-#         ];
-#         alwaysEnsure = true;
-#     };
-# in
 {
-  # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
 
   home.username = "gkiviv";
@@ -58,14 +47,14 @@
 
   programs.emacs = {
     enable = true;
-    package = pkgs.emacsGit;
+    package = pkgs.emacs;
   };
 
   services.emacs = {
     enable = true;
-    package = pkgs.emacsGit;
+    package = pkgs.emacs;
   };
   
   home.file = { ".config/nvim/".source = ../programs/nvim; };
-  # home.file = { ".config/emacs/".source = ../programs/emacs; };
+  home.file = { ".config/emacs/".source = ../programs/emacs; };
 }
