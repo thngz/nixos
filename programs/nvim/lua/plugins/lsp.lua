@@ -95,6 +95,27 @@ return {
                 autostart = true,
                 capabilities = capabilities,
             }
+            
+            require('lspconfig').html.setup {
+                autostart = true,
+                capabilities = capabilities,
+            }
+            
+            require('lspconfig').cssls.setup {
+                autostart = true,
+                capabilities = capabilities,
+            }
+            
+            require('lspconfig').eslint.setup {
+                autostart = true,
+                capabilities = capabilities,
+            }
+
+            require('lspconfig').volar.setup {
+                autostart = true,
+                capabilities = capabilities,
+            }
+            
             vim.keymap.set("n", "<leader>fm", function() vim.lsp.buf.format() end)
             vim.keymap.set("n", "<leader>ca", function() vim.lsp.buf.code_action() end)
             vim.keymap.set("n", "<leader>rn", function() vim.lsp.buf.rename() end)

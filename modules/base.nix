@@ -28,7 +28,8 @@
   };
 
   services.printing.enable = true;
-
+  services.mullvad-vpn.enable = true;
+  
   sound.enable = true;
   hardware.pulseaudio.enable = false;
   security.rtkit.enable = true;
@@ -45,7 +46,10 @@
 
   # enable flakes
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
-
+    
+  # enable docker
+  virtualisation.docker.enable = true;
+  
   home-manager = {
     extraSpecialArgs = { inherit inputs; };
     users = { "gkiviv" = import ./home.nix; };

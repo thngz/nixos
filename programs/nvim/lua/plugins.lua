@@ -6,7 +6,9 @@ return {
         opts = {},
         lazy = false,
     },
+
     { 'tpope/vim-fugitive' },
+
     {
         "kylechui/nvim-surround",
         version = "*", -- Use for stability; omit to use `main` branch for the latest features
@@ -42,4 +44,6 @@ return {
     },
 
     { 'bluz71/vim-moonfly-colors' },
+
+    { "Olical/conjure" }
 }

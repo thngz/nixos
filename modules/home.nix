@@ -16,7 +16,7 @@
     jetbrains-mono
     okular
     anki
-    qownnotes
+    mullvad-vpn
   ];
 
   programs.git = {
@@ -45,16 +45,5 @@
     '';
   };
 
-  programs.emacs = {
-    enable = true;
-    package = pkgs.emacs;
-  };
-
-  services.emacs = {
-    enable = true;
-    package = pkgs.emacs;
-  };
-  
   home.file = { ".config/nvim/".source = ../programs/nvim; };
-  home.file = { ".config/emacs/".source = ../programs/emacs; };
 }
