@@ -111,11 +111,15 @@ return {
                 capabilities = capabilities,
             }
 
-            require('lspconfig').volar.setup {
+            require('lspconfig').clangd.setup {
                 autostart = true,
                 capabilities = capabilities,
             }
             
+            require('lspconfig').dockerls.setup {
+                autostart = true,
+                capabilities = capabilities,
+            }
             vim.keymap.set("n", "<leader>fm", function() vim.lsp.buf.format() end)
             vim.keymap.set("n", "<leader>ca", function() vim.lsp.buf.code_action() end)
             vim.keymap.set("n", "<leader>rn", function() vim.lsp.buf.rename() end)
