@@ -49,7 +49,9 @@
     
   # enable docker
   virtualisation.docker.enable = true;
-  
+ 
+  services.xserver.xautolock.time = 40;
+
   home-manager = {
     extraSpecialArgs = { inherit inputs; };
     users = { "gkiviv" = import ./home.nix; };
