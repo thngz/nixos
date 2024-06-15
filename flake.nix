@@ -17,13 +17,9 @@
       url = "github:serokell/nixfmt";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-
-    emacs-overlay = {
-        url = "github:nix-community/emacs-overlay";
-    };
   };
 
-  outputs = { self, nixpkgs, emacs-overlay, ... }@inputs: {
+  outputs = { self, nixpkgs, ... }@inputs: {
     nixosConfigurations.default = nixpkgs.lib.nixosSystem {
       specialArgs = { inherit inputs; };
       
@@ -34,6 +30,7 @@
           i3.enable = true;
           i3.modKey = "Mod1";
           system.stateVersion = "23.11";
+          development.enable = true;
         }
         ./modules
       ];
@@ -41,15 +38,13 @@
     nixosConfigurations.laptop = nixpkgs.lib.nixosSystem {
       specialArgs = { inherit inputs; };
       modules = [
-          ({
-            nixpkgs.overlays = [inputs.emacs-overlay.overlay];
-          })
         inputs.home-manager.nixosModules.default
         ./hosts/laptop/hardware-configuration.nix
         {
           i3.enable = true;
           i3.modKey = "Mod4";
           system.stateVersion = "23.11";
+          development.enable = true;
         }
         ./modules
       ];

@@ -5,7 +5,6 @@
   main-user.userName = "gkiviv";
     
   boot.loader.systemd-boot.enable = true;
-  # boot.loader.grub.enable = true;
   boot.loader.grub.device = "nodev";
   boot.loader.grub.efiSupport = true;
   boot.loader.efi.canTouchEfiVariables = true;
@@ -59,13 +58,13 @@
 
   environment.systemPackages = with pkgs; [
     wget
-    clang
     firefox
     starship
     xclip
     inputs.nil.packages."${pkgs.system}".default
     inputs.nixfmt.packages."${pkgs.system}".default
     pavucontrol
+    vim
   ];
 
   programs.fish.enable = true;
