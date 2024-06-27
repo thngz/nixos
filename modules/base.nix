@@ -56,6 +56,8 @@
     users = { "gkiviv" = import ./home.nix; };
   };
 
+  programs.nix-ld.enable = true;
+
   environment.systemPackages = with pkgs; [
     wget
     firefox
@@ -65,6 +67,8 @@
     inputs.nixfmt.packages."${pkgs.system}".default
     pavucontrol
     vim
+    direnv
+    dumb-init
   ];
 
   programs.fish.enable = true;
@@ -74,5 +78,8 @@
   services.openssh.enable = true;
   programs.ssh.startAgent = true;
 
-  fonts.packages = with pkgs; [ jetbrains-mono ];
+  fonts.packages = with pkgs; [
+      jetbrains-mono 
+      Iosevka
+  ];
 }
