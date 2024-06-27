@@ -80,6 +80,6 @@
 
   fonts.packages = with pkgs; [
       jetbrains-mono 
-      Iosevka
+      iosevka
   ];
 }
