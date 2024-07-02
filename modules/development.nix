@@ -15,6 +15,7 @@ in {
       clang
       distrobox
       flyctl
+      gnumake
     ];
 
     programs.neovim = {

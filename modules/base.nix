@@ -28,7 +28,11 @@
 
   services.printing.enable = true;
   services.mullvad-vpn.enable = true;
-  
+
+  networking.firewall = {
+      enable = true;
+  };
+
   sound.enable = true;
   hardware.pulseaudio.enable = false;
   security.rtkit.enable = true;
@@ -39,7 +43,6 @@
     alsa.support32Bit = true;
     pulse.enable = true;
   };
-
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
 
@@ -69,6 +72,8 @@
     vim
     direnv
     dumb-init
+    tree
+    parsec-bin
   ];
 
   programs.fish.enable = true;
