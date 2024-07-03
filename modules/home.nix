@@ -14,6 +14,7 @@
     okular
     anki
     mullvad-vpn
+    obs-studio
   ];
 
   nixpkgs.config.allowUnfree = true;

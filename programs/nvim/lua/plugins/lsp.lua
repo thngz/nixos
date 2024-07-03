@@ -40,11 +40,6 @@ return {
         end
     },
 
-    {
-        'jmederosalvarado/roslyn.nvim',
-        lazy = false
-    },
-
     -- LSP
     {
         'neovim/nvim-lspconfig',
@@ -63,78 +58,29 @@ return {
             end
 
             lsp_zero.on_attach(on_attach)
-            local capabilities = vim.tbl_deep_extend("force",
-                vim.lsp.protocol.make_client_capabilities(),
-                require('cmp_nvim_lsp').default_capabilities()
-            )
 
-            require("roslyn").setup({
-                dotnet_cmd = "dotnet",
-                roslyn_version = "4.8.0-3.23475.7", -- this is the default
-                on_attach = on_attach,
-                capabilities = capabilities
-            })
-            
             local nil_path = '/run/current-system/sw/bin/nil'
             local fileName = vim.api.nvim_buf_get_name(0)
-            require('lspconfig').nil_ls.setup {
-                  autostart = true,
-                  capabilities = capabilities,
-                  cmd = { nil_path },
-                  formatting = {
-                      command = {"nixfmt" .. fileName}
-                  }
-            };
+            require('lspconfig').nil_ls.setup { };
 
-            require('lspconfig').pylsp.setup {
-                autostart = true,
-                capabilities = capabilities,
-            }
+            require('lspconfig').pylsp.setup { }
 
-            require('lspconfig').tsserver.setup {
-                autostart = true,
-                capabilities = capabilities,
-            }
+            require('lspconfig').tsserver.setup { }
             
-            require('lspconfig').html.setup {
-                autostart = true,
-                capabilities = capabilities,
-            }
+            require('lspconfig').html.setup { }
             
-            require('lspconfig').cssls.setup {
-                autostart = true,
-                capabilities = capabilities,
-            }
+            require('lspconfig').cssls.setup { }
             
-            require('lspconfig').eslint.setup {
-                autostart = true,
-                capabilities = capabilities,
-            }
+            require('lspconfig').eslint.setup { }
 
-            require('lspconfig').clangd.setup {
-                autostart = true,
-                capabilities = capabilities,
-            }
+            require('lspconfig').clangd.setup { }
             
-            require('lspconfig').dockerls.setup {
-                autostart = true,
-                capabilities = capabilities,
-            }
+            require('lspconfig').dockerls.setup { }
             
-            require('lspconfig').docker_compose_language_service.setup {
-                autostart = true,
-                capabilities = capabilities,
-            }
+            require('lspconfig').docker_compose_language_service.setup { }
             
-            require('lspconfig').fsautocomplete.setup {
-                autostart = true,
-                capabilities = capabilities,
-            }
+            require('lspconfig').ocamllsp.setup { }
             
-            require('lspconfig').ocamllsp.setup {
-                autostart = true,
-                capabilities = capabilities,
-            }
             vim.keymap.set("n", "<leader>fm", function() vim.lsp.buf.format() end)
             vim.keymap.set("n", "<leader>ca", function() vim.lsp.buf.code_action() end)
             vim.keymap.set("n", "<leader>rn", function() vim.lsp.buf.rename() end)
