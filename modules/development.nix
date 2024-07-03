@@ -1,4 +1,4 @@
-{ lib, config, pkgs, ... }:
+{ lib, config, pkgs, inputs, ... }:
 
 let cfg = config.development;
 in {
@@ -16,6 +16,9 @@ in {
       distrobox
       flyctl
       gnumake
+      inputs.nil.packages."${pkgs.system}".default
+      inputs.nixfmt.packages."${pkgs.system}".default
+      vim
     ];
 
     programs.neovim = {
@@ -23,6 +26,8 @@ in {
       withNodeJs = true;
       withPython3 = true;
     };
+
+    virtualisation.docker.enable = true;
 
     programs.tmux = {
       enable = true;

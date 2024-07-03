@@ -14,6 +14,7 @@ in {
   config = lib.mkIf cfg.enable {
 
     services.xserver.enable = true;
+    services.xserver.xautolock.time = 40;
     services.xserver.displayManager.sddm.enable = true;
     services.xserver.desktopManager = {
       xterm.enable = false;
@@ -28,7 +29,7 @@ in {
       variant = "";
       options = "ctrl:swapcaps, grp:rctrl_toggle";
     };
-    
+
     services.xserver.displayManager.defaultSession = "xfce+i3";
     services.xserver.windowManager.i3 = {
       enable = true;
