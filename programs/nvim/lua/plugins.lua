@@ -45,5 +45,9 @@ return {
 
     { 'bluz71/vim-moonfly-colors' },
 
-    { "Olical/conjure" }
+    {
+        'stevearc/oil.nvim',
+        opts = {},
+    },
+
 }

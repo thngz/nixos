@@ -59,8 +59,6 @@
     users = { "gkiviv" = import ./home.nix; };
   };
 
-  programs.nix-ld.enable = true;
-
   environment.systemPackages = with pkgs; [
     wget
     firefox
@@ -74,6 +72,7 @@
     dumb-init
     tree
     parsec-bin
+    lua-language-server
   ];
 
   programs.fish.enable = true;

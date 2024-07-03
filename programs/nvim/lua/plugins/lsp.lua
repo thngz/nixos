@@ -40,6 +40,17 @@ return {
         end
     },
 
+    -- Formatting
+    {
+        'stevearc/conform.nvim',
+        opts = {
+            formatters_by_ft = {
+                nix = { "nixfmt" }
+            }
+        },
+    },
+
+
     -- LSP
     {
         'neovim/nvim-lspconfig',
@@ -59,32 +70,64 @@ return {
 
             lsp_zero.on_attach(on_attach)
 
-            local nil_path = '/run/current-system/sw/bin/nil'
-            local fileName = vim.api.nvim_buf_get_name(0)
-            require('lspconfig').nil_ls.setup { };
+            require('lspconfig').nil_ls.setup {
+                settings = {
+                    nil_ls = {
+                        formatter = { command = { "nixfmt" } }
+                    }
+                }
+            };
 
-            require('lspconfig').pylsp.setup { }
+            require('lspconfig').pylsp.setup {}
 
-            require('lspconfig').tsserver.setup { }
-            
-            require('lspconfig').html.setup { }
-            
-            require('lspconfig').cssls.setup { }
-            
-            require('lspconfig').eslint.setup { }
+            require('lspconfig').tsserver.setup {}
 
-            require('lspconfig').clangd.setup { }
-            
-            require('lspconfig').dockerls.setup { }
-            
-            require('lspconfig').docker_compose_language_service.setup { }
-            
-            require('lspconfig').ocamllsp.setup { }
-            
-            vim.keymap.set("n", "<leader>fm", function() vim.lsp.buf.format() end)
+            require('lspconfig').html.setup {}
+
+            require('lspconfig').cssls.setup {}
+
+            require('lspconfig').eslint.setup {}
+
+            require('lspconfig').clangd.setup {}
+
+            require('lspconfig').dockerls.setup {}
+
+            require('lspconfig').docker_compose_language_service.setup {}
+
+            require('lspconfig').ocamllsp.setup {}
+
+            -- Copypasta from the recommended neovim lua setup
+            require 'lspconfig'.lua_ls.setup {
+                on_init = function(client)
+                    local path = client.workspace_folders[1].name
+                    if vim.loop.fs_stat(path .. '/.luarc.json') or vim.loop.fs_stat(path .. '/.luarc.jsonc') then
+                        return
+                    end
+
+                    client.config.settings.Lua = vim.tbl_deep_extend('force', client.config.settings.Lua, {
+                        runtime = {
+                            version = 'LuaJIT'
+                        },
+                        -- Make the server aware of Neovim runtime files
+                        workspace = {
+                            checkThirdParty = false,
+                            library = {
+                                vim.env.VIMRUNTIME
+                            }
+                        }
+                    })
+                end,
+                settings = {
+                    Lua = {}
+                }
+            }
+
+
+            vim.keymap.set("n", "<leader>fm", function() require("conform").format({ lsp_format = "fallback" }) end)
             vim.keymap.set("n", "<leader>ca", function() vim.lsp.buf.code_action() end)
             vim.keymap.set("n", "<leader>rn", function() vim.lsp.buf.rename() end)
             vim.keymap.set("n", "<leader>vd", function() vim.diagnostic.open_float() end)
         end
-    }
+    },
+
 }
