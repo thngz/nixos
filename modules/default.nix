@@ -12,6 +12,8 @@
     ./shell-utils.nix
     ./hardware.nix
     ./users-groups.nix
+    ./communications.nix
+    ./home.nix
   ];
 }
 

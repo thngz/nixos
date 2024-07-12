@@ -10,6 +10,7 @@
     xclip
     wget
     starship
+    rlwrap
   ];
   programs.fish.enable = true;
   programs.starship.enable = true;

@@ -27,4 +27,4 @@ vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup("plugins")
 
-vim.cmd('colorscheme moonfly')
+vim.cmd('colorscheme gruber-darker')

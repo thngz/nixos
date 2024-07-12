@@ -7,16 +7,6 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-
-    nil = {
-      url = "github:oxalica/nil";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    nixfmt = {
-      url = "github:serokell/nixfmt";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
   };
 
   outputs = { self, nixpkgs, home-manager, ... }@inputs: {
@@ -34,12 +24,6 @@
         }
         ./modules
       ];
-    };
-
-    "gkiviv@nixos" = home-manager.lib.homeManagerConfiguration {
-      pkgs = nixpkgs.legacyPackages.x86_64-linux;
-      extraSpecialArgs = { inherit inputs; };
-      modules = [ ./modules/home.nix ];
     };
 
     nixosConfigurations.laptop = nixpkgs.lib.nixosSystem {

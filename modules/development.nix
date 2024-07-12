@@ -16,8 +16,8 @@ in {
       distrobox
       flyctl
       gnumake
-      inputs.nil.packages."${pkgs.system}".default
-      inputs.nixfmt.packages."${pkgs.system}".default
+      nil
+      nixfmt
       vim
     ];
 
