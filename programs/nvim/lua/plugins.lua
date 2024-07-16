@@ -1,6 +1,4 @@
 return {
-    { 'vim-airline/vim-airline' },
-
     {
         'numToStr/Comment.nvim',
         opts = {},
@@ -35,7 +33,7 @@ return {
     { 'bluz71/vim-moonfly-colors' },
 
     { "blazkowolf/gruber-darker.nvim" },
-
+    { "rafi/awesome-vim-colorschemes" },
     {
         'stevearc/oil.nvim',
         opts = {},
