@@ -30,13 +30,21 @@ return {
         end
     },
 
-    { 'bluz71/vim-moonfly-colors' },
-
-    { "blazkowolf/gruber-darker.nvim" },
-    { "rafi/awesome-vim-colorschemes" },
     {
         'stevearc/oil.nvim',
         opts = {},
     },
 
+    {
+        "ej-shafran/compile-mode.nvim",
+        branch = "latest",
+        dependencies = {
+            "nvim-lua/plenary.nvim",
+        },
+        -- Colorschemes
+        { 'bluz71/vim-moonfly-colors' },
+        { "blazkowolf/gruber-darker.nvim" },
+        { "rafi/awesome-vim-colorschemes" },
+
+    }
 }
