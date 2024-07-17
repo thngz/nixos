@@ -44,7 +44,6 @@ return {
         -- Colorschemes
         { 'bluz71/vim-moonfly-colors' },
         { "blazkowolf/gruber-darker.nvim" },
-        { "rafi/awesome-vim-colorschemes" },
-
+        {"ishan9299/modus-theme-vim"}
     }
 }

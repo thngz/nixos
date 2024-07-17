@@ -12,8 +12,8 @@ vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv")
 vim.keymap.set("n", "J", "mzJ`z")
 
 vim.keymap.set("n", "<leader>gs", vim.cmd.Git);
-vim.keymap.set("n","<leader>sh", ":split<CR>")
-vim.keymap.set("n","<leader>sv", ":vsplit<CR>")
+vim.keymap.set("n", "<leader>sh", ":split<CR>")
+vim.keymap.set("n", "<leader>sv", ":vsplit<CR>")
 -- open file explorer
 vim.api.nvim_set_keymap('n', '<Leader>fe', ':e .<CR>', { noremap = true, silent = true })
 
@@ -22,3 +22,7 @@ vim.api.nvim_set_keymap('n', '<leader>j', '<C-w>j', { noremap = true, silent = t
 vim.api.nvim_set_keymap('n', '<leader>k', '<C-w>k', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('n', '<leader>l', '<C-w>l', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('n', '<leader>q', ':q<CR>', { noremap = true, silent = true })
+
+-- use compilation-mode
+
+vim.api.nvim_set_keymap('n', '<leader>cc', ':below Compile<CR>', { noremap = true, silent = true })
