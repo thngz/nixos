@@ -96,6 +96,7 @@ return {
             require('lspconfig').docker_compose_language_service.setup {}
 
             require('lspconfig').ocamllsp.setup {}
+            require('lspconfig').hls.setup {}
 
             -- Copypasta from the recommended neovim lua setup
             require 'lspconfig'.lua_ls.setup {
