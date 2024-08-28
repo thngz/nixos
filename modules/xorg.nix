@@ -1,8 +1,8 @@
 { lib, config, pkgs, ... }:
-let cfg = config.i3;
+let cfg = config.xorg;
 in {
-  options.i3 = {
-    enable = lib.mkEnableOption "enable i3";
+  options.xorg = {
+    enable = lib.mkEnableOption "enable xorg";
     modKey = lib.mkOption {
       default = "Mod4";
       description = ''

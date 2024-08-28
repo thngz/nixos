@@ -17,8 +17,8 @@
         ./hosts/default/hardware-configuration.nix
         inputs.home-manager.nixosModules.home-manager
         {
-          i3.enable = true;
-          i3.modKey = "Mod1";
+          xorg.enable = true;
+          xorg.modKey = "Mod1";
           system.stateVersion = "23.11";
           development.enable = true;
         }
@@ -32,13 +32,34 @@
         inputs.home-manager.nixosModules.default
         ./hosts/laptop/hardware-configuration.nix
         {
-          i3.enable = true;
-          i3.modKey = "Mod4";
+          xorg.enable = true;
+          xorg.modKey = "Mod4";
           system.stateVersion = "23.11";
           development.enable = true;
         }
         ./modules
       ];
     };
+
+
+    nixosConfigurations.server = nixpkgs.lib.nixosSystem {
+      specialArgs = { inherit inputs; };
+      modules = [
+        inputs.home-manager.nixosModules.default
+        ./hosts/server/hardware-configuration.nix
+        ./hosts/server/logind.nix
+        ./modules/wireguard.nix
+        ./modules/nginx.nix
+        {
+          xorg.enable = false;
+          xorg.modKey = "Mod4";
+          system.stateVersion = "23.11";
+          development.enable = false;
+        }
+
+        ./modules
+      ];
+    };
+
   };
 }
