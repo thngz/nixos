@@ -15,7 +15,7 @@ in {
 
     services.xserver.enable = true;
     services.xserver.xautolock.time = 40;
-    services.xserver.displayManager.sddm.enable = true;
+    services.displayManager.sddm.enable = true;
     services.xserver.desktopManager = {
       xterm.enable = false;
       xfce = {
@@ -30,7 +30,7 @@ in {
       options = "ctrl:swapcaps, grp:rctrl_toggle";
     };
 
-    services.xserver.displayManager.defaultSession = "xfce+i3";
+    services.displayManager.defaultSession = "xfce+i3";
     services.xserver.windowManager.i3 = {
       enable = true;
       configFile = pkgs.writeText "i3.cfg" ''

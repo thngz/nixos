@@ -45,5 +45,7 @@ return {
         { 'bluz71/vim-moonfly-colors' },
         { "blazkowolf/gruber-darker.nvim" },
         {"ishan9299/modus-theme-vim"}
-    }
+    };
+
+    {'andymass/vim-matchup'}
 }

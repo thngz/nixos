@@ -8,5 +8,8 @@
     obs-studio
     firefox
     foliate
+    wireshark
+    nmap
+    libreoffice-qt6-still
   ];
 }

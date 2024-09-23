@@ -6,9 +6,9 @@
   services.mullvad-vpn.enable = true;
 
   networking.firewall = { enable = true; };
-  environment.systemPackages = with pkgs; [ mullvad-vpn ];
+  environment.systemPackages = with pkgs; [ mullvad-vpn bruno];
 
   services.openssh.enable = true;
   programs.ssh.startAgent = true;
-    
+      
 }
