@@ -2,6 +2,8 @@
   description = "Nixos config flake";
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    spicetify-nix.url = "github:Gerg-L/spicetify-nix";
+    spicetify-nix.inputs.nixpkgs.follows = "nixpkgs";
 
     home-manager = {
       url = "github:nix-community/home-manager";
@@ -23,6 +25,7 @@
           development.enable = true;
         }
         ./modules
+        ./modules/spicetify.nix
       ];
     };
 

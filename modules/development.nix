@@ -19,6 +19,7 @@ in {
       nil
       nixfmt
       vim
+      dbeaver-bin
     ];
 
     programs.neovim = {
