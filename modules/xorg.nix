@@ -1,8 +1,8 @@
 { lib, config, pkgs, ... }:
-let cfg = config.i3;
+let cfg = config.xorg;
 in {
-  options.i3 = {
-    enable = lib.mkEnableOption "enable i3";
+  options.xorg = {
+    enable = lib.mkEnableOption "enable xorg";
     modKey = lib.mkOption {
       default = "Mod4";
       description = ''
@@ -188,17 +188,12 @@ in {
                             }
 
                             order += "disk /"
-                            order += "wireless wlan0"
                             order += "battery 0"
                             order += "memory"
                             order += "tztime tallinn"
 
-                            wireless wlan0 {
-                                    format_down = "IP ADDRESS: 26.26.26.26"
-                            }
-
                             battery 0 {
-                                    format = "%status %percentage, time until empty: %remaining"
+                                    format = "%status %percentage, remaining: %remaining"
                                     format_down = "No battery"
                                     status_chr = "⚡ CHR"
                                     status_bat = "🔋 BAT"
