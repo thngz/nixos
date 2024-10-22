@@ -7,6 +7,7 @@
     anki
     obs-studio
     firefox
+    libreoffice-qt6-still
     foliate
   ];
 }

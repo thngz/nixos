@@ -193,9 +193,6 @@ in {
                             order += "memory"
                             order += "tztime tallinn"
 
-                            wireless wlan0 {
-                                    format_down = "IP ADDRESS: 26.26.26.26"
-                            }
 
                             battery 0 {
                                     format = "%status %percentage, time until empty: %remaining"
