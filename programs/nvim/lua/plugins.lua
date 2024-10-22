@@ -41,9 +41,9 @@ return {
         dependencies = {
             "nvim-lua/plenary.nvim",
         },
-        -- Colorschemes
-        { 'bluz71/vim-moonfly-colors' },
-        { "blazkowolf/gruber-darker.nvim" },
-        {"ishan9299/modus-theme-vim"}
-    }
+    },
+
+    { 'bluz71/vim-moonfly-colors' },
+    { "blazkowolf/gruber-darker.nvim" },
+    { "ishan9299/modus-theme-vim" }
 }

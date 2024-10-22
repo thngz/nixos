@@ -7,7 +7,9 @@
     anki
     obs-studio
     firefox
-    libreoffice-qt6-still
     foliate
+    wireshark
+    nmap
+    libreoffice-qt6-still
   ];
 }

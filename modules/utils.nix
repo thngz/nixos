@@ -10,6 +10,7 @@
     gnumake
     nil
     nixfmt
+    vim
   ];
 
   programs.neovim = {

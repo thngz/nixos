@@ -6,10 +6,10 @@
   boot.loader.grub.device = "nodev";
   boot.loader.grub.efiSupport = true;
   boot.loader.efi.canTouchEfiVariables = true;
-
   services.printing.enable = true;
 
   hardware.pulseaudio.enable = false;
+    
   security.rtkit.enable = true;
 
   services.pipewire = {
@@ -19,5 +19,5 @@
     pulse.enable = true;
   };
 
-  environment.systemPackages = with pkgs; [ pavucontrol ];
+  environment.systemPackages = with pkgs; [ pavucontrol clinfo ];
 }
