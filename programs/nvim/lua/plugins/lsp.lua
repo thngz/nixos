@@ -10,15 +10,44 @@ return {
         },
     },
 
+    -- Autocompletion
+    {
+        'hrsh7th/nvim-cmp',
+        event = 'InsertEnter',
+        dependencies = {
+            { 'L3MON4D3/LuaSnip' },
+            { 'hrsh7th/cmp-nvim-lsp' }
+        },
+        config = function()
+            local cmp = require('cmp')
+
+            cmp.setup({
+                mapping = cmp.mapping.preset.insert({
+                    ['<C-Space>'] = cmp.mapping.complete(),
+                    ['<C-u>'] = cmp.mapping.scroll_docs(-4),
+                    ['<C-d>'] = cmp.mapping.scroll_docs(4),
+                    ['<Tab>'] = cmp.mapping.confirm({ select = true }),
+                }),
+                sources = cmp.config.sources({
+                    { name = 'nvim_lsp' },
+                    { name = 'luasnip' },
+                }),
+                {
+                    { name = 'buffer' }
+                }
+            })
+        end
+    },
+
     -- LSP
     {
         'neovim/nvim-lspconfig',
         cmd = { 'LspInfo', 'LspInstall', 'LspStart' },
-        -- event = { 'BufReadPre', 'BufNewFile' },
+        event = { 'BufReadPre', 'BufNewFile' },
         config = function()
             local servers = {
                 'pylsp',
-                'tsserver',
+                'ts_ls',
                 'html',
                 'cssls',
                 'eslint',
@@ -28,12 +57,16 @@ return {
                 'ocamllsp',
                 'hls',
                 'jdtls',
-                'lua-ls',
-                'gofmt'
+                'lua_ls',
+                'gopls',
+                'svelte',
+                'tailwindcss'
             }
 
+            local capabilities = require('cmp_nvim_lsp').default_capabilities()
+
             for _, server in ipairs(servers) do
-                require('lspconfig')[server].setup {}
+                require('lspconfig')[server].setup { capabilities = capabilities }
             end
 
             vim.keymap.set('n', 'gd', '<cmd>lua vim.lsp.buf.definition()<cr>')

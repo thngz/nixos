@@ -38,9 +38,18 @@ return {
     {
         "ej-shafran/compile-mode.nvim",
         branch = "latest",
-        dependencies = {
-            "nvim-lua/plenary.nvim",
-        },
+        dependencies = { "nvim-lua/plenary.nvim", },
+    },
+
+    {
+        "kylechui/nvim-surround",
+        version = "*", -- Use for stability; omit to use `main` branch for the latest features
+        event = "VeryLazy",
+        config = function()
+            require("nvim-surround").setup({
+                -- Configuration here, or leave empty to use defaults
+            })
+        end
     },
 
     { 'bluz71/vim-moonfly-colors' },

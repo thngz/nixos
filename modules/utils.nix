@@ -11,13 +11,9 @@
     nil
     nixfmt
     vim
+    snixembed
+    vlc
   ];
-
-  programs.neovim = {
-    enable = true;
-    withNodeJs = true;
-    withPython3 = true;
-  };
 
   virtualisation.docker.enable = true;
 

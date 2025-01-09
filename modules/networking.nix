@@ -4,7 +4,7 @@
   networking.nameservers = [ "1.1.1.1" "9.9.9.9" ];
   services.resolved.enable = true;
     
-  # services.mullvad-vpn.enable = true;
+  services.mullvad-vpn.enable = true;
 
   networking.firewall = { enable = true; };
   environment.systemPackages = with pkgs; [ mullvad-vpn bruno];

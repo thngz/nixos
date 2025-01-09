@@ -1,7 +1,6 @@
 { inputs, ... }: {
   imports = [ inputs.home-manager.nixosModules.home-manager ];
 
-  # programs.home-manager.enable = true;
   home-manager.users.gkiviv = {
 
     home.username = "gkiviv";
@@ -12,6 +11,12 @@
       enable = true;
       userName = "gkiviv";
       userEmail = "georgkivivali7@gmail.com";
+    };
+
+    programs.neovim = {
+      enable = true;
+      withNodeJs = true;
+      withPython3 = true;
     };
 
     home.file = { ".config/nvim/".source = ../programs/nvim; };

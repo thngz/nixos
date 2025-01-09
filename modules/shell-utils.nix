@@ -3,7 +3,7 @@
 {
   environment.systemPackages = with pkgs; [
     neofetch
-    kitty
+    ghostty
     tree
     direnv
     dumb-init
@@ -11,7 +11,9 @@
     wget
     starship
     rlwrap
-        
+    lsof
+    unzip
+    gnuplot
   ];
   programs.fish.enable = true;
   programs.starship.enable = true;

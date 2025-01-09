@@ -56,7 +56,7 @@ in {
 
                     tiling_drag modifier titlebar
 
-                    bindsym $mod+shift+Return exec i3-sensible-terminal
+                    bindsym $mod+Shift+Return exec ghostty
 
 
         # kill focused window
@@ -64,6 +64,10 @@ in {
 
         # A more modern dmenu replacement is rofi:
                     bindsym $mod+d exec "rofi -modi drun,run -show drun"
+                    
+        #clipman
+                    bindsym $mod+Shift+v exec --no-startup-id "xfce4-popup-clipman"
+
 
         # change focus
                     bindsym $mod+h focus left
@@ -194,7 +198,6 @@ in {
 
                             battery 0 {
                                     format = "%status %percentage, remaining: %remaining"
-                                    format_down = "No battery"
                                     status_chr = "⚡ CHR"
                                     status_bat = "🔋 BAT"
                                     status_unk = "? UNK"
@@ -222,7 +225,12 @@ in {
                         }
                     }
       '';
-      extraPackages = with pkgs; [ rofi i3status i3blocks ];
+      extraPackages = with pkgs; [
+        rofi
+        i3status
+        i3blocks
+        xfce.xfce4-clipman-plugin
+      ];
     };
   };
 }

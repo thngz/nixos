@@ -26,3 +26,4 @@ vim.api.nvim_set_keymap('n', '<leader>q', ':q<CR>', { noremap = true, silent = t
 -- use compilation-mode
 
 vim.api.nvim_set_keymap('n', '<leader>cc', ':below Compile<CR>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<leader>ci', ':CompileInterrupt<CR>', { noremap = true, silent = true })
