@@ -9,6 +9,11 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    crowdsec = {
+      url = "git+https://codeberg.org/kampka/nix-flake-crowdsec.git";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = { self, nixpkgs, home-manager, ... }@inputs: {
@@ -44,7 +49,6 @@
       ];
     };
 
-
     nixosConfigurations.server = nixpkgs.lib.nixosSystem {
       specialArgs = { inherit inputs; };
       modules = [
@@ -53,6 +57,10 @@
         ./hosts/server/logind.nix
         ./modules/wireguard.nix
         ./modules/nginx.nix
+
+        inputs.crowdsec.nixosModules.crowdsec
+
+        ./modules/crowdsec.nix
         {
           xorg.enable = false;
           xorg.modKey = "Mod4";
