@@ -11,13 +11,9 @@
       labels.type = "syslog";
     };
   in {
-
     enable = true;
-    # enrollKeyFile = "/home/gkiviv/.crowdseckey/enroll-key";
     settings = {
-      api.server = { listen_uri = "127.0.0.1:8080"; };
       crowdsec_service.acquisition_path = acquisitions_file;
-
     };
 
   };
