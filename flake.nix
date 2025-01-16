@@ -11,7 +11,7 @@
     };
   };
 
-  outputs = { self, nixpkgs, home-manager, crowdsec, ... }@inputs: {
+  outputs = { self, nixpkgs, home-manager, ... }@inputs: {
     nixosConfigurations.default = nixpkgs.lib.nixosSystem {
       specialArgs = { inherit inputs; };
 
@@ -52,6 +52,7 @@
         ./hosts/server/logind.nix
         ./modules/wireguard.nix
         ./modules/nginx.nix
+        ./modules/prometheus.nix
 
         {
           xorg.enable = false;
