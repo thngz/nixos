@@ -17,7 +17,7 @@
 
       modules = [
         ./hosts/default/hardware-configuration.nix
-        inputs.home-manager.nixosModules.home-manager
+        home-manager.nixosModules.home-manager
         {
           xorg.enable = true;
           xorg.modKey = "Mod1";
@@ -32,7 +32,7 @@
     nixosConfigurations.laptop = nixpkgs.lib.nixosSystem {
       specialArgs = { inherit inputs; };
       modules = [
-        inputs.home-manager.nixosModules.default
+        home-manager.nixosModules.default
         ./hosts/laptop/hardware-configuration.nix
         {
           xorg.enable = true;
@@ -44,15 +44,16 @@
       ];
     };
 
-
     nixosConfigurations.server = nixpkgs.lib.nixosSystem {
       specialArgs = { inherit inputs; };
       modules = [
-        inputs.home-manager.nixosModules.default
+        home-manager.nixosModules.default
         ./hosts/server/hardware-configuration.nix
         ./hosts/server/logind.nix
         ./modules/wireguard.nix
         ./modules/nginx.nix
+        ./modules/prometheus.nix
+
         {
           xorg.enable = false;
           xorg.modKey = "Mod4";
