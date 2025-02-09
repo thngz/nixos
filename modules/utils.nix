@@ -9,10 +9,11 @@
     ripgrep
     gnumake
     nil
-    nixfmt
+    nixfmt-classic
     vim
     snixembed
     vlc
+    qdigidoc
   ];
 
   virtualisation.docker.enable = true;

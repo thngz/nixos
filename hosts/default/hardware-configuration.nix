@@ -4,37 +4,29 @@
 { config, lib, pkgs, modulesPath, ... }:
 
 {
-  imports =
-    [ (modulesPath + "/installer/scan/not-detected.nix")
-    ];
+  imports = [ (modulesPath + "/installer/scan/not-detected.nix") ];
 
-  boot.initrd.availableKernelModules = [ "nvme" "xhci_pci" "ahci" "usb_storage" "sd_mod" ];
+  boot.initrd.availableKernelModules =
+    [ "nvme" "xhci_pci" "ahci" "usb_storage" "sd_mod" ];
   boot.initrd.kernelModules = [ "amdgpu" ];
   boot.kernelModules = [ "kvm-amd" ];
   boot.extraModulePackages = [ ];
 
-  hardware.graphics = {
-    enable = true;
-  };
-    
-    
-  hardware.graphics.extraPackages = with pkgs; [
-     rocmPackages_5.clr.icd
-  ];
-    
-  environment.variables = {
-      ROC_ENABLE_PRE_VEGA = "1";
-  }; 
-    
-  fileSystems."/" =
-    { device = "/dev/disk/by-uuid/27a107c5-33b8-4aee-8d6b-c1db45c4c362";
-      fsType = "ext4";
-    };
+  hardware.graphics = { enable = true; };
 
-  fileSystems."/boot" =
-    { device = "/dev/disk/by-uuid/0A65-7A23";
-      fsType = "vfat";
-    };
+  hardware.graphics.extraPackages = with pkgs; [ rocmPackages_5.clr.icd ];
+
+  environment.variables = { ROC_ENABLE_PRE_VEGA = "1"; };
+
+  fileSystems."/" = {
+    device = "/dev/disk/by-uuid/27a107c5-33b8-4aee-8d6b-c1db45c4c362";
+    fsType = "ext4";
+  };
+
+  fileSystems."/boot" = {
+    device = "/dev/disk/by-uuid/0A65-7A23";
+    fsType = "vfat";
+  };
 
   swapDevices = [ ];
 
@@ -46,5 +38,6 @@
   # networking.interfaces.enp42s0.useDHCP = lib.mkDefault true;
 
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
-  hardware.cpu.amd.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
+  hardware.cpu.amd.updateMicrocode =
+    lib.mkDefault config.hardware.enableRedistributableFirmware;
 }
