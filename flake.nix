@@ -44,6 +44,22 @@
       ];
     };
 
+    nixosConfigurations.laptop2 = nixpkgs.lib.nixosSystem {
+      specialArgs = { inherit inputs; };
+      modules = [
+        home-manager.nixosModules.default
+        ./hosts/laptop2/hardware-configuration.nix
+        {
+          xorg.enable = true;
+          xorg.modKey = "Mod1";
+          system.stateVersion = "23.11";
+          development.enable = true;
+        }
+        ./modules/spicetify.nix
+        ./modules
+      ];
+    };
+
     nixosConfigurations.server = nixpkgs.lib.nixosSystem {
       specialArgs = { inherit inputs; };
       modules = [

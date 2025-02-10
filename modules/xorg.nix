@@ -64,15 +64,14 @@ in {
 
         # A more modern dmenu replacement is rofi:
                     bindsym $mod+d exec "rofi -modi drun,run -show drun"
-                    
+
         #clipman
                     bindsym $mod+Shift+v exec --no-startup-id "xfce4-popup-clipman"
 
-
         # change focus
                     bindsym $mod+h focus left
-                    bindsym $mod+k focus down
-                    bindsym $mod+j focus up
+                    bindsym $mod+k focus up
+                    bindsym $mod+j focus down
                     bindsym $mod+l focus right
 
         # alternatively, you can use the cursor keys:
