@@ -26,5 +26,6 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup("plugins")
+require('harels')
 
 vim.cmd('colorscheme modus-vivendi')
