@@ -47,7 +47,6 @@ return {
         config = function()
             local servers = {
                 'pylsp',
-                'ts_ls',
                 'html',
                 'cssls',
                 'eslint',
@@ -60,14 +59,28 @@ return {
                 'lua_ls',
                 'gopls',
                 'svelte',
-                'tailwindcss'
+                'tailwindcss',
+            }
+
+
+            local nvim_lsp = require('lspconfig')
+
+            nvim_lsp.denols.setup {
+                root_dir = nvim_lsp.util.root_pattern("deno.json", "deno.jsonc"),
+            }
+
+            nvim_lsp.ts_ls.setup {
+                root_dir = nvim_lsp.util.root_pattern("package.json"),
+                single_file_support = false
             }
 
             local capabilities = require('cmp_nvim_lsp').default_capabilities()
 
             for _, server in ipairs(servers) do
-                require('lspconfig')[server].setup { capabilities = capabilities }
+                nvim_lsp[server].setup { capabilities = capabilities }
             end
+
+
 
             vim.keymap.set('n', 'gd', '<cmd>lua vim.lsp.buf.definition()<cr>')
             vim.keymap.set('n', 'gD', '<cmd>lua vim.lsp.buf.declaration()<cr>')

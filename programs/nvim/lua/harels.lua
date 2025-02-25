@@ -1,6 +1,8 @@
 local client = vim.lsp.start_client {
     name = "harels",
-    cmd = { "/home/gkiviv/projects/golang/harels/harels" },
+    -- cmd_cwd = {"/home/gkiviv/projects/javascript/harels_node"},
+    cmd = { "npm", "run", "dev" },
+    -- cmd = {"node", "--experimental-strip-types", "main.ts"}
 }
 
 if not client then
