@@ -10,6 +10,8 @@
 
   services.pulseaudio.enable = false;
 
+  boot.supportedFilesystems = [ "ntfs" ];
+    
   security.rtkit.enable = true;
 
   services.pipewire = {

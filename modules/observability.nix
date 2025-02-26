@@ -1,25 +1,7 @@
 { lib, config, pkgs, ... }:
-let cfg = config.prometheus;
+let cfg = config.observability;
 in {
-  options.prometheus = {
-        enable = lib.mkEnableOption "enable prometheus"; 
-        grafanaIP = lib.mkOption {
-            default = 127.0.0.1;
-            description = "Address on which grafana starts running";
-        }
-
-        grafanaIP = lib.mkOption {
-            default = 127.0.0.1;
-            description = "Address on which grafana starts running";
-        }
-
-        enableCrowdSecScrape = lib.mkEnableOption "Whether or not to turn on crowdsec metrics scrape";
-            
-        crowdSecIP = lib.mkOption {
-            default = "127.0.0.1";
-            description = "Crowdsec metrics endpoint";
-        }
-    };
+  options.observability = { enable = lib.mkEnableOption "enable prometheus"; };
 
   config = lib.mkIf cfg.enable {
 
@@ -54,7 +36,6 @@ in {
             ];
           }];
         }
-          config = lib.mkIf cfg.enable {
         {
           job_name = "crowdsec";
           static_configs = [{ targets = [ "10.0.0.1:6060" ]; }];
@@ -66,7 +47,6 @@ in {
   services.grafana = {
     enable = true;
     port = 3000;
-    addr = config.grafanaIP;
+    addr = "192.168.40.107";
   };
 }
-

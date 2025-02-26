@@ -59,6 +59,14 @@ return {
         end
     },
 
+    {
+        'nvim-tree/nvim-tree.lua',
+        config =
+            function()
+                require("nvim-tree").setup()
+            end
+    },
+
     { 'bluz71/vim-moonfly-colors' },
     { "blazkowolf/gruber-darker.nvim" },
     { "ishan9299/modus-theme-vim" }
