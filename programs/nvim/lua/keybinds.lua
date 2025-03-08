@@ -14,8 +14,9 @@ vim.keymap.set("n", "J", "mzJ`z")
 vim.keymap.set("n", "<leader>gs", vim.cmd.Git);
 vim.keymap.set("n", "<leader>sh", ":split<CR>")
 vim.keymap.set("n", "<leader>sv", ":vsplit<CR>")
+
 -- open file explorer
-vim.api.nvim_set_keymap('n', '<Leader>fe', ':e .<CR>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<Leader>fe', ':Oil .<CR>', { noremap = true, silent = true })
 
 vim.api.nvim_set_keymap('n', '<leader>h', '<C-w>h', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('n', '<leader>j', '<C-w>j', { noremap = true, silent = true })
@@ -27,3 +28,6 @@ vim.api.nvim_set_keymap('n', '<leader>q', ':q<CR>', { noremap = true, silent = t
 
 vim.api.nvim_set_keymap('n', '<leader>cc', ':below Compile<CR>', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('n', '<leader>ci', ':CompileInterrupt<CR>', { noremap = true, silent = true })
+
+-- Toggle file drawer
+vim.api.nvim_set_keymap('n', '<leader>fd', ':NvimTreeToggle<CR>', { noremap = true, silent = true })

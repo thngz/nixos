@@ -74,8 +74,13 @@ return {
                 single_file_support = false
             }
 
-
             local capabilities = require('cmp_nvim_lsp').default_capabilities()
+
+            local orig_notify = vim.notify
+            vim.notify = function(msg, ...)
+                if msg:find("Spawning language server") then return end
+                orig_notify(msg, ...)
+            end
 
             for _, server in ipairs(servers) do
                 nvim_lsp[server].setup { capabilities = capabilities }

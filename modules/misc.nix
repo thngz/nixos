@@ -15,4 +15,8 @@
     kdePackages.kdenlive
     safeeyes
   ];
+
+    
+  documentation.man.generateCaches = false;
+
 }

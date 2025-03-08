@@ -69,6 +69,9 @@ in {
                 #clipman
                             bindsym $mod+Shift+v exec --no-startup-id "xfce4-popup-clipman"
 
+                # screenshots
+                            bindsym $mod+Shift+s exec --no-startup-id "xfce4-screenshooter --region"
+
                 # change focus
                             bindsym $mod+h focus left
                             bindsym $mod+k focus up
