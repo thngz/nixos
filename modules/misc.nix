@@ -14,6 +14,8 @@
     kdePackages.filelight
     kdePackages.kdenlive
     safeeyes
+    zotero
+    temurin-jre-bin-17
   ];
 
     

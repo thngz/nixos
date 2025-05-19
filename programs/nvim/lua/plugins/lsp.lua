@@ -46,7 +46,7 @@ return {
         event = { 'BufReadPre', 'BufNewFile' },
         config = function()
             local servers = {
-                'pylsp',
+                'basedpyright',
                 'html',
                 'cssls',
                 'eslint',
@@ -62,8 +62,12 @@ return {
                 'tailwindcss',
             }
 
-
+            
             local nvim_lsp = require('lspconfig')
+
+            nvim_lsp.lexical.setup {
+                cmd = {'lexical'}
+            }
 
             nvim_lsp.denols.setup {
                 root_dir = nvim_lsp.util.root_pattern("deno.json", "deno.jsonc"),

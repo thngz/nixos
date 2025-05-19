@@ -3,7 +3,7 @@ vim.api.nvim_create_autocmd("FileType", {
     callback = function()
         local client = vim.lsp.start_client {
             name = "harels",
-            cmd = { "npm", "run", "dev" },
+            cmd = { "node", "/home/gkiviv/projects/javascript/harels/server/out/main.js"},
         }
 
         if not client then
