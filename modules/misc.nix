@@ -2,7 +2,6 @@
 
 {
   environment.systemPackages = with pkgs; [
-    okular
     anki
     obs-studio
     firefox

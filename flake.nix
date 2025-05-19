@@ -13,76 +13,89 @@
     };
   };
 
-  outputs = { self, nixpkgs, nix-ld, home-manager, ... }@inputs: {
-    nixosConfigurations.default = nixpkgs.lib.nixosSystem {
-      specialArgs = { inherit inputs; };
+  outputs = { self, nixpkgs, nix-ld, home-manager, ... }@inputs:
+    let system = "x86_64-linux";
+    in {
 
-      modules = [
-        ./hosts/default/hardware-configuration.nix
-        nix-ld.nixosModules.nix-ld
-        home-manager.nixosModules.home-manager
-        {
-          xorg.enable = true;
-          xorg.modKey = "Mod1";
-          system.stateVersion = "23.11";
-          development.enable = true;
-        }
-        ./modules
-        ./modules/spicetify.nix
-      ];
+      system = "x86_64-linux";
+      nixosConfigurations.default = nixpkgs.lib.nixosSystem {
+        specialArgs = { inherit inputs; };
+
+        modules = [
+          ./hosts/default/hardware-configuration.nix
+          nix-ld.nixosModules.nix-ld
+          home-manager.nixosModules.home-manager
+          {
+            xorg.enable = true;
+            xorg.modKey = "Mod1";
+            system.stateVersion = "23.11";
+            development.enable = true;
+          }
+          ./modules
+          ./modules/spicetify.nix
+        ];
+      };
+
+      nixosConfigurations.laptop = nixpkgs.lib.nixosSystem {
+        specialArgs = { inherit inputs; };
+        modules = [
+          home-manager.nixosModules.default
+          ./hosts/laptop/hardware-configuration.nix
+          {
+            xorg.enable = true;
+            xorg.modKey = "Mod4";
+            system.stateVersion = "23.11";
+            development.enable = true;
+          }
+          ./modules
+        ];
+      };
+
+      nixosConfigurations.laptop2 = nixpkgs.lib.nixosSystem {
+        specialArgs = { inherit inputs; };
+        pkgs = import nixpkgs {
+          system = system;
+          config.allowUnfree = true; # This works.
+        };
+        modules = [
+          # home-manager.nixosModules.default {
+          #       pkgs = pkgs;
+          #  }
+          nix-ld.nixosModules.nix-ld
+             
+          ./hosts/laptop2/hardware-configuration.nix
+          {
+            xorg.enable = true;
+            xorg.modKey = "Mod1";
+            system.stateVersion = "23.11";
+            development.enable = true;
+          }
+          ./modules/spicetify.nix
+          ./modules
+        ];
+      };
+
+      nixosConfigurations.server = nixpkgs.lib.nixosSystem {
+        specialArgs = { inherit inputs; };
+        modules = [
+          home-manager.nixosModules.default
+          ./hosts/server/hardware-configuration.nix
+          ./hosts/server/logind.nix
+          ./modules/wireguard.nix
+          ./modules/nginx.nix
+          ./modules/prometheus.nix
+
+          {
+            xorg.enable = false;
+            xorg.modKey = "Mod4";
+            system.stateVersion = "23.11";
+            development.enable = false;
+          }
+
+          ./modules
+        ];
+      };
+
+>>>>>>> 877334a (Laptop configs)
     };
-
-    nixosConfigurations.laptop = nixpkgs.lib.nixosSystem {
-      specialArgs = { inherit inputs; };
-      modules = [
-        home-manager.nixosModules.default
-        ./hosts/laptop/hardware-configuration.nix
-        {
-          xorg.enable = true;
-          xorg.modKey = "Mod4";
-          system.stateVersion = "23.11";
-          development.enable = true;
-        }
-        ./modules
-      ];
-    };
-
-    nixosConfigurations.laptop2 = nixpkgs.lib.nixosSystem {
-      specialArgs = { inherit inputs; };
-      modules = [
-        home-manager.nixosModules.default
-        ./hosts/laptop2/hardware-configuration.nix
-        {
-          xorg.enable = true;
-          xorg.modKey = "Mod1";
-          system.stateVersion = "23.11";
-          development.enable = true;
-        }
-        ./modules/spicetify.nix
-        ./modules
-      ];
-    };
-
-    nixosConfigurations.server = nixpkgs.lib.nixosSystem {
-      specialArgs = { inherit inputs; };
-      modules = [
-        home-manager.nixosModules.default
-        ./hosts/server/hardware-configuration.nix
-        ./hosts/server/logind.nix
-        ./modules/wireguard.nix
-        ./modules/nginx.nix
-        ./modules/prometheus.nix
-
-        {
-          xorg.enable = false;
-          xorg.modKey = "Mod4";
-          system.stateVersion = "23.11";
-          development.enable = false;
-        }
-
-        ./modules
-      ];
-    };
-
-  };
 }

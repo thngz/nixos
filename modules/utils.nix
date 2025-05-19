@@ -14,6 +14,7 @@
     snixembed
     vlc
     qdigidoc
+    flameshot
   ];
 
   virtualisation.docker.enable = true;

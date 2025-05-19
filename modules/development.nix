@@ -11,6 +11,7 @@ in {
       distrobox
       flyctl
       tokei
+      pods
     ];
 
 

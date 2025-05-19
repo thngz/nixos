@@ -5,7 +5,10 @@ return {
         opts = {
             formatters_by_ft = {
                 nix = { "nixfmt" },
-                ocaml = { "ocamlformat" }
+                ocaml = { "ocamlformat" },
+                python = { "black" },
+                typescript = { "prettier" },
+                vue = { "prettier" },
             }
         },
     },
@@ -62,15 +65,27 @@ return {
                 'tailwindcss',
             }
 
-            
             local nvim_lsp = require('lspconfig')
 
+            -- nvim_lsp.elixirls.setup {
+            --     cmd = { 'elixir-ls' }
+            -- }
+
             nvim_lsp.lexical.setup {
-                cmd = {'lexical'}
+                cmd = { 'lexical' }
             }
 
             nvim_lsp.denols.setup {
                 root_dir = nvim_lsp.util.root_pattern("deno.json", "deno.jsonc"),
+            }
+
+            nvim_lsp.volar.setup {
+                filetypes = { 'typescript', 'javascript', 'javascriptreact', 'typescriptreact', 'vue' },
+                init_options = {
+                    vue = {
+                        hybridMode = false,
+                    },
+                },
             }
 
             nvim_lsp.ts_ls.setup {

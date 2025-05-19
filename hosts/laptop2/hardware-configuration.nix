@@ -12,6 +12,19 @@
   boot.initrd.kernelModules = [ ];
   boot.kernelModules = [ "kvm-intel" ];
   boot.extraModulePackages = [ ];
+  services.xserver.videoDrivers = [ "modesetting" ];
+  # hardware.graphics.extraPackages = [
+  #   intel-compute-runtime
+  # ];
+  hardware.graphics.enable = true;
+  # hardware.graphics.driSupport = true;
+  # hardware.graphics.driSupport32Bit = true;
+
+  hardware.graphics.extraPackages = with pkgs; [
+        intel-media-driver
+        vaapiVdpau
+        libvdpau-va-gl
+  ];
 
   fileSystems."/" =
     { device = "/dev/disk/by-uuid/36554099-1561-4d32-b524-371650f66628";
