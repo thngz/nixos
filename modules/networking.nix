@@ -18,7 +18,6 @@
   
   # networking.extraHosts = ''127.0.0.1 nginx'';
     
->>>>>>> 877334a (Laptop configs)
   environment.systemPackages = with pkgs; [ mullvad-vpn bruno ];
 
   services.openssh.enable = true;

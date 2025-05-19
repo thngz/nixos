@@ -70,7 +70,7 @@ in {
                             bindsym $mod+Shift+v exec --no-startup-id "xfce4-popup-clipman"
 
                 # screenshots
-                            bindsym $mod+Shift+s exec --no-startup-id "xfce4-screenshooter --region"
+                            bindsym $mod+Shift+s exec --no-startup-id "flameshot gui"
 
                 # change focus
                             bindsym $mod+h focus left
