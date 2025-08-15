@@ -17,7 +17,11 @@
     flameshot
   ];
 
-  virtualisation.docker.enable = true;
+  virtualisation.docker = {
+    enable = true;
+    extraOptions = ''
+    '';
+  };
 
   programs.tmux = {
     enable = true;

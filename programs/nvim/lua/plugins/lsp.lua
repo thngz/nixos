@@ -112,6 +112,8 @@ return {
             vim.keymap.set('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<cr>')
             vim.keymap.set('n', 'go', '<cmd>lua vim.lsp.buf.type_definition()<cr>')
             vim.keymap.set('n', 'gr', '<cmd>lua vim.lsp.buf.references()<cr>')
+            vim.keymap.set('n', 'gne', '<cmd>lua vim.diagnostic.goto_next()<cr>')
+            vim.keymap.set('n', 'gpe', '<cmd>lua vim.diagnostic.goto_prev()<cr>')
 
             vim.keymap.set("n", "<leader>fm", function() require("conform").format({ lsp_format = "fallback" }) end)
             vim.keymap.set("n", "<leader>ca", function() vim.lsp.buf.code_action() end)

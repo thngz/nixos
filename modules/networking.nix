@@ -9,14 +9,13 @@
 
   networking.firewall = {
     enable = true;
-    # allowedTCPPorts = [ 9000 9001 3000 5000 6969];
+    allowedTCPPorts = [ 9000 9001 3000 5000 6969 5173];
     # allowedTCPPortRanges = [{
     #   from = 26000;
     #   to = 26100;
     # }];
   };
   
-  # networking.extraHosts = ''127.0.0.1 nginx'';
     
   environment.systemPackages = with pkgs; [ mullvad-vpn bruno ];
 

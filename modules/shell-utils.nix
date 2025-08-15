@@ -17,4 +17,7 @@
   ];
   programs.fish.enable = true;
   programs.starship.enable = true;
+  programs.bash.shellAliases = {
+    vim = "nvim";
+  };
 }

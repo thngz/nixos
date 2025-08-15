@@ -12,8 +12,9 @@ in {
       flyctl
       tokei
       pods
+      zed-editor
+      jetbrains.datagrip
     ];
-
 
   };
 }
