@@ -4,6 +4,7 @@
   environment.systemPackages = with pkgs; [
     tmux
     python3
+    openssl
     lua-language-server
     clang
     ripgrep

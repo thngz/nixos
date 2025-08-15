@@ -5,7 +5,8 @@
     anki
     obs-studio
     firefox
-    chromium
+        
+    (chromium.override { enableWideVine = true; })
     foliate
     wireshark
     nmap

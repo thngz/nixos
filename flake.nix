@@ -21,6 +21,10 @@
       nixosConfigurations.default = nixpkgs.lib.nixosSystem {
         specialArgs = { inherit inputs; };
 
+        pkgs = import nixpkgs {
+          system = system;
+          config.allowUnfree = true; # This works.
+        };
         modules = [
           ./hosts/default/hardware-configuration.nix
           nix-ld.nixosModules.nix-ld
