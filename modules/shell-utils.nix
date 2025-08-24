@@ -13,11 +13,11 @@
     rlwrap
     lsof
     unzip
+    ripgrep
+    fzf # find ze files
     gnuplot
   ];
   programs.fish.enable = true;
   programs.starship.enable = true;
-  programs.bash.shellAliases = {
-    vim = "nvim";
-  };
+  environment.shellAliases = { vim = "nvim"; };
 }

@@ -7,7 +7,6 @@
     openssl
     lua-language-server
     clang
-    ripgrep
     gnumake
     nil
     nixfmt-classic

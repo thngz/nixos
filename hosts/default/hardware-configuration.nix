@@ -14,7 +14,7 @@
 
   hardware.graphics = { enable = true; };
 
-  hardware.graphics.extraPackages = with pkgs; [ rocmPackages_5.clr.icd ];
+  hardware.graphics.extraPackages = with pkgs; [ rocmPackages_6.clr.icd ];
 
   environment.variables = { ROC_ENABLE_PRE_VEGA = "1"; };
 
