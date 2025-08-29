@@ -11,6 +11,7 @@
       enable = true;
       userName = "gkiviv";
       userEmail = "georgkivivali7@gmail.com";
+      lfs.enable = true;
     };
 
     programs.neovim = {
