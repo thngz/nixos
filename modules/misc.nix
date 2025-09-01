@@ -6,7 +6,7 @@
     obs-studio
     firefox
         
-    (chromium.override { enableWideVine = true; })
+    chromium
     foliate
     wireshark
     nmap
