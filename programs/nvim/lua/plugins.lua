@@ -69,5 +69,6 @@ return {
 
     { 'bluz71/vim-moonfly-colors' },
     { "blazkowolf/gruber-darker.nvim" },
-    { "ishan9299/modus-theme-vim" }
+    { "ishan9299/modus-theme-vim" },
+    { "ionide/Ionide-vim" }
 }
