@@ -70,5 +70,28 @@ return {
     { 'bluz71/vim-moonfly-colors' },
     { "blazkowolf/gruber-darker.nvim" },
     { "ishan9299/modus-theme-vim" },
-    { "ionide/Ionide-vim" }
+    { "ionide/Ionide-vim" },
+
+    { "mbbill/undotree" },
+    {
+        "R-nvim/R.nvim",
+        -- Only required if you also set defaults.lazy = true
+        lazy = false
+    },
+
+    {
+        -- slime (REPL integration)
+        {
+            "jpalardy/vim-slime",
+            keys = {
+                { "<leader>rc", "<cmd>SlimeConfig<cr>",     desc = "Slime Config" },
+                { "<leader>rr", ":<C-u>'<,'>SlimeSend<CR>", mode = "v",           desc = "Slime Send Selection" },
+            },
+            config = function()
+                vim.g.slime_target = "tmux"
+                vim.g.slime_cell_delimiter = "# %%"
+                vim.g.slime_bracketed_paste = 1
+            end,
+        },
+    }
 }

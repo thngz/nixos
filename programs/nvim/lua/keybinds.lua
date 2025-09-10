@@ -31,3 +31,6 @@ vim.api.nvim_set_keymap('n', '<leader>ci', ':CompileInterrupt<CR>', { noremap = 
 
 -- Toggle file drawer
 vim.api.nvim_set_keymap('n', '<leader>fd', ':NvimTreeToggle<CR>', { noremap = true, silent = true })
+
+-- Undotree
+vim.keymap.set('n', '<leader>u', vim.cmd.UndotreeToggle)

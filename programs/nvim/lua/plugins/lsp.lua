@@ -66,6 +66,15 @@ return {
             }
 
             local nvim_lsp = require('lspconfig')
+
+            nvim_lsp.denols.setup {
+                root_dir = nvim_lsp.util.root_pattern("deno.json", "deno.jsonc"),
+            }
+
+            nvim_lsp.lexical.setup {
+                cmd = { 'lexical' }
+            }
+
             local vue_language_server_path = vim.fn.exepath('vue-language-server')
             local vue_plugin = {
                 name = '@vue/typescript-plugin',
@@ -73,58 +82,30 @@ return {
                 languages = { 'vue' },
                 configNamespace = 'typescript',
             }
-            local tsserver_filetypes = { 'typescript', 'javascript', 'javascriptreact', 'typescriptreact', 'vue' }
 
-            local vtsls_config = {
-                settings = {
-                    vtsls = {
-                        tsserver = {
-                            globalPlugins = {
-                                vue_plugin,
-                            },
-                        },
-                    },
-                },
-                filetypes = tsserver_filetypes,
-            }
-
-            vim.lsp.config('vtsls', vtsls_config)
-            vim.lsp.config('vue_ls', {})
-            -- nvim_lsp.elixirls.setup {
-            --     cmd = { 'elixir-ls' }
-            -- }
-
-            nvim_lsp.lexical.setup {
-                cmd = { 'lexical' }
-            }
-
-            nvim_lsp.denols.setup {
-                root_dir = nvim_lsp.util.root_pattern("deno.json", "deno.jsonc"),
-            }
-
-            -- nvim_lsp.volar.setup {
-            --     filetypes = { 'typescript', 'javascript', 'javascriptreact', 'typescriptreact', 'vue' },
-            --     init_options = {
-            --         vue = {
-            --             hybridMode = false,
-            --         },
-            --     },
-            -- }
-
-            nvim_lsp.ts_ls.setup {
+            local ts_ls_config = {
                 root_dir = nvim_lsp.util.root_pattern("package.json"),
                 init_options = {
                     plugins = {
                         vue_plugin,
                     },
                 },
-                filetypes = tsserver_filetypes,
+                filetypes = { 'typescript', 'javascript', 'javascriptreact', 'typescriptreact', 'vue' },
                 single_file_support = false
             }
+
+            -- vim.lsp.config('vue_ls', {})
+            -- vim.lsp.config('ts_ls', ts_ls_config)
+            -- vim.lsp.enable('vue_ls')
+            -- vim.lsp.enable('ts_ls')
+
+            nvim_lsp.volar.setup({})
+            nvim_lsp.ts_ls.setup(ts_ls_config)
 
             local capabilities = require('cmp_nvim_lsp').default_capabilities()
 
             local orig_notify = vim.notify
+
             vim.notify = function(msg, ...)
                 if msg:find("Spawning language server") then return end
                 orig_notify(msg, ...)
@@ -133,8 +114,6 @@ return {
             for _, server in ipairs(servers) do
                 nvim_lsp[server].setup { capabilities = capabilities }
             end
-
-
 
             vim.keymap.set('n', 'gd', '<cmd>lua vim.lsp.buf.definition()<cr>')
             vim.keymap.set('n', 'gD', '<cmd>lua vim.lsp.buf.declaration()<cr>')
