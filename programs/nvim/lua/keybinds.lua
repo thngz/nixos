@@ -34,3 +34,5 @@ vim.api.nvim_set_keymap('n', '<leader>fd', ':NvimTreeToggle<CR>', { noremap = tr
 
 -- Undotree
 vim.keymap.set('n', '<leader>u', vim.cmd.UndotreeToggle)
+
+-- Vim slime
