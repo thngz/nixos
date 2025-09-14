@@ -2,7 +2,22 @@
 
 {
   environment.systemPackages = with pkgs; [
-    tmux
+    neofetch
+    ghostty
+    tree
+    direnv
+    dumb-init
+    xclip
+    wget
+    starship
+    rlwrap
+    lsof
+    unzip
+    ripgrep
+    fzf # find ze files
+    gnuplot
+    timewarrior
+    nmap
     python3
     openssl
     lua-language-server
@@ -10,19 +25,9 @@
     gnumake
     nil
     nixfmt-classic
-    vim
     snixembed
-    vlc
-    qdigidoc
-    flameshot
   ];
-
-  virtualisation.docker = {
-    enable = true;
-    extraOptions = ''
-    '';
-  };
-
+    
   programs.tmux = {
     enable = true;
     extraConfig = ''

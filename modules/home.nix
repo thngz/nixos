@@ -20,12 +20,6 @@
       withPython3 = true;
     };
         
-    programs.vscode = {
-        enable = true;       
-        package = pkgs.vscode.fhs;
-    };
-
-        
     home.file = { ".config/nvim/".source = ../programs/nvim; };
   };
 }

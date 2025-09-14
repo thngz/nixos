@@ -2,8 +2,6 @@
   description = "Nixos config flake";
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-    spicetify-nix.url = "github:Gerg-L/spicetify-nix";
-    spicetify-nix.inputs.nixpkgs.follows = "nixpkgs";
     nix-ld.url = "github:Mic92/nix-ld";
     nix-ld.inputs.nixpkgs.follows = "nixpkgs";
 
@@ -36,7 +34,6 @@
             development.enable = true;
           }
           ./modules
-          ./modules/spicetify.nix
         ];
       };
 
@@ -85,10 +82,6 @@
           home-manager.nixosModules.default
           ./hosts/server/hardware-configuration.nix
           ./hosts/server/logind.nix
-          ./modules/wireguard.nix
-          ./modules/nginx.nix
-          ./modules/prometheus.nix
-
           {
             xorg.enable = false;
             xorg.modKey = "Mod4";

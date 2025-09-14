@@ -1,24 +1,25 @@
-{ pkgs, ... }:
-
-{
+{ pkgs, ... }: {
   environment.systemPackages = with pkgs; [
+    spotify
+    discord
     anki
     obs-studio
     firefox
-        
-    chromium
+    qbittorrent
+    qdigidoc
+    vlc
     foliate
     wireshark
-    nmap
     libreoffice-qt6-still
     kdePackages.filelight
     kdePackages.kdenlive
     safeeyes
     zotero
     temurin-jre-bin-17
+    mullvad-vpn
+    bruno
+    flameshot
+    vim
   ];
-
-    
-  documentation.man.generateCaches = false;
-
+  services.mullvad-vpn.enable = true;
 }
