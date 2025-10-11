@@ -36,7 +36,8 @@
       fsType = "vfat";
       options = [ "fmask=0077" "dmask=0077" ];
     };
-
+  #
+  # boot.initrd.luks.devices.cryptroot.device = "/dev/disk/by-uuid/36554099-1561-4d32-b524-371650f66628"
   swapDevices = [ ];
 
   # Enables DHCP on each ethernet and wireless interface. In case of scripted networking

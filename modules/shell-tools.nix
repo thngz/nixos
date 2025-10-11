@@ -36,6 +36,7 @@
       set -g prefix C-Space
       bind C-Space send-prefix
       set -g base-index 1
+      set -g mouse on 
       setw -g pane-base-index 1
     '';
   };

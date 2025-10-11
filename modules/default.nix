@@ -1,6 +1,7 @@
 { ... }: {
   imports = [
     ./confs.nix
+    ./crypto.nix
     ./xorg.nix
     ./development.nix
     ./fonts.nix

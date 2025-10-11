@@ -7,7 +7,7 @@
 
   networking.firewall = {
     enable = true;
-    allowedTCPPorts = [ 9000 9001 3000 5000 6969 5173];
+    # allowedTCPPorts = [ 9000 9001 3000 5000 6969 5173];
   };
   
   services.openssh.enable = true;

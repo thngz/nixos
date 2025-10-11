@@ -75,32 +75,38 @@ return {
                 cmd = { 'lexical' }
             }
 
-            local vue_language_server_path = vim.fn.exepath('vue-language-server')
-            local vue_plugin = {
-                name = '@vue/typescript-plugin',
-                location = vue_language_server_path,
-                languages = { 'vue' },
-                configNamespace = 'typescript',
-            }
+            local function find_nix_paths()
+                local server = vim.fn.exepath('vue-language-server')
+                local store = server:match('^(/nix/store/[^/]+)')
+
+                return store
+            end
+
+            local path = find_nix_paths()
 
             local ts_ls_config = {
-                root_dir = nvim_lsp.util.root_pattern("package.json"),
+                --root_dir = nvim_lsp.util.root_pattern("package.json"),
                 init_options = {
                     plugins = {
-                        vue_plugin,
+                        {
+                            name = '@vue/typescript-plugin',
+                            location = path,
+                            languages = { 'vue' },
+                        }
                     },
                 },
                 filetypes = { 'typescript', 'javascript', 'javascriptreact', 'typescriptreact', 'vue' },
-                single_file_support = false
+                --single_file_support = false
             }
 
-            -- vim.lsp.config('vue_ls', {})
-            -- vim.lsp.config('ts_ls', ts_ls_config)
-            -- vim.lsp.enable('vue_ls')
-            -- vim.lsp.enable('ts_ls')
+            local vue_ls_config = {
+                cmd = { path .. "/bin/vue-language-server", '--stdio' },
+            }
 
-            nvim_lsp.volar.setup({})
-            nvim_lsp.ts_ls.setup(ts_ls_config)
+
+            vim.lsp.config('vue_ls', vue_ls_config)
+            vim.lsp.config('ts_ls', ts_ls_config)
+            vim.lsp.enable({ 'ts_ls', 'vue_ls' })
 
             local capabilities = require('cmp_nvim_lsp').default_capabilities()
 

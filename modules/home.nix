@@ -19,7 +19,8 @@
       withNodeJs = true;
       withPython3 = true;
     };
-        
+
+    services.syncthing = { enable = true; };
     home.file = { ".config/nvim/".source = ../programs/nvim; };
   };
 }

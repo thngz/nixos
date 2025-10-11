@@ -71,7 +71,6 @@
             system.stateVersion = "23.11";
             development.enable = true;
           }
-          ./modules/spicetify.nix
           ./modules
         ];
       };
