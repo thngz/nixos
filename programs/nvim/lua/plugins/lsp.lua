@@ -133,7 +133,15 @@ return {
             vim.keymap.set("n", "<leader>ca", function() vim.lsp.buf.code_action() end)
             vim.keymap.set("n", "<leader>rn", function() vim.lsp.buf.rename() end)
             vim.keymap.set("n", "<leader>vd", function() vim.diagnostic.open_float() end)
+            
+            vim.api.nvim_create_autocmd("FileType", {
+                pattern = "fsharp",
+                callback = function()
+                    vim.treesitter.stop()
+                end,
+            })
         end
+
     },
 
 }
