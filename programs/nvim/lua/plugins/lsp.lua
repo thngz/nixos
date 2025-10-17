@@ -99,12 +99,12 @@ return {
                 --single_file_support = false
             }
 
-            local vue_ls_config = {
-                cmd = { path .. "/bin/vue-language-server", '--stdio' },
-            }
+            -- local vue_ls_config = {
+            --     cmd = { path .. "/bin/vue-language-server", '--stdio' },
+            -- }
 
 
-            vim.lsp.config('vue_ls', vue_ls_config)
+            vim.lsp.config('vue_ls', {})
             vim.lsp.config('ts_ls', ts_ls_config)
             vim.lsp.enable({ 'ts_ls', 'vue_ls' })
 
