@@ -4,6 +4,7 @@
   networking.nameservers = [ "1.1.1.1" "9.9.9.9" ];
   networking.firewall.allowPing = true;
   services.resolved.enable = true;
+  networking.enableIPv6 = false;
 
   networking.firewall = {
     enable = true;

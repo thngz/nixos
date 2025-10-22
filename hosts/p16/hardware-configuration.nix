@@ -5,50 +5,54 @@
 
 {
   imports = [ (modulesPath + "/installer/scan/not-detected.nix") ];
-
+    
+  boot.kernelPackages = pkgs.linuxPackages_latest;
+    
   boot.initrd.availableKernelModules =
-    [ "xhci_pci" "thunderbolt" "nvme" "usbhid" "usb_storage" "sd_mod" ];
-  boot.initrd.kernelModules = [ ];
+    [ "xhci_pci" "nvme" "thunderbolt" "usb_storage" "sd_mod" ];
+  boot.initrd.kernelModules = [ "dm-snapshot" ];
   boot.kernelModules = [ "kvm-intel" ];
   boot.extraModulePackages = [ ];
   services.xserver.videoDrivers = [ "modesetting" ];
-  # hardware.graphics.extraPackages = [
-  #   intel-compute-runtime
-  # ];
+  # services.xserver.videoDrivers = [ "intel" ];
+  hardware.enableRedistributableFirmware = true;
+    #hardware.opengl.enable = true;
   hardware.graphics.enable = true;
-  # hardware.graphics.driSupport = true;
-  # hardware.graphics.driSupport32Bit = true;
 
   hardware.graphics.extraPackages = with pkgs; [
     intel-media-driver
     vaapiVdpau
     libvdpau-va-gl
-    vpl-gpu-rt
   ];
+  boot.initrd.systemd.enable = true;
+  boot.initrd.luks.devices = {
+    crypted = {
+      device = "/dev/nvme0n1p2";
+      #preLVM = true;
+
+    };
+  };
 
   fileSystems."/" = {
-    device = "/dev/disk/by-uuid/36554099-1561-4d32-b524-371650f66628";
+    device = "/dev/disk/by-label/nixos";
     fsType = "ext4";
   };
 
   fileSystems."/boot" = {
-    device = "/dev/disk/by-uuid/AFC0-8EA0";
+    #device = "/dev/disk/by-uuid/8235-96CA";
+    device = "/dev/disk/by-label/boot";
     fsType = "vfat";
-    options = [ "fmask=0077" "dmask=0077" ];
+    options = [ "fmask=0022" "dmask=0022" ];
   };
-  #
-  # boot.initrd.luks.devices.cryptroot.device = "/dev/disk/by-uuid/36554099-1561-4d32-b524-371650f66628"
-  swapDevices = [ ];
+
+  swapDevices = [{ device = "/dev/disk/by-label/swap"; }];
 
   # Enables DHCP on each ethernet and wireless interface. In case of scripted networking
   # (the default) this is the recommended approach. When using systemd-networkd it's
   # still possible to use this option, but it's recommended to use it in conjunction
   # with explicit per-interface declarations with `networking.interfaces.<interface>.useDHCP`.
   networking.useDHCP = lib.mkDefault true;
-  # networking.interfaces.enp0s13f0u3u1.useDHCP = lib.mkDefault true;
-  # networking.interfaces.enp0s31f6.useDHCP = lib.mkDefault true;
   # networking.interfaces.wlp0s20f3.useDHCP = lib.mkDefault true;
-  # networking.interfaces.wwp0s20f0u2.useDHCP = lib.mkDefault true;
 
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
   hardware.cpu.intel.updateMicrocode =

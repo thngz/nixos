@@ -92,5 +92,27 @@
         ];
       };
 
+	
+      nixosConfigurations.p16 = nixpkgs.lib.nixosSystem {
+        specialArgs = { inherit inputs; };
+        pkgs = import nixpkgs {
+          system = system;
+          config.allowUnfree = true; # This works.
+        };
+        modules = [
+          nix-ld.nixosModules.nix-ld
+             
+          ./hosts/p16/hardware-configuration.nix
+          {
+            xorg.enable = false;
+            wayland_desktop.enable = true;
+            wayland_desktop.modKey = "Mod1";
+            system.stateVersion = "25.11";
+            development.enable = true;
+          }
+          ./modules
+        ];
+      };
+
     };
 }

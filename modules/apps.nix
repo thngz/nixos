@@ -19,6 +19,7 @@
     mullvad-vpn
     bruno
     flameshot
+    (flameshot.override { enableWlrSupport = true; })
     vim
     syncthing
     mc #midnight commander

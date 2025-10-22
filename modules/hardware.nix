@@ -2,6 +2,7 @@
 
 {
   boot.loader.systemd-boot.enable = true;
+  #boot.initrd.systemd.enable = true;
   boot.loader.grub.device = "nodev";
   boot.loader.grub.efiSupport = true;
   boot.loader.efi.canTouchEfiVariables = true;
@@ -21,8 +22,8 @@
   };
 
   environment.systemPackages = with pkgs; [ pavucontrol clinfo ];
-  nix.settings = {
-    cores = 6;
-    max-jobs = 2;
-  };
+  #nix.settings = {
+  #  cores = 6;
+  #  max-jobs = 2;
+  #};
 }
