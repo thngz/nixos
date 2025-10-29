@@ -20,7 +20,6 @@
     bruno
     flameshot
     vim
-    syncthing
     mc #midnight commander
   ];
   services.mullvad-vpn.enable = true;

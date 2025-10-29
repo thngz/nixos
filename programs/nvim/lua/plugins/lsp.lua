@@ -49,7 +49,6 @@ return {
         event = { 'BufReadPre', 'BufNewFile' },
         config = function()
             local servers = {
-                'basedpyright',
                 'html',
                 'cssls',
                 'eslint',
@@ -82,15 +81,15 @@ return {
                 return store
             end
 
-            local path = find_nix_paths()
 
             local ts_ls_config = {
                 --root_dir = nvim_lsp.util.root_pattern("package.json"),
+                --
                 init_options = {
                     plugins = {
                         {
                             name = '@vue/typescript-plugin',
-                            location = path,
+                            location = find_nix_paths(),
                             languages = { 'vue' },
                         }
                     },
@@ -99,12 +98,32 @@ return {
                 --single_file_support = false
             }
 
-            local vue_ls_config = {
-                cmd = { path .. "/bin/vue-language-server", '--stdio' },
-            }
+            -- local vue_ls_config = {
+            --     cmd = { find_nix_paths() .. "/bin/vue-language-server", '--stdio' },
+            -- }
+
+            require('lspconfig').basedpyright.setup({
+                settings = {
+                    basedpyright = {
+                        analysis = {
+                            diagnosticSeverityOverrides = {
+                                reportUnknownVariableType = "none",
+                                reportUnknownParameterType = "none",
+                                reportMissingParameterType = "none",
+                                reportUnknownMemberType = "none",
+                                reportUnusedCallResult = "none",
+                                reportUnannotatedClassAttribute = "none",
+                                reportMissingTypeStubs = "none",
+                                reportUnknownArgumentType = "none",
+                                reportAny = "none",
+                            },
+                        },
+                    },
+                },
+            })
 
 
-            vim.lsp.config('vue_ls', vue_ls_config)
+            -- vim.lsp.config('vue_ls', vue_ls_config)
             vim.lsp.config('ts_ls', ts_ls_config)
             vim.lsp.enable({ 'ts_ls', 'vue_ls' })
 
@@ -133,7 +152,7 @@ return {
             vim.keymap.set("n", "<leader>ca", function() vim.lsp.buf.code_action() end)
             vim.keymap.set("n", "<leader>rn", function() vim.lsp.buf.rename() end)
             vim.keymap.set("n", "<leader>vd", function() vim.diagnostic.open_float() end)
-            
+
             vim.api.nvim_create_autocmd("FileType", {
                 pattern = "fsharp",
                 callback = function()
