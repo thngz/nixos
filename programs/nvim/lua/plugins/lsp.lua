@@ -123,7 +123,6 @@ return {
             })
 
 
-            -- vim.lsp.config('vue_ls', vue_ls_config)
             vim.lsp.config('ts_ls', ts_ls_config)
             vim.lsp.enable({ 'ts_ls', 'vue_ls' })
 
