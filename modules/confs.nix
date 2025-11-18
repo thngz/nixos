@@ -39,7 +39,7 @@
 
   nix.settings = {
     substituters = [
-      "https://nix-community.cachix.org"
+      # "https://nix-community.cachix.org"
       "https://cache.nixos.org/"
       "https://ros.cachix.org"   
     ];

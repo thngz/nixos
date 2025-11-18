@@ -37,20 +37,6 @@
         ];
       };
 
-      nixosConfigurations.laptop = nixpkgs.lib.nixosSystem {
-        specialArgs = { inherit inputs; };
-        modules = [
-          home-manager.nixosModules.default
-          ./hosts/laptop/hardware-configuration.nix
-          {
-            xorg.enable = true;
-            xorg.modKey = "Mod4";
-            system.stateVersion = "23.11";
-            development.enable = true;
-          }
-          ./modules
-        ];
-      };
 
       nixosConfigurations.laptop2 = nixpkgs.lib.nixosSystem {
         specialArgs = { inherit inputs; };
@@ -71,23 +57,6 @@
             system.stateVersion = "23.11";
             development.enable = true;
           }
-          ./modules
-        ];
-      };
-
-      nixosConfigurations.server = nixpkgs.lib.nixosSystem {
-        specialArgs = { inherit inputs; };
-        modules = [
-          home-manager.nixosModules.default
-          ./hosts/server/hardware-configuration.nix
-          ./hosts/server/logind.nix
-          {
-            xorg.enable = false;
-            xorg.modKey = "Mod4";
-            system.stateVersion = "23.11";
-            development.enable = false;
-          }
-
           ./modules
         ];
       };

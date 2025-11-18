@@ -1,6 +1,7 @@
 require('keybinds')
 
 vim.wo.relativenumber = true
+vim.wo.number = true
 vim.opt.termguicolors = true
 vim.opt.hlsearch = false
 vim.opt.incsearch = true
@@ -26,6 +27,5 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup("plugins")
-require('harels')
 
 vim.cmd('colorscheme modus-vivendi')

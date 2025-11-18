@@ -26,6 +26,7 @@
     nil
     nixfmt-classic
     snixembed
+    fd
   ];
 
   programs.tmux = {

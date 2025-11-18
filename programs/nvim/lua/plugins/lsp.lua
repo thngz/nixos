@@ -48,7 +48,7 @@ return {
         cmd = { 'LspInfo', 'LspInstall', 'LspStart' },
         event = { 'BufReadPre', 'BufNewFile' },
         config = function()
-            local servers = {
+            vim.lsp.enable({
                 'html',
                 'cssls',
                 'eslint',
@@ -62,17 +62,7 @@ return {
                 'gopls',
                 'svelte',
                 'tailwindcss',
-            }
-
-            local nvim_lsp = require('lspconfig')
-
-            -- nvim_lsp.denols.setup {
-            --     root_dir = nvim_lsp.util.root_pattern("deno.json", "deno.jsonc"),
-            -- }
-
-            nvim_lsp.lexical.setup {
-                cmd = { 'lexical' }
-            }
+            })
 
             local function find_nix_paths()
                 local server = vim.fn.exepath('vue-language-server')
@@ -81,24 +71,7 @@ return {
                 return store
             end
 
-
-            local ts_ls_config = {
-                root_dir = nvim_lsp.util.root_pattern("package.json"),
-                --
-                init_options = {
-                    plugins = {
-                        {
-                            name = '@vue/typescript-plugin',
-                            location = find_nix_paths(),
-                            languages = { 'vue' },
-                        }
-                    },
-                },
-                filetypes = { 'typescript', 'javascript', 'javascriptreact', 'typescriptreact', 'vue' },
-                single_file_support = true
-            }
-
-            require('lspconfig').basedpyright.setup({
+            vim.lsp.config('basedpyright', {
                 settings = {
                     basedpyright = {
                         analysis = {
@@ -118,11 +91,24 @@ return {
                 },
             })
 
-            vim.lsp.config('vue_ls', {})
-            vim.lsp.config('ts_ls', ts_ls_config)
-            vim.lsp.enable({ 'ts_ls', 'vue_ls' })
+            vim.lsp.enable('basedpyright')
 
-            local capabilities = require('cmp_nvim_lsp').default_capabilities()
+            vim.lsp.config('vue_ls', {})
+            vim.lsp.config('ts_ls', {
+                -- root_dir = vim.lsp.util.root_pattern("package.json"),
+                init_options = {
+                    plugins = {
+                        {
+                            name = '@vue/typescript-plugin',
+                            location = find_nix_paths(),
+                            languages = { 'vue' },
+                        }
+                    },
+                },
+                filetypes = { 'typescript', 'javascript', 'javascriptreact', 'typescriptreact', 'vue' },
+                single_file_support = true
+            })
+            vim.lsp.enable({ 'ts_ls', 'vue_ls' })
 
             local orig_notify = vim.notify
 
@@ -131,17 +117,12 @@ return {
                 orig_notify(msg, ...)
             end
 
-            for _, server in ipairs(servers) do
-                nvim_lsp[server].setup { capabilities = capabilities }
-            end
 
             vim.keymap.set('n', 'gd', '<cmd>lua vim.lsp.buf.definition()<cr>')
             vim.keymap.set('n', 'gD', '<cmd>lua vim.lsp.buf.declaration()<cr>')
             vim.keymap.set('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<cr>')
             vim.keymap.set('n', 'go', '<cmd>lua vim.lsp.buf.type_definition()<cr>')
             vim.keymap.set('n', 'gr', '<cmd>lua vim.lsp.buf.references()<cr>')
-            vim.keymap.set('n', 'gne', '<cmd>lua vim.diagnostic.goto_next()<cr>')
-            vim.keymap.set('n', 'gpe', '<cmd>lua vim.diagnostic.goto_prev()<cr>')
 
             vim.keymap.set("n", "<leader>fm", function() require("conform").format({ lsp_format = "fallback" }) end)
             vim.keymap.set("n", "<leader>ca", function() vim.lsp.buf.code_action() end)

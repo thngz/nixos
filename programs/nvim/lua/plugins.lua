@@ -73,11 +73,6 @@ return {
     { "ionide/Ionide-vim" },
 
     { "mbbill/undotree" },
-    {
-        "R-nvim/R.nvim",
-        -- Only required if you also set defaults.lazy = true
-        lazy = false
-    },
 
     {
         -- slime (REPL integration)
