@@ -66,9 +66,9 @@ return {
 
             local nvim_lsp = require('lspconfig')
 
-            nvim_lsp.denols.setup {
-                root_dir = nvim_lsp.util.root_pattern("deno.json", "deno.jsonc"),
-            }
+            -- nvim_lsp.denols.setup {
+            --     root_dir = nvim_lsp.util.root_pattern("deno.json", "deno.jsonc"),
+            -- }
 
             nvim_lsp.lexical.setup {
                 cmd = { 'lexical' }
@@ -83,7 +83,7 @@ return {
 
 
             local ts_ls_config = {
-                --root_dir = nvim_lsp.util.root_pattern("package.json"),
+                root_dir = nvim_lsp.util.root_pattern("package.json"),
                 --
                 init_options = {
                     plugins = {
@@ -95,12 +95,8 @@ return {
                     },
                 },
                 filetypes = { 'typescript', 'javascript', 'javascriptreact', 'typescriptreact', 'vue' },
-                --single_file_support = false
+                single_file_support = true
             }
-
-            -- local vue_ls_config = {
-            --     cmd = { find_nix_paths() .. "/bin/vue-language-server", '--stdio' },
-            -- }
 
             require('lspconfig').basedpyright.setup({
                 settings = {
@@ -122,7 +118,7 @@ return {
                 },
             })
 
-
+            vim.lsp.config('vue_ls', {})
             vim.lsp.config('ts_ls', ts_ls_config)
             vim.lsp.enable({ 'ts_ls', 'vue_ls' })
 

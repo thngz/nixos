@@ -20,7 +20,13 @@
     bruno
     flameshot
     vim
-    mc #midnight commander
+    mc # midnight commander
+    clamav
+    bitwarden-desktop
+    calibre
+    jujutsu
   ];
   services.mullvad-vpn.enable = true;
+  services.clamav.updater.enable = true;
+  services.clamav.daemon.enable = true;
 }
