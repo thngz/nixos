@@ -27,7 +27,7 @@
     nixfmt-classic
     snixembed
   ];
-    
+
   programs.tmux = {
     enable = true;
     extraConfig = ''
@@ -40,4 +40,5 @@
       setw -g pane-base-index 1
     '';
   };
+
 }

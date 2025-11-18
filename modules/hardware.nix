@@ -2,6 +2,7 @@
 
 {
   boot.loader.systemd-boot.enable = true;
+  #boot.initrd.systemd.enable = true;
   boot.loader.grub.device = "nodev";
   boot.loader.grub.efiSupport = true;
   boot.loader.efi.canTouchEfiVariables = true;
@@ -25,4 +26,5 @@
     cores = 10;
     max-jobs = 4;
   };
+
 }

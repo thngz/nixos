@@ -3,6 +3,7 @@
     ./confs.nix
     ./crypto.nix
     ./xorg.nix
+    ./wayland.nix
     ./development.nix
     ./fonts.nix
     ./networking.nix
