@@ -88,5 +88,14 @@ return {
                 vim.g.slime_bracketed_paste = 1
             end,
         },
+    },
+
+    {
+        "folke/flash.nvim",
+        event = "VeryLazy",
+        opts = {},
+        keys = {
+            { "<leader>fs", mode = { "n", "x", "o" }, function() require("flash").jump() end, desc = "Flash" },
+        }
     }
 }
