@@ -23,6 +23,11 @@
     vim
     syncthing
     mc #midnight commander
+    dig
+    netbird-ui
+    meld
+    helix
   ];
   services.mullvad-vpn.enable = true;
+  services.netbird.enable = true;
 }

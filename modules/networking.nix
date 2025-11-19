@@ -8,6 +8,7 @@
 
   networking.firewall = {
     enable = true;
+    checkReversePath = false;
     # allowedTCPPorts = [ 9000 9001 3000 5000 6969 5173];
   };
   

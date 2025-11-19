@@ -22,6 +22,7 @@
   };
 
   environment.systemPackages = with pkgs; [ pavucontrol clinfo ];
+    
   #nix.settings = {
   #  cores = 6;
   #  max-jobs = 2;
