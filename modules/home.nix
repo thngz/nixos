@@ -12,6 +12,10 @@
       userName = "gkiviv";
       userEmail = "georgkivivali7@gmail.com";
       lfs.enable = true;
+      # rerere = {
+      #   enabled = true;
+      #   rerere.autoupdate = true;
+      # };
     };
 
     programs.neovim = {
@@ -21,11 +25,20 @@
     };
 
     services.syncthing = { enable = true; };
-    home.file = {
-      ".config/nvim/".source = ../programs/nvim;
-    };
+    home.file = { ".config/nvim/".source = ../programs/nvim; };
 
-    programs.swaylock = { enable = true; };
+    programs.swaylock = {
+      enable = true;
+      settings = {
+
+        color = "222222";
+        font-size = 24;
+        indicator-idle-visible = false;
+        indicator-radius = 100;
+        line-color = "ffffff";
+        show-failed-attempts = true;
+      };
+    };
 
     programs.rofi = { enable = true; };
 
@@ -86,6 +99,16 @@
           background-color: #333333;
         }
       '';
+    };
+
+    programs.wlogout = {
+      enable = true;
+      layout = [{
+        label = "shutdown";
+        action = "systemctl poweroff";
+        text = "Shutdown";
+        keybind = "s";
+      }];
     };
 
     wayland.windowManager.sway = {
@@ -156,6 +179,8 @@
           "${modifier}+Shift+r" = "restart";
           "${modifier}+Shift+e" =
             "exec swaynag -t warning -m 'Exit Sway?' -B 'Yes' 'swaymsg exit'";
+
+          "${modifier}+Control+l" = "exec swaylock";
 
           # Media keys
           "XF86AudioRaiseVolume" =

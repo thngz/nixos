@@ -5,7 +5,7 @@
   documentation.man.generateCaches = false;
   users.users.gkiviv = {
     isNormalUser = true;
-    extraGroups = [ "networkmanager" "wheel" "docker" ];
+    extraGroups = [ "networkmanager" "wheel" "docker" "dialout"];
     shell = pkgs.fish;
   };
 
@@ -39,13 +39,13 @@
 
   nix.settings = {
     substituters = [
-      # "https://nix-community.cachix.org"
+      "https://nix-community.cachix.org"
       "https://cache.nixos.org/"
-      "https://ros.cachix.org"   
+      "https://ros.cachix.org/"
     ];
     trusted-public-keys = [
       "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
-      "ros.cachix.org-1:dSyZxI8geDCJrwgvCOHDoAfOm5sV1wCPjBkKL+38Rvo="
+       "ros.cachix.org-1:dSyZxI8geDCJrwgvCOHDoAfOm5sV1wCPjBkKL+38Rvo="
     ];
   };
   nix.settings.trusted-users = [ "root" "gkiviv" ];
