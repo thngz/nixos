@@ -41,17 +41,24 @@ in {
     # services.displayManager.sddm.wayland.enable = true;
     # services.desktopManager.plasma6.enable = true;
 
-    environment.systemPackages = with pkgs; [ wdisplays];
+    # Enable the login manager
+    services.displayManager.cosmic-greeter.enable = true;
+    # Enable the COSMIC DE itself
+    services.desktopManager.cosmic.enable = true;
+    # Enable XWayland support in COSMIC
+    services.desktopManager.cosmic.xwayland.enable = true;
+
+    environment.systemPackages = with pkgs; [ wdisplays ];
     environment.sessionVariables = {
       XKB_DEFAULT_LAYOUT = "us,ee";
       XKB_DEFAULT_OPTIONS = "ctrl:swapcaps,grp:rctrl_toggle";
     };
 
-    services.greetd = {
-      enable = true;
-      settings.default_session.command =
-        "${pkgs.tuigreet}/bin/tuigreet --cmd sway";
-    };
+    # services.greetd = {
+    #   enable = true;
+    #   settings.default_session.command =
+    #     "${pkgs.tuigreet}/bin/tuigreet --cmd sway";
+    # };
   };
 }
 

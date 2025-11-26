@@ -1,0 +1,56 @@
+{
+  "shortcuts": {
+    "launch_terminal": ["Alt+Shift+Return"],
+    "launch_rofi": ["Alt+D"],
+    "screenshot_gui": ["Alt+Shift+S"],
+    "window_close": ["Alt+Shift+Q"],
+
+    "focus_left": ["Alt+H"],
+    "focus_down": ["Alt+J"],
+    "focus_up": ["Alt+K"],
+    "focus_right": ["Alt+L"],
+
+    "move_left": ["Alt+Shift+H"],
+    "move_down": ["Alt+Shift+J"],
+    "move_up": ["Alt+Shift+K"],
+    "move_right": ["Alt+Shift+L"],
+
+    "split_vertical": ["Alt+V"],
+    "toggle_floating": ["Alt+Shift+Space"],
+    "toggle_fullscreen": ["Alt+F"],
+    "layout_stacking": ["Alt+S"],
+    "layout_tabbed": ["Alt+W"],
+    "layout_toggle_split": ["Alt+E"],
+
+    "workspace_1": ["Alt+1"],
+    "workspace_2": ["Alt+2"],
+    "workspace_3": ["Alt+3"],
+    "workspace_4": ["Alt+4"],
+    "workspace_5": ["Alt+5"],
+    "workspace_6": ["Alt+6"],
+    "workspace_7": ["Alt+7"],
+    "workspace_8": ["Alt+8"],
+    "workspace_9": ["Alt+9"],
+    "workspace_10": ["Alt+0"],
+
+    "move_to_workspace_1": ["Alt+Shift+1"],
+    "move_to_workspace_2": ["Alt+Shift+2"],
+    "move_to_workspace_3": ["Alt+Shift+3"],
+    "move_to_workspace_4": ["Alt+Shift+4"],
+    "move_to_workspace_5": ["Alt+Shift+5"],
+    "move_to_workspace_6": ["Alt+Shift+6"],
+    "move_to_workspace_7": ["Alt+Shift+7"],
+    "move_to_workspace_8": ["Alt+Shift+8"],
+    "move_to_workspace_9": ["Alt+Shift+9"],
+    "move_to_workspace_10": ["Alt+Shift+0"],
+
+    "reload": ["Alt+Shift+C"],
+    "restart": ["Alt+Shift+R"],
+    "lock": ["Alt+Ctrl+L"],
+
+    "volume_up": ["XF86AudioRaiseVolume"],
+    "volume_down": ["XF86AudioLowerVolume"],
+    "volume_mute": ["XF86AudioMute"],
+    "mic_mute": ["XF86AudioMicMute"]
+  }
+}
