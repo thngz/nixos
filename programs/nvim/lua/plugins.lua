@@ -95,7 +95,6 @@ return {
         opts = {},
         keys = {
             { "<leader>fs", mode = { "n", "x", "o" }, function() require("flash").jump() end, desc = "Flash" },
-
         }
     }
 }

@@ -13,7 +13,7 @@ in {
 
   config = lib.mkIf cfg.enable {
 
-
+    security.pam.services.swaylock = { };
     # programs.sway = {
     #   enable = true;
     #   wrapperFeatures.gtk = true;
@@ -41,6 +41,7 @@ in {
     # services.displayManager.sddm.wayland.enable = true;
     # services.desktopManager.plasma6.enable = true;
 
+    environment.systemPackages = with pkgs; [ wdisplays];
     environment.sessionVariables = {
       XKB_DEFAULT_LAYOUT = "us,ee";
       XKB_DEFAULT_OPTIONS = "ctrl:swapcaps,grp:rctrl_toggle";

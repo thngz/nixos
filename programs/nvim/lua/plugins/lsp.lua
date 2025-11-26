@@ -110,6 +110,9 @@ return {
             })
             vim.lsp.enable({ 'ts_ls', 'vue_ls' })
 
+            vim.lsp.config('rust_analyzer', {})
+            vim.lsp.enable({'rust_analyzer'})
+
             local orig_notify = vim.notify
 
             vim.notify = function(msg, ...)

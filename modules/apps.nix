@@ -26,8 +26,14 @@
     bitwarden-desktop
     calibre
     jujutsu
+    syncthing
+    meld
+    helix
+    dig
+    netbird-ui
   ];
   services.mullvad-vpn.enable = true;
   services.clamav.updater.enable = true;
   services.clamav.daemon.enable = true;
+  services.netbird.enable = true;
 }
