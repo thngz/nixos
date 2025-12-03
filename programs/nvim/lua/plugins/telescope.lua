@@ -16,7 +16,7 @@ return {
         vim.keymap.set('n', '<leader>fo', builtin.current_buffer_fuzzy_find, { })
 
         vim.keymap.set('n', '<leader>rr', builtin.lsp_references, {})
-        vim.keymap.set('n', '<leader>ld', builtin.diagnostics, {})
+        vim.keymap.set('n', '<leader>dd', builtin.diagnostics, {})
         vim.keymap.set('n', '<leader>gc', builtin.git_commits, {})
 
         vim.keymap.set('n', '<leader>gb', builtin.git_branches, {})
