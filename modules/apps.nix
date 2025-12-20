@@ -31,9 +31,11 @@
     helix
     dig
     netbird-ui
+    nautilus
+    mission-center
   ];
   services.mullvad-vpn.enable = true;
   services.clamav.updater.enable = true;
-  services.clamav.daemon.enable = true;
+  services.clamav.daemon.enable = false;
   services.netbird.enable = true;
 }

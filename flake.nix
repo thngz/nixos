@@ -5,13 +5,16 @@
     nix-ld.url = "github:Mic92/nix-ld";
     nix-ld.inputs.nixpkgs.follows = "nixpkgs";
 
+    emacs-overlay.url = "github:nix-community/emacs-overlay";
+    # emacs-overlay.inputs.nixpkgs.follows = "nixpkgs";
+
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
 
-  outputs = { self, nixpkgs, nix-ld, home-manager, ... }@inputs:
+  outputs = { self, nixpkgs, nix-ld, home-manager, emacs-overlay, ... }@inputs:
     let system = "x86_64-linux";
     in {
 
@@ -37,7 +40,6 @@
         ];
       };
 
-
       nixosConfigurations.laptop2 = nixpkgs.lib.nixosSystem {
         specialArgs = { inherit inputs; };
         pkgs = import nixpkgs {
@@ -49,7 +51,7 @@
           #       pkgs = pkgs;
           #  }
           nix-ld.nixosModules.nix-ld
-             
+
           ./hosts/laptop2/hardware-configuration.nix
           {
             xorg.enable = true;
@@ -61,7 +63,6 @@
         ];
       };
 
-	
       nixosConfigurations.p16 = nixpkgs.lib.nixosSystem {
         specialArgs = { inherit inputs; };
         pkgs = import nixpkgs {
@@ -70,7 +71,7 @@
         };
         modules = [
           nix-ld.nixosModules.nix-ld
-             
+
           ./hosts/p16/hardware-configuration.nix
           {
             xorg.enable = false;
