@@ -1,5 +1,3 @@
-(require 'use-package)
-
 (setq make-backup-files nil) ;; stop creating ~ files
 (setq auto-save-default nil) ;; stop creating #autosave# files
 (global-auto-revert-mode 1) ;; enables auto revert
@@ -75,11 +73,11 @@
     (evil-define-key 'normal 'global (kbd "<leader>ca") 'eglot-code-actions)
     (evil-define-key 'normal 'global (kbd "<leader>rn") 'eglot-rename)
     (evil-define-key 'normal 'global (kbd "<leader>vd") 'flymake-show-buffer-diagnostics)
+    (evil-define-key 'normal 'global (kbd "<leader>fm") 'eglot-format)
 
     (evil-define-key 'normal 'global (kbd "s") 'avy-goto-char-timer)
     (evil-define-key 'normal 'global (kbd "S") 'evil-avy-goto-word-1)
     (evil-define-key 'normal 'global (kbd "gl") 'evil-avy-goto-line)
-
 
     (evil-global-set-key 'motion "j" 'evil-next-visual-line)
     (evil-global-set-key 'motion "k" 'evil-previous-visual-line)
@@ -96,14 +94,22 @@
 
 (use-package evil-collection :after evil :config (evil-collection-init))
 
+(use-package evil-commentary :config (evil-commentary-mode))
+
 ;; CODE STUFF
 
+(use-package go-ts-mode
+  :after eglot
+  :mode ("\.go$")
+  :hook (go-ts-mode . eglot-ensure)
+  :config
+  (setq go-ts-mode-indent-offset 4))
 
 
-(use-package eglot
-  :defer t
-  :hook ((python-mode . eglot-ensure)
-         (go-mode . eglot-ensure)))
+;; (use-package eglot
+;;   :defer t
+;;   :hook ((python-mode . eglot-ensure)
+;;          (go-mode . eglot-ensure)))
 
 (use-package company
   :hook (after-init . global-company-mode)
@@ -117,6 +123,7 @@
 
 (global-company-mode 1)
 (electric-pair-mode 1)
+
 (use-package magit
     :commands (magit-status magit-get-current-branch)
     :custom
