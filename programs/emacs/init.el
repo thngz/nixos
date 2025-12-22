@@ -65,15 +65,14 @@
     (evil-define-key 'normal 'global (kbd "<leader>sr") #'split-window-right)
 
     (evil-define-key 'normal 'global (kbd "gd") 'xref-find-definitions)
-    (evil-define-key 'normal 'global (kbd "gD") 'eglot-find-declaration)
-    (evil-define-key 'normal 'global (kbd "gi") 'eglot-find-implementation)
-    (evil-define-key 'normal 'global (kbd "go") 'eglot-find-typeDefinition)
-    (evil-define-key 'normal 'global (kbd "gr") 'xref-find-references)
+    (evil-define-key 'normal 'global (kbd "gD") 'lsp-find-declaration)
+    (evil-define-key 'normal 'global (kbd "<leader>rr") 'xref-find-references)
     (evil-define-key 'normal 'global (kbd "K") 'eldoc-box-help-at-point)
-    (evil-define-key 'normal 'global (kbd "<leader>ca") 'eglot-code-actions)
-    (evil-define-key 'normal 'global (kbd "<leader>rn") 'eglot-rename)
-    (evil-define-key 'normal 'global (kbd "<leader>vd") 'flymake-show-buffer-diagnostics)
-    (evil-define-key 'normal 'global (kbd "<leader>fm") 'eglot-format)
+    (evil-define-key 'normal 'global (kbd "<leader>fe") 'projectile-dired)
+    (evil-define-key 'normal 'global (kbd "<leader>ca") 'lsp-code-actions)
+    (evil-define-key 'normal 'global (kbd "<leader>rn") 'lsp-rename)
+    (evil-define-key 'normal 'global (kbd "<leader>vd") 'consult-flymake)
+    (evil-define-key 'normal 'global (kbd "<leader>fm") 'lsp-format-buffer)
 
     (evil-define-key 'normal 'global (kbd "s") 'avy-goto-char-timer)
     (evil-define-key 'normal 'global (kbd "S") 'evil-avy-goto-word-1)
@@ -98,30 +97,51 @@
 
 ;; CODE STUFF
 
+(use-package projectile
+  :ensure t
+  :init
+  (projectile-mode +1)
+  :bind (:map projectile-mode-map
+              ("C-c p" . projectile-command-map)))
+
+(use-package lsp-mode
+  :init
+  ;; set prefix for lsp-command-keymap (few alternatives - "C-l", "C-c l")
+  (setq lsp-keymap-prefix "C-c l")
+  :commands lsp)
+
+(use-package nix-mode
+  :mode "\\.nix\\'")
+
 (use-package go-ts-mode
-  :after eglot
   :mode ("\.go$")
-  :hook (go-ts-mode . eglot-ensure)
+  :hook (go-ts-mode . lsp)
   :config
   (setq go-ts-mode-indent-offset 4))
 
 
-;; (use-package eglot
-;;   :defer t
-;;   :hook ((python-mode . eglot-ensure)
-;;          (go-mode . eglot-ensure)))
+(use-package vue-ts-mode
+  :mode ("\.vue$")
+  :hook (vue-ts-mode . lsp))
+
+(use-package typescript-ts-mode
+  :mode ("\.ts$")
+  :hook (typescript-ts-mode . lsp))
 
 (use-package company
   :hook (after-init . global-company-mode)
+  :init
+  (global-company-mode 1)
+  :bind (:map company-active-map
+              ("<tab>" . company-complete-selection)
+              ("TAB" . company-complete-selection))
   :config
   (setq company-idle-delay 0.1
         company-minimum-prefix-length 1))
 
-
 (use-package company-box
   :hook (company-mode . company-box-mode))
 
-(global-company-mode 1)
 (electric-pair-mode 1)
 
 (use-package magit

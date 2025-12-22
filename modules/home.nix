@@ -1,9 +1,16 @@
 { inputs, pkgs, ... }:
 let
+  vue-ts-mode = pkgs.callPackage ./emacs/vue-mode.nix {
+    trivialBuild = pkgs.emacs.pkgs.trivialBuild;
+  };
   emacs = pkgs.emacsWithPackagesFromUsePackage {
     package = pkgs.emacs;
     config = ../programs/emacs/init.el;
-    extraEmacsPackages = epkgs: [ epkgs.use-package epkgs.treesit-grammars.with-all-grammars ];
+    extraEmacsPackages = epkgs: [
+      epkgs.use-package
+      epkgs.treesit-grammars.with-all-grammars
+      vue-ts-mode
+    ];
     alwaysEnsure = true;
   };
 
