@@ -33,7 +33,17 @@
     netbird-ui
     nautilus
     mission-center
+    sdrpp
+    (gnuradio.override {
+      extraPackages = with gnuradioPackages; [
+        osmosdr
+      ];
+      extraPythonPackages = with gnuradio.python.pkgs; [
+        numpy
+      ];
+    })
   ];
+  hardware.rtl-sdr.enable = true;
   services.mullvad-vpn.enable = true;
   services.clamav.updater.enable = true;
   services.clamav.daemon.enable = false;

@@ -73,6 +73,7 @@
     (evil-define-key 'normal 'global (kbd "<leader>rn") 'lsp-rename)
     (evil-define-key 'normal 'global (kbd "<leader>vd") 'consult-flymake)
     (evil-define-key 'normal 'global (kbd "<leader>fm") 'lsp-format-buffer)
+    (evil-define-key 'normal 'global (kbd "<leader>cc") 'compile)
 
     (evil-define-key 'normal 'global (kbd "s") 'avy-goto-char-timer)
     (evil-define-key 'normal 'global (kbd "S") 'evil-avy-goto-word-1)
@@ -119,7 +120,6 @@
   :config
   (setq go-ts-mode-indent-offset 4))
 
-
 (use-package vue-ts-mode
   :mode ("\.vue$")
   :hook (vue-ts-mode . lsp))
@@ -127,6 +127,9 @@
 (use-package typescript-ts-mode
   :mode ("\.ts$")
   :hook (typescript-ts-mode . lsp))
+
+(use-package envrc
+  :hook (after-init . envrc-global-mode))
 
 (use-package company
   :hook (after-init . global-company-mode)
