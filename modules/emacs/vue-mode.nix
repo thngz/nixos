@@ -2,7 +2,7 @@
   trivialBuild,
   fetchFromGitHub,
 }:
-trivialBuild rec {
+trivialBuild {
   pname = "vue-ts-mode";
   version = "0-unstable-2024-12-22";
   

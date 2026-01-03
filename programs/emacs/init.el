@@ -67,7 +67,7 @@
     (evil-define-key 'normal 'global (kbd "gd") 'xref-find-definitions)
     (evil-define-key 'normal 'global (kbd "gD") 'lsp-find-declaration)
     (evil-define-key 'normal 'global (kbd "<leader>rr") 'xref-find-references)
-    (evil-define-key 'normal 'global (kbd "K") 'eldoc-box-help-at-point)
+    (evil-define-key 'normal 'global (kbd "K") 'lsp-describe-thing-at-point)
     (evil-define-key 'normal 'global (kbd "<leader>fe") 'projectile-dired)
     (evil-define-key 'normal 'global (kbd "<leader>ca") 'lsp-code-actions)
     (evil-define-key 'normal 'global (kbd "<leader>rn") 'lsp-rename)
@@ -111,22 +111,34 @@
   (setq lsp-keymap-prefix "C-c l")
   :commands lsp)
 
+(use-package lsp-nix
+  :ensure lsp-mode
+  :after (lsp-mode)
+  :demand t
+  :custom
+  (lsp-nix-nil-formatter ["nixfmt"]))
+
 (use-package nix-mode
-  :mode "\\.nix\\'")
+  :hook (nix-mode . lsp-deferred)
+  :ensure t)
 
 (use-package go-ts-mode
   :mode ("\.go$")
-  :hook (go-ts-mode . lsp)
+  :hook (go-ts-mode . lsp-deferred)
   :config
   (setq go-ts-mode-indent-offset 4))
 
 (use-package vue-ts-mode
   :mode ("\.vue$")
-  :hook (vue-ts-mode . lsp))
+  :hook (vue-ts-mode . lsp-deferred))
+
+(use-package svelte-mode
+  :mode ("\.svelte$")
+  :hook (svelte-mode . lsp-deferred))
 
 (use-package typescript-ts-mode
   :mode ("\.ts$")
-  :hook (typescript-ts-mode . lsp))
+  :hook (typescript-ts-mode . lsp-deferred))
 
 (use-package envrc
   :hook (after-init . envrc-global-mode))

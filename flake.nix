@@ -17,8 +17,6 @@
   outputs = { self, nixpkgs, nix-ld, home-manager, emacs-overlay, ... }@inputs:
     let system = "x86_64-linux";
     in {
-
-      system = "x86_64-linux";
       nixosConfigurations.default = nixpkgs.lib.nixosSystem {
         specialArgs = { inherit inputs; };
 

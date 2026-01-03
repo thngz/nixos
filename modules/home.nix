@@ -3,6 +3,10 @@ let
   vue-ts-mode = pkgs.callPackage ./emacs/vue-mode.nix {
     trivialBuild = pkgs.emacs.pkgs.trivialBuild;
   };
+
+  svelte-ts-mode = pkgs.callPackage ./emacs/svelte-mode.nix {
+    trivialBuild = pkgs.emacs.pkgs.trivialBuild;
+  };
   emacs = pkgs.emacsWithPackagesFromUsePackage {
     package = pkgs.emacs;
     config = ../programs/emacs/init.el;
@@ -10,6 +14,7 @@ let
       epkgs.use-package
       epkgs.treesit-grammars.with-all-grammars
       vue-ts-mode
+      svelte-ts-mode
     ];
     alwaysEnsure = true;
   };
