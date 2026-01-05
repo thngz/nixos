@@ -31,10 +31,22 @@
     helix
     dig
     netbird-ui
+    nautilus
+    mission-center
+    sdrpp
+    (gnuradio.override {
+      extraPackages = with gnuradioPackages; [
+        osmosdr
+      ];
+      extraPythonPackages = with gnuradio.python.pkgs; [
+        numpy
+      ];
+     
+    })
     aichat
   ];
+  #hardware.rtl-sdr.enable = false;
   services.mullvad-vpn.enable = true;
   services.clamav.updater.enable = true;
-  services.clamav.daemon.enable = true;
   services.netbird.enable = true;
 }

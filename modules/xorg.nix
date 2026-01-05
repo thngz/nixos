@@ -57,8 +57,7 @@ in {
 
                             tiling_drag modifier titlebar
 
-                            bindsym $mod+Shift+Return exec xfce4-terminal
-
+                            bindsym $mod+Shift+Return exec ghostty 
 
                 # kill focused window
                             bindsym $mod+Shift+q kill

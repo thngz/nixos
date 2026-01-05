@@ -5,7 +5,7 @@
   documentation.man.generateCaches = false;
   users.users.gkiviv = {
     isNormalUser = true;
-    extraGroups = [ "networkmanager" "wheel" "docker" "dialout"];
+    extraGroups = [ "networkmanager" "wheel" "docker" "dialout" "plugdev"];
     shell = pkgs.fish;
   };
 

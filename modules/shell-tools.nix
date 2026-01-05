@@ -35,6 +35,7 @@
       set-option -sa terminal-overrides ",xterm*:Tc"
       unbind C-b
       set -g prefix C-Space
+      set-option -g default-terminal "screen-256color"
       bind C-Space send-prefix
       set -g base-index 1
       set -g mouse on 
