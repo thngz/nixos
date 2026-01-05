@@ -10,6 +10,10 @@ vim.opt.swapfile = false
 vim.opt.backup = false
 vim.opt.ignorecase = true
 vim.opt.autoindent = true;
+vim.o.mouse = 'a';
+vim.o.updatetime = 250;
+vim.o.list = true
+vim.opt.listchars = { tab = '» ', trail = '·', nbsp = '␣' }
 
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 

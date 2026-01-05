@@ -31,6 +31,7 @@
     helix
     dig
     netbird-ui
+    aichat
   ];
   services.mullvad-vpn.enable = true;
   services.clamav.updater.enable = true;

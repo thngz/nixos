@@ -9,6 +9,14 @@
   networking.firewall = {
     enable = true;
     checkReversePath = false;
+
+    allowedTCPPorts = [ 22 8080 ]; # SSH, TurtleBot web interface
+    allowedUDPPorts =
+      [ 7400 7401 7402 7403 11811 ]; # FastRTPS + Discovery Server
+    allowedUDPPortRanges = [{
+      from = 7400;
+      to = 7499;
+    }];
     # allowedTCPPorts = [ 9000 9001 3000 5000 6969 5173];
   };
 
