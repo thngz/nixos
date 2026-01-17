@@ -34,6 +34,7 @@
     nautilus
     mission-center
     sdrpp
+    
     (gnuradio.override {
       extraPackages = with gnuradioPackages; [
         osmosdr
@@ -43,6 +44,7 @@
       ];
     })
   ];
+    
   hardware.rtl-sdr.enable = true;
   services.mullvad-vpn.enable = true;
   services.clamav.updater.enable = true;

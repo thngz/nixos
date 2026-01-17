@@ -29,3 +29,5 @@ vim.opt.rtp:prepend(lazypath)
 require("lazy").setup("plugins")
 
 vim.cmd('colorscheme modus-vivendi')
+
+require("nvim-treesitter").install {'go', 'svelte', 'vue'}

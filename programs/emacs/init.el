@@ -1,6 +1,7 @@
 (setq make-backup-files nil) ;; stop creating ~ files
 (setq auto-save-default nil) ;; stop creating #autosave# files
 (global-auto-revert-mode 1) ;; enables auto revert
+
 ;; (add-hook 'after-save-hook 'lsp-format-buffer)
 
 ;; Fix tabs
@@ -52,8 +53,11 @@
     (evil-mode 1)
     (define-key evil-insert-state-map (kbd "C-g") 'evil-normal-state)
     (define-key evil-insert-state-map (kbd "C-h") 'evil-delete-backward-char-and-join)
-    (evil-define-key 'normal 'global (kbd "<leader>ff") 'consult-find)
+    (evil-define-key 'normal 'global (kbd "<leader>ff") 'projectile-find-file)
+    (evil-define-key 'normal 'global (kbd "<leader>fd") 'projectile-dired)
     (evil-define-key 'normal 'global (kbd "<leader>fo") 'consult-ripgrep)
+    (evil-define-key 'normal 'global (kbd "<leader>fb") 'consult-buffer)
+    (evil-define-key 'normal 'global (kbd "<leader>sp") 'projectile-switch-project)
 
     (evil-define-key 'normal 'global (kbd "<leader>gs") 'magit-status)
 
@@ -69,9 +73,9 @@
     (evil-define-key 'normal 'global (kbd "<leader>rr") 'xref-find-references)
     (evil-define-key 'normal 'global (kbd "K") 'lsp-describe-thing-at-point)
     (evil-define-key 'normal 'global (kbd "<leader>fe") 'projectile-dired)
-    (evil-define-key 'normal 'global (kbd "<leader>ca") 'lsp-code-actions)
+    (evil-define-key 'normal 'global (kbd "<leader>ca") 'lsp-execute-code-action)
     (evil-define-key 'normal 'global (kbd "<leader>rn") 'lsp-rename)
-    (evil-define-key 'normal 'global (kbd "<leader>vd") 'consult-flymake)
+    (evil-define-key 'normal 'global (kbd "<leader>vd") 'flycheck-list-errors)
     (evil-define-key 'normal 'global (kbd "<leader>fm") 'lsp-format-buffer)
     (evil-define-key 'normal 'global (kbd "<leader>cc") 'compile)
 
@@ -132,9 +136,9 @@
   :mode ("\.vue$")
   :hook (vue-ts-mode . lsp-deferred))
 
-(use-package svelte-mode
+(use-package svelte-ts-mode
   :mode ("\.svelte$")
-  :hook (svelte-mode . lsp-deferred))
+  :hook (svelte-ts-mode . lsp-deferred))
 
 (use-package typescript-ts-mode
   :mode ("\.ts$")

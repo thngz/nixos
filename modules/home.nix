@@ -27,7 +27,8 @@ in {
   home-manager.users.gkiviv = {
 
     home.packages = [ emacs ];
-    home.file.".emacs.d/init.el".text = builtins.readFile ../programs/emacs/init.el;
+    home.file.".emacs.d/init.el".text =
+      builtins.readFile ../programs/emacs/init.el;
 
     services.emacs = {
       enable = true;
