@@ -55,7 +55,7 @@
     (define-key evil-insert-state-map (kbd "C-h") 'evil-delete-backward-char-and-join)
     (evil-define-key 'normal 'global (kbd "<leader>ff") 'projectile-find-file)
     (evil-define-key 'normal 'global (kbd "<leader>fd") 'projectile-dired)
-    (evil-define-key 'normal 'global (kbd "<leader>fo") 'consult-ripgrep)
+    (evil-define-key 'normal 'global (kbd "<leader>fg") 'consult-ripgrep)
     (evil-define-key 'normal 'global (kbd "<leader>fb") 'consult-buffer)
     (evil-define-key 'normal 'global (kbd "<leader>sp") 'projectile-switch-project)
 
@@ -136,9 +136,9 @@
   :mode ("\.vue$")
   :hook (vue-ts-mode . lsp-deferred))
 
-(use-package svelte-ts-mode
+(use-package svelte-mode
   :mode ("\.svelte$")
-  :hook (svelte-ts-mode . lsp-deferred))
+  :hook (svelte-mode . lsp-deferred))
 
 (use-package typescript-ts-mode
   :mode ("\.ts$")
