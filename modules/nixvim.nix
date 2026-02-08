@@ -65,7 +65,42 @@ in {
       };
       harpoon.enable = true;
       flash.enable = true;
-      blink-cmp = { enable = true; };
+      blink-cmp = {
+        enable = true;
+        settings = {
+          keymap = {
+            preset = "super-tab";
+            appearance.kind_icons = {
+              Class = "󱡠";
+              Color = "󰏘";
+              Constant = "󰏿";
+              Constructor = "󰒓";
+              Enum = "󰦨";
+              EnumMember = "󰦨";
+              Event = "󱐋";
+              Field = "󰜢";
+              File = "󰈔";
+              Folder = "󰉋";
+              Function = "󰊕";
+              Interface = "󱡠";
+              Keyword = "󰻾";
+              Method = "󰊕";
+              Module = "󰅩";
+              Operator = "󰪚";
+              Property = "󰖷";
+              Reference = "󰬲";
+              Snippet = "󱄽";
+              Struct = "󱡠";
+              Text = "󰉿";
+              TypeParameter = "󰬛";
+              Unit = "󰪚";
+              Value = "󰦨";
+              Variable = "󰆦";
+            };
+          };
+        };
+
+      };
       slime.enable = true;
       conform-nvim = {
         enable = true;
