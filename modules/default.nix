@@ -1,5 +1,6 @@
 { ... }: {
   imports = [
+    ./nixvim.nix
     ./confs.nix
     ./crypto.nix
     ./xorg.nix

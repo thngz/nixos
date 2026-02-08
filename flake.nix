@@ -8,13 +8,18 @@
     emacs-overlay.url = "github:nix-community/emacs-overlay";
     # emacs-overlay.inputs.nixpkgs.follows = "nixpkgs";
 
+    nixvim = {
+      url = "github:nix-community/nixvim";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
 
-  outputs = { self, nixpkgs, nix-ld, home-manager, emacs-overlay, ... }@inputs:
+  outputs = { self, nixpkgs, nix-ld, nixvim, home-manager, emacs-overlay, ... }@inputs:
     let system = "x86_64-linux";
     in {
       nixosConfigurations.default = nixpkgs.lib.nixosSystem {
@@ -27,7 +32,11 @@
         modules = [
           ./hosts/default/hardware-configuration.nix
           nix-ld.nixosModules.nix-ld
+          nixvim.nixosModules.nixvim
           home-manager.nixosModules.home-manager
+          {
+            home-manager.extraSpecialArgs = {inherit inputs;};
+          }
           {
             xorg.enable = true;
             xorg.modKey = "Mod1";

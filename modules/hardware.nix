@@ -22,9 +22,9 @@
   };
 
   environment.systemPackages = with pkgs; [ pavucontrol clinfo ];
-  nix.settings = {
-    cores = 10;
-    max-jobs = 4;
-  };
+  # nix.settings = {
+  #   cores = 10;
+  #   max-jobs = 4;
+  # };
 
 }
