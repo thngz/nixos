@@ -43,6 +43,9 @@ in {
           emmet_ls.enable = true;
           ts_ls.enable = true;
           vue_ls.enable = true;
+          html.enable = true;
+          htmx.enable = true;
+          templ.enable = true;
         };
       };
       lualine.enable = true;
@@ -112,20 +115,15 @@ in {
           mapping = {
             "<C-Space>" = "cmp.mapping.complete()";
             "<Tab>" = "cmp.mapping.confirm({ select = true })";
+            "['<C-u>']" = "cmp.mapping.scroll_docs(-4)";
+            "['<C-d>']" = "cmp.mapping.scroll_docs(4)";
           };
-          sources = [
-            { name = "nvim_lsp"; }
-            { name = "buffer"; }
-            { name = "path"; }
-            { name = "luasnip"; }
-          ];
+          sources = [{ name = "nvim_lsp"; }];
         };
       };
       luasnip.enable = true;
       cmp-nvim-lsp.enable = true;
-      cmp-buffer.enable = true;
       cmp-path.enable = true;
-      cmp-luasnip.enable = true;
       slime.enable = true;
       conform-nvim = {
         enable = true;
@@ -142,24 +140,9 @@ in {
       treesitter = {
         enable = true;
 
-        grammarPackages = with pkgs.vimPlugins.nvim-treesitter.builtGrammars; [
-          bash
-          json
-          lua
-          make
-          markdown
-          nix
-          regex
-          toml
-          vim
-          vimdoc
-          xml
-          yaml
-          go
-          typescript
-          javascript
-          rust
-        ];
+        highlight.enable = true;
+        indent.enable = true;
+        # folding.enable = true;
       };
     };
     dependencies.tree-sitter.enable = true;
