@@ -34,6 +34,7 @@
     nautilus
     mission-center
     sdrpp
+    
     (gnuradio.override {
       extraPackages = with gnuradioPackages; [
         osmosdr
