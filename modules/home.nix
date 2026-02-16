@@ -1,43 +1,11 @@
 { inputs, pkgs, ... }:
-let
-  vue-ts-mode = pkgs.callPackage ./emacs/vue-mode.nix {
-    trivialBuild = pkgs.emacs.pkgs.trivialBuild;
-  };
-
-  svelte-ts-mode = pkgs.callPackage ./emacs/svelte-mode.nix {
-    trivialBuild = pkgs.emacs.pkgs.trivialBuild;
-  };
-  emacs = pkgs.emacsWithPackagesFromUsePackage {
-    package = pkgs.emacs;
-    config = ../programs/emacs/init.el;
-    extraEmacsPackages = epkgs: [
-      epkgs.use-package
-      epkgs.treesit-grammars.with-all-grammars
-      vue-ts-mode
-      svelte-ts-mode
-    ];
-    alwaysEnsure = true;
-  };
-
-in {
+{
   imports = [ inputs.home-manager.nixosModules.home-manager ];
 
   nixpkgs.overlays = [ inputs.emacs-overlay.overlay ];
 
   home-manager.users.gkiviv = {
-    # programs.nixvim = import ../programs/nixvim { inherit pkgs; };
-    # programs.nixvim.imports = [ ../programs/nixvim/nixvim.nix ];
 
-    # programs.nixvim.enable = true;
-
-    home.packages = [ emacs ];
-    home.file.".emacs.d/init.el".text =
-      builtins.readFile ../programs/emacs/init.el;
-
-    services.emacs = {
-      enable = true;
-      client.enable = true;
-    };
 
     home.username = "gkiviv";
     home.homeDirectory = "/home/gkiviv";
@@ -50,14 +18,8 @@ in {
       lfs.enable = true;
     };
 
-    # programs.neovim = {
-    #   enable = true;
-    #   withNodeJs = true;
-    #   withPython3 = true;
-    # };
 
     services.syncthing = { enable = true; };
-    # home.file = { ".config/nvim/".source = ../programs/nvim; };
     home.file = {
       ".config/cosmic/com.system76.CosmicSettings.Shortcuts/v1/custom.json".source =
         ../programs/cosmic/custom.json;

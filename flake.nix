@@ -79,6 +79,7 @@
         modules = [
           nix-ld.nixosModules.nix-ld
 
+          nixvim.nixosModules.nixvim
           ./hosts/p16/hardware-configuration.nix
           {
             xorg.enable = false;
