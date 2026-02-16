@@ -27,6 +27,7 @@
     nixfmt-classic
     snixembed
     fd
+    zellij
   ];
 
   programs.tmux = {
