@@ -20,6 +20,7 @@
 
 
     services.syncthing = { enable = true; };
+    
     home.file = {
       ".config/cosmic/com.system76.CosmicSettings.Shortcuts/v1/custom.json".source =
         ../programs/cosmic/custom.json;

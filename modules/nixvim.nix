@@ -65,42 +65,67 @@ in {
       };
       harpoon.enable = true;
       flash.enable = true;
-      blink-cmp = {
+      # blink-cmp = {
+      #   enable = true;
+      #   settings = {
+      #     keymap = {
+      #       preset = "super-tab";
+      #       appearance.kind_icons = {
+      #         Class = "󱡠";
+      #         Color = "󰏘";
+      #         Constant = "󰏿";
+      #         Constructor = "󰒓";
+      #         Enum = "󰦨";
+      #         EnumMember = "󰦨";
+      #         Event = "󱐋";
+      #         Field = "󰜢";
+      #         File = "󰈔";
+      #         Folder = "󰉋";
+      #         Function = "󰊕";
+      #         Interface = "󱡠";
+      #         Keyword = "󰻾";
+      #         Method = "󰊕";
+      #         Module = "󰅩";
+      #         Operator = "󰪚";
+      #         Property = "󰖷";
+      #         Reference = "󰬲";
+      #         Snippet = "󱄽";
+      #         Struct = "󱡠";
+      #         Text = "󰉿";
+      #         TypeParameter = "󰬛";
+      #         Unit = "󰪚";
+      #         Value = "󰦨";
+      #         Variable = "󰆦";
+      #       };
+      #     };
+      #   };
+      #
+      # };
+      cmp = {
         enable = true;
+        autoEnableSources = true;
         settings = {
-          keymap = {
-            preset = "super-tab";
-            appearance.kind_icons = {
-              Class = "󱡠";
-              Color = "󰏘";
-              Constant = "󰏿";
-              Constructor = "󰒓";
-              Enum = "󰦨";
-              EnumMember = "󰦨";
-              Event = "󱐋";
-              Field = "󰜢";
-              File = "󰈔";
-              Folder = "󰉋";
-              Function = "󰊕";
-              Interface = "󱡠";
-              Keyword = "󰻾";
-              Method = "󰊕";
-              Module = "󰅩";
-              Operator = "󰪚";
-              Property = "󰖷";
-              Reference = "󰬲";
-              Snippet = "󱄽";
-              Struct = "󱡠";
-              Text = "󰉿";
-              TypeParameter = "󰬛";
-              Unit = "󰪚";
-              Value = "󰦨";
-              Variable = "󰆦";
-            };
+          snippet = {
+            expand =
+              "function(args) require('luasnip').lsp_expand(args.body) end";
           };
+          mapping = {
+            "<C-Space>" = "cmp.mapping.complete()";
+            "<Tab>" = "cmp.mapping.confirm({ select = true })";
+          };
+          sources = [
+            { name = "nvim_lsp"; }
+            { name = "buffer"; }
+            { name = "path"; }
+            { name = "luasnip"; }
+          ];
         };
-
       };
+      luasnip.enable = true;
+      cmp-nvim-lsp.enable = true;
+      cmp-buffer.enable = true;
+      cmp-path.enable = true;
+      cmp-luasnip.enable = true;
       slime.enable = true;
       conform-nvim = {
         enable = true;
@@ -136,11 +161,21 @@ in {
           rust
         ];
       };
-
     };
     dependencies.tree-sitter.enable = true;
     colorschemes.modus.enable = true;
-    extraPlugins = [ pkgs.vimPlugins.plenary-nvim ];
+    extraPlugins = [
+      pkgs.vimPlugins.plenary-nvim
+      (pkgs.vimUtils.buildVimPlugin {
+        name = "99";
+        src = pkgs.fetchFromGitHub {
+          owner = "ThePrimeagen";
+          repo = "99";
+          rev = "96f3682ea890a3f2037aafa253c92d0dd3b82161";
+          hash = "sha256-ZfaDC6je7UodCRcpDMGzWsEPaL7qYyOyNftRawr4Qss=";
+        };
+      })
+    ];
 
     keymaps = [
       {
@@ -292,6 +327,11 @@ in {
       }
       {
         mode = "n";
+        key = "gd";
+        action = "<cmd>lua vim.lsp.buf.definition()<CR>";
+      }
+      {
+        mode = "n";
         key = "<leader>rn";
         action = "<cmd>lua vim.lsp.buf.rename()<CR>";
       }
@@ -346,7 +386,45 @@ in {
         key = "s";
         action = "<cmd>lua require('flash'):jump()<CR>";
       }
+      {
+        mode = "v";
+        key = "<leader>ai";
+        action = "<cmd>lua require('99').visual()<CR>";
+      }
+      {
+        mode = "v";
+        key = "<leader>ac";
+        action = "<cmd>lua require('99').stop_all_requests()<CR>";
+      }
     ];
+    extraConfigLua = ''
+      local _99 = require("99")
+      local cwd = vim.uv.cwd()
+      local basename = vim.fs.basename(cwd)
+      _99.setup({
+        provider = _99.OpenCodeProvider,
+        model = "openai/gpt-5.2-codex",
+        logger = {
+          level = _99.DEBUG,
+          path = "/tmp/" .. basename .. ".99.debug",
+          print_on_error = true,
+        },
+        completion = {
+          custom_rules = {
+            "scratch/custom_rules/",
+          },
+          files = {
+            -- enabled = true,
+            -- max_file_size = 102400,
+            -- max_files = 5000,
+            -- exclude = { ".env", ".env.*", "node_modules", ".git" },
+          },
+          source = "cmp",
+        },
+        md_files = {
+          "AGENT.md",
+        },
+      })
+    '';
   };
 }
-
