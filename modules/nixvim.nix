@@ -123,32 +123,8 @@ in {
             };
           };
         };
-
       };
-      # cmp = {
-      #   enable = true;
-      #   autoEnableSources = true;
-      #   settings = {
-      #     snippet = {
-      #       expand =
-      #         "function(args) require('luasnip').lsp_expand(args.body) end";
-      #     };
-      #     mapping = {
-      #       "<C-Space>" = "cmp.mapping.complete()";
-      #       "<Tab>" = "cmp.mapping.confirm({ select = true })";
-      #       "['<C-u>']" = "cmp.mapping.scroll_docs(-4)";
-      #       "['<C-d>']" = "cmp.mapping.scroll_docs(4)";
-      #     };
-      #     sources = [{ name = "nvim_lsp"; }];
-      #   };
-      # };
-      luasnip.enable = true;
-      # cmp-nvim-lsp.enable = true;
-      # cmp-path.enable = true;
-      vim-slime = {
-        enable = true;
-        settings = { target = "zellij"; };
-      };
+      slime.enable = true;
       conform-nvim = {
         enable = true;
         settings = {
@@ -174,15 +150,15 @@ in {
     colorschemes.modus.enable = true;
     extraPlugins = [
       pkgs.vimPlugins.plenary-nvim
-      # (pkgs.vimUtils.buildVimPlugin {
-      #   name = "99";
-      #   src = pkgs.fetchFromGitHub {
-      #     owner = "ThePrimeagen";
-      #     repo = "99";
-      #     rev = "96f3682ea890a3f2037aafa253c92d0dd3b82161";
-      #     hash = "sha256-ZfaDC6je7UodCRcpDMGzWsEPaL7qYyOyNftRawr4Qss=";
-      #   };
-      # })
+      (pkgs.vimUtils.buildVimPlugin {
+        name = "99";
+        src = pkgs.fetchFromGitHub {
+          owner = "ThePrimeagen";
+          repo = "99";
+          rev = "96f3682ea890a3f2037aafa253c92d0dd3b82161";
+          hash = "sha256-ZfaDC6je7UodCRcpDMGzWsEPaL7qYyOyNftRawr4Qss=";
+        };
+      })
     ];
 
     keymaps = [
@@ -404,35 +380,40 @@ in {
         key = "<leader>ac";
         action = "<cmd>lua require('99').stop_all_requests()<CR>";
       }
+      {
+        mode = "v";
+        key = "<leader>as";
+        action = "<cmd>lua require('99').search()<CR>";
+      }
     ];
-    # extraConfigLua = ''
-    #   local _99 = require("99")
-    #   local cwd = vim.uv.cwd()
-    #   local basename = vim.fs.basename(cwd)
-    #   _99.setup({
-    #     provider = _99.OpenCodeProvider,
-    #     model = "openai/gpt-5.2-codex",
-    #     logger = {
-    #       level = _99.DEBUG,
-    #       path = "/tmp/" .. basename .. ".99.debug",
-    #       print_on_error = true,
-    #     },
-    #     completion = {
-    #       custom_rules = {
-    #         "scratch/custom_rules/",
-    #       },
-    #       files = {
-    #         -- enabled = true,
-    #         -- max_file_size = 102400,
-    #         -- max_files = 5000,
-    #         -- exclude = { ".env", ".env.*", "node_modules", ".git" },
-    #       },
-    #       source = "cmp",
-    #     },
-    #     md_files = {
-    #       "AGENT.md",
-    #     },
-    #   })
-    # '';
+    extraConfigLua = ''
+      local _99 = require("99")
+      local cwd = vim.uv.cwd()
+      local basename = vim.fs.basename(cwd)
+      _99.setup({
+        provider = _99.OpenCodeProvider,
+        model = "openai/gpt-5.2-codex",
+        logger = {
+          level = _99.DEBUG,
+          path = "/tmp/" .. basename .. ".99.debug",
+          print_on_error = true,
+        },
+        completion = {
+          custom_rules = {
+            "scratch/custom_rules/",
+          },
+          files = {
+            -- enabled = true,
+            -- max_file_size = 102400,
+            -- max_files = 5000,
+            -- exclude = { ".env", ".env.*", "node_modules", ".git" },
+          },
+          source = "blink",
+        },
+        md_files = {
+          "AGENT.md",
+        },
+      })
+    '';
   };
 }
