@@ -28,6 +28,7 @@
     snixembed
     fd
     zellij
+    lazygit
   ];
 
   programs.tmux = {

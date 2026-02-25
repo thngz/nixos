@@ -71,7 +71,8 @@ in {
       };
       lualine.enable = true;
       comment.enable = true;
-      fugitive.enable = true;
+      # fugitive.enable = true;
+      lazygit.enable = true;
       autoclose.enable = true;
       nvim-lighbulb.enable = true;
       better-escape.enable = true;
@@ -87,6 +88,7 @@ in {
             [ "^node_modules/" ".wwwroot/" ".bin/" ".obj/" ];
         };
       };
+      molten.enable = true;
       harpoon.enable = true;
       flash.enable = true;
       blink-cmp = {
@@ -124,7 +126,14 @@ in {
           };
         };
       };
-      slime.enable = true;
+      vim-slime = {
+        enable = true;
+        settings = {
+          target = "zellij";
+          bracketed_paste = 1;
+        };
+
+      };
       conform-nvim = {
         enable = true;
         settings = {
@@ -180,7 +189,7 @@ in {
       {
         mode = "n";
         key = "<leader>gs";
-        action = "<cmd>Git<CR>";
+        action = "<cmd>LazyGit<CR>";
       }
       {
         mode = "n";
@@ -387,6 +396,7 @@ in {
       }
     ];
     extraConfigLua = ''
+      -- vim.g.slime_python_ipython = 1
       local _99 = require("99")
       local cwd = vim.uv.cwd()
       local basename = vim.fs.basename(cwd)
