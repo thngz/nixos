@@ -46,6 +46,11 @@ in {
           html.enable = true;
           htmx.enable = true;
           templ.enable = true;
+          tinymist.enable = true;
+          rust_analyzer = {
+            enable = true;
+            settings = { check = { command = "clippy"; }; };
+          };
           basedpyright = {
             enable = true;
             settings = {
@@ -82,7 +87,16 @@ in {
       undotree.enable = true;
       telescope = {
         enable = true;
-        extensions = { file-browser.enable = true; };
+        extensions = {
+          file-browser.enable = true;
+          media-files = {
+            enable = true;
+            settings = {
+              filetypes = [ "png" "webp" "jpg" "jpeg" ];
+
+            };
+          };
+        };
         settings = {
           file_ignore_patterns =
             [ "^node_modules/" ".wwwroot/" ".bin/" ".obj/" ];
@@ -154,6 +168,7 @@ in {
         # folding.enable = true;
       };
       jupytext.enable = true;
+      typst-preview.enable = true;
     };
     dependencies.tree-sitter.enable = true;
     colorschemes.modus.enable = true;
@@ -371,6 +386,11 @@ in {
       }
       {
         mode = "n";
+        key = "<leader>vm";
+        action = "<cmd>Telescope media_files<CR>";
+      }
+      {
+        mode = "n";
         key = "<leader>gd";
         action = "<cmd>Telescope git_status<CR>";
       }
@@ -396,7 +416,7 @@ in {
       }
     ];
     extraConfigLua = ''
-      -- vim.g.slime_python_ipython = 1
+      vim.lsp.set_log_level("off")
       local _99 = require("99")
       local cwd = vim.uv.cwd()
       local basename = vim.fs.basename(cwd)
