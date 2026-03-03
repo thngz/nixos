@@ -21,7 +21,6 @@
     flameshot
     (flameshot.override { enableWlrSupport = true; })
     vim
-    mc # midnight commander
     clamav
     bitwarden-desktop
     calibre
@@ -34,17 +33,13 @@
     nautilus
     mission-center
     sdrpp
-    
+    kdePackages.okular
+
     (gnuradio.override {
-      extraPackages = with gnuradioPackages; [
-        osmosdr
-      ];
-      extraPythonPackages = with gnuradio.python.pkgs; [
-        numpy
-      ];
-     
+      extraPackages = with gnuradioPackages; [ osmosdr ];
+      extraPythonPackages = with gnuradio.python.pkgs; [ numpy ];
+
     })
-    aichat
   ];
   #hardware.rtl-sdr.enable = false;
   services.mullvad-vpn.enable = true;

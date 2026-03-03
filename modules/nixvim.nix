@@ -169,6 +169,10 @@ in {
       };
       jupytext.enable = true;
       typst-preview.enable = true;
+      grug-far = {
+        enable = true;
+        settings = { keymaps = { replace = { n = "<leader>re"; }; }; };
+      };
     };
     dependencies.tree-sitter.enable = true;
     colorschemes.modus.enable = true;
@@ -413,6 +417,16 @@ in {
         mode = "v";
         key = "<leader>as";
         action = "<cmd>lua require('99').search()<CR>";
+      }
+      {
+        mode = "n";
+        key = "<leader>fr";
+        action = "<cmd>GrugFar<CR>";
+      }
+      {
+        mode = "v";
+        key = "<leader>fr";
+        action = ":<C-u>lua require('grug-far').with_visual_selection()<CR>";
       }
     ];
     extraConfigLua = ''

@@ -29,6 +29,7 @@
     fd
     zellij
     lazygit
+    sqlit-tui
   ];
 
   programs.tmux = {
