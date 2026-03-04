@@ -11,12 +11,15 @@ let
     };
   };
 
-in {
+in
+{
   programs.nixvim = {
 
     enable = true;
 
-    globals = { mapleader = " "; };
+    globals = {
+      mapleader = " ";
+    };
 
     opts = {
       relativenumber = true;
@@ -51,7 +54,11 @@ in {
             enable = true;
             installCargo = false;
             installRustc = false;
-            settings = { check = { command = "clippy"; }; };
+            settings = {
+              check = {
+                command = "clippy";
+              };
+            };
           };
           basedpyright = {
             enable = true;
@@ -94,14 +101,23 @@ in {
           media-files = {
             enable = true;
             settings = {
-              filetypes = [ "png" "webp" "jpg" "jpeg" ];
+              filetypes = [
+                "png"
+                "webp"
+                "jpg"
+                "jpeg"
+              ];
 
             };
           };
         };
         settings = {
-          file_ignore_patterns =
-            [ "^node_modules/" ".wwwroot/" ".bin/" ".obj/" ];
+          file_ignore_patterns = [
+            "^node_modules/"
+            ".wwwroot/"
+            ".bin/"
+            ".obj/"
+          ];
         };
       };
       web-devicons.enable = true;
@@ -172,7 +188,13 @@ in {
       typst-preview.enable = true;
       grug-far = {
         enable = true;
-        settings = { keymaps = { replace = { n = "<leader>re"; }; }; };
+        settings = {
+          keymaps = {
+            replace = {
+              n = "<leader>re";
+            };
+          };
+        };
       };
       treesitter-textobjects = {
         enable = true;
@@ -180,13 +202,6 @@ in {
           select = {
             enable = true;
             lookahead = true;
-            keymaps = {
-              am = "@function.outer";
-              im = "@function.inner";
-              ac = "@class.outer";
-              ic = "@class.inner";
-              as = "@local.scope";
-            };
           };
         };
       };
@@ -216,6 +231,56 @@ in {
         mode = "v";
         key = "K";
         action = ":m '<-2<CR>gv=gv";
+      }
+      {
+        mode = "x";
+        key = "am";
+        action = "<cmd>lua require('nvim-treesitter-textobjects.select').select_textobject('@function.outer', 'textobjects')<CR>";
+      }
+      {
+        mode = "o";
+        key = "am";
+        action = "<cmd>lua require('nvim-treesitter-textobjects.select').select_textobject('@function.outer', 'textobjects')<CR>";
+      }
+      {
+        mode = "x";
+        key = "im";
+        action = "<cmd>lua require('nvim-treesitter-textobjects.select').select_textobject('@function.inner', 'textobjects')<CR>";
+      }
+      {
+        mode = "o";
+        key = "im";
+        action = "<cmd>lua require('nvim-treesitter-textobjects.select').select_textobject('@function.inner', 'textobjects')<CR>";
+      }
+      {
+        mode = "x";
+        key = "ac";
+        action = "<cmd>lua require('nvim-treesitter-textobjects.select').select_textobject('@class.outer', 'textobjects')<CR>";
+      }
+      {
+        mode = "o";
+        key = "ac";
+        action = "<cmd>lua require('nvim-treesitter-textobjects.select').select_textobject('@class.outer', 'textobjects')<CR>";
+      }
+      {
+        mode = "x";
+        key = "ic";
+        action = "<cmd>lua require('nvim-treesitter-textobjects.select').select_textobject('@class.inner', 'textobjects')<CR>";
+      }
+      {
+        mode = "o";
+        key = "ic";
+        action = "<cmd>lua require('nvim-treesitter-textobjects.select').select_textobject('@class.inner', 'textobjects')<CR>";
+      }
+      {
+        mode = "x";
+        key = "as";
+        action = "<cmd>lua require('nvim-treesitter-textobjects.select').select_textobject('@local.scope', 'locals')<CR>";
+      }
+      {
+        mode = "o";
+        key = "as";
+        action = "<cmd>lua require('nvim-treesitter-textobjects.select').select_textobject('@local.scope', 'locals')<CR>";
       }
       {
         mode = "n";
@@ -290,8 +355,7 @@ in {
       {
         mode = "n";
         key = "<leader>e";
-        action =
-          "<cmd>lua require('harpoon').ui:toggle_quick_menu(require('harpoon'):list())<CR>";
+        action = "<cmd>lua require('harpoon').ui:toggle_quick_menu(require('harpoon'):list())<CR>";
       }
       {
         mode = "n";
@@ -346,8 +410,7 @@ in {
       {
         mode = "n";
         key = "<leader>fm";
-        action =
-          "<cmd>lua require('conform').format({ lsp_format = 'fallback' })<CR>";
+        action = "<cmd>lua require('conform').format({ lsp_format = 'fallback' })<CR>";
       }
       {
         mode = "n";
