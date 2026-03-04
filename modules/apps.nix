@@ -34,6 +34,7 @@
     mission-center
     sdrpp
     kdePackages.okular
+    sioyek
 
     (gnuradio.override {
       extraPackages = with gnuradioPackages; [ osmosdr ];
