@@ -49,6 +49,8 @@ in {
           tinymist.enable = true;
           rust_analyzer = {
             enable = true;
+            installCargo = false;
+            installRustc = false;
             settings = { check = { command = "clippy"; }; };
           };
           basedpyright = {
@@ -76,7 +78,7 @@ in {
       };
       lualine.enable = true;
       comment.enable = true;
-      # fugitive.enable = true;
+      fugitive.enable = true;
       lazygit.enable = true;
       autoclose.enable = true;
       nvim-lighbulb.enable = true;
@@ -102,7 +104,7 @@ in {
             [ "^node_modules/" ".wwwroot/" ".bin/" ".obj/" ];
         };
       };
-      molten.enable = true;
+      web-devicons.enable = true;
       harpoon.enable = true;
       flash.enable = true;
       blink-cmp = {
@@ -165,13 +167,28 @@ in {
 
         highlight.enable = true;
         indent.enable = true;
-        # folding.enable = true;
       };
       jupytext.enable = true;
       typst-preview.enable = true;
       grug-far = {
         enable = true;
         settings = { keymaps = { replace = { n = "<leader>re"; }; }; };
+      };
+      treesitter-textobjects = {
+        enable = true;
+        settings = {
+          select = {
+            enable = true;
+            lookahead = true;
+            keymaps = {
+              am = "@function.outer";
+              im = "@function.inner";
+              ac = "@class.outer";
+              ic = "@class.inner";
+              as = "@local.scope";
+            };
+          };
+        };
       };
     };
     dependencies.tree-sitter.enable = true;
@@ -447,10 +464,6 @@ in {
             "scratch/custom_rules/",
           },
           files = {
-            -- enabled = true,
-            -- max_file_size = 102400,
-            -- max_files = 5000,
-            -- exclude = { ".env", ".env.*", "node_modules", ".git" },
           },
           source = "blink",
         },

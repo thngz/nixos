@@ -1,11 +1,9 @@
-{ inputs, pkgs, ... }:
-{
+{ inputs, pkgs, ... }: {
   imports = [ inputs.home-manager.nixosModules.home-manager ];
 
   nixpkgs.overlays = [ inputs.emacs-overlay.overlay ];
 
   home-manager.users.gkiviv = {
-
 
     home.username = "gkiviv";
     home.homeDirectory = "/home/gkiviv";
@@ -13,14 +11,15 @@
 
     programs.git = {
       enable = true;
-      userName = "gkiviv";
-      userEmail = "georgkivivali7@gmail.com";
       lfs.enable = true;
+      settings.user = {
+        name = "gkiviv";
+        email = "georgkivivali7@gmail.com";
+      };
     };
 
-
     services.syncthing = { enable = true; };
-    
+
     home.file = {
       ".config/cosmic/com.system76.CosmicSettings.Shortcuts/v1/custom.json".source =
         ../programs/cosmic/custom.json;

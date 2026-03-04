@@ -24,7 +24,7 @@
     clang
     gnumake
     nil
-    nixfmt-classic
+    nixfmt
     snixembed
     fd
     zellij
