@@ -234,22 +234,22 @@ in
       }
       {
         mode = "x";
-        key = "am";
+        key = "af";
         action = "<cmd>lua require('nvim-treesitter-textobjects.select').select_textobject('@function.outer', 'textobjects')<CR>";
       }
       {
         mode = "o";
-        key = "am";
+        key = "af";
         action = "<cmd>lua require('nvim-treesitter-textobjects.select').select_textobject('@function.outer', 'textobjects')<CR>";
       }
       {
         mode = "x";
-        key = "im";
+        key = "if";
         action = "<cmd>lua require('nvim-treesitter-textobjects.select').select_textobject('@function.inner', 'textobjects')<CR>";
       }
       {
         mode = "o";
-        key = "im";
+        key = "if";
         action = "<cmd>lua require('nvim-treesitter-textobjects.select').select_textobject('@function.inner', 'textobjects')<CR>";
       }
       {

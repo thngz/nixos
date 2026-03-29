@@ -1,4 +1,5 @@
-{ ... }: {
+{ ... }:
+{
   imports = [
     ./nixvim.nix
     ./confs.nix
@@ -13,5 +14,6 @@
     ./home.nix
     ./apps.nix
   ];
+  nix.gc.automatic = true;
+  nix.gc.options = "--delete-older-than 10d";
 }
-

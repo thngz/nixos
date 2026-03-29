@@ -84,7 +84,7 @@
           {
             xorg.enable = false;
             # xorg.enable = true;
-            xorg.modKey = "Mod1";
+            # xorg.modKey = "Mod1";
             wayland_desktop.enable = true;
             # wayland_desktop.enable = false;
             wayland_desktop.modKey = "Mod1";
