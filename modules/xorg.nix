@@ -1,6 +1,13 @@
-{ lib, config, pkgs, ... }:
-let cfg = config.xorg;
-in {
+{
+  lib,
+  config,
+  pkgs,
+  ...
+}:
+let
+  cfg = config.xorg;
+in
+{
   options.xorg = {
     enable = lib.mkEnableOption "enable xorg";
     modKey = lib.mkOption {
@@ -185,46 +192,44 @@ in {
                     bindsym $mod+r mode "resize"
 
                     bar {
-                        status_command ${pkgs.i3status}/bin/i3status -c ${
-                          pkgs.writeText "i3status-config" ''
-                            general {
-                                    output_format = "i3bar"
-                                    colors = true
-                                    interval = 5
-                            }
+                        status_command ${pkgs.i3status}/bin/i3status -c ${pkgs.writeText "i3status-config" ''
+                          general {
+                                  output_format = "i3bar"
+                                  colors = true
+                                  interval = 5
+                          }
 
-                            order += "disk /"
-                            order += "battery 0"
-                            order += "memory"
-                            order += "tztime tallinn"
+                          order += "disk /"
+                          order += "battery 0"
+                          order += "memory"
+                          order += "tztime tallinn"
 
-                            battery 0 {
-                                    format = "%status %percentage, remaining: %remaining"
-                                    status_chr = "⚡ CHR"
-                                    status_bat = "🔋 BAT"
-                                    status_unk = "? UNK"
-                                    status_full = "☻ FULL"
-                                    path = "/sys/class/power_supply/BAT%d/uevent"
-                                    low_threshold = 10
-                            }
+                          battery 0 {
+                                  format = "%status %percentage, remaining: %remaining"
+                                  status_chr = "⚡ CHR"
+                                  status_bat = "🔋 BAT"
+                                  status_unk = "? UNK"
+                                  status_full = "☻ FULL"
+                                  path = "/sys/class/power_supply/BAT%d/uevent"
+                                  low_threshold = 10
+                          }
 
 
-                            tztime tallinn {
-                                    format = "%Y-%m-%d %H:%M:%S %Z"
-                                    timezone = "Europe/Tallinn"
-                            }
+                          tztime tallinn {
+                                  format = "%Y-%m-%d %H:%M:%S %Z"
+                                  timezone = "Europe/Tallinn"
+                          }
 
-                            memory {
-                                    format = "USED RAM: %used"
-                                    threshold_degraded = "10%"
-                                    format_degraded = "MEMORY: %free"
-                            }
+                          memory {
+                                  format = "USED RAM: %used"
+                                  threshold_degraded = "10%"
+                                  format_degraded = "MEMORY: %free"
+                          }
 
-                            disk "/" {
-                                    format = "%free"
-                            }
-                          ''
-                        }
+                          disk "/" {
+                                  format = "%free"
+                          }
+                        ''}
                     }
       '';
       extraPackages = with pkgs; [
@@ -232,6 +237,7 @@ in {
         i3status
         i3blocks
         xfce4-clipman-plugin
+        xdotool
       ];
     };
   };

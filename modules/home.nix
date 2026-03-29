@@ -1,7 +1,6 @@
-{ inputs, pkgs, ... }: {
+{ inputs, pkgs, ... }:
+{
   imports = [ inputs.home-manager.nixosModules.home-manager ];
-
-  nixpkgs.overlays = [ inputs.emacs-overlay.overlay ];
 
   home-manager.users.gkiviv = {
 
@@ -18,26 +17,23 @@
       };
     };
 
-    services.syncthing = { enable = true; };
+    services.syncthing = {
+      enable = true;
+    };
 
     home.file = {
       ".config/cosmic/com.system76.CosmicSettings.Shortcuts/v1/custom.json".source =
         ../programs/cosmic/custom.json;
     };
 
-    programs.rofi = { enable = true; };
-
-    services.network-manager-applet = { enable = true; };
-
-    programs.alacritty = {
+    programs.rofi = {
       enable = true;
-      settings = {
-        font = {
-          normal = { family = "Iosevka"; };
-          size = 16;
-        };
-      };
     };
+
+    services.network-manager-applet = {
+      enable = true;
+    };
+
   };
 
 }
