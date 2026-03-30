@@ -5,7 +5,13 @@
   documentation.man.generateCaches = false;
   users.users.gkiviv = {
     isNormalUser = true;
-    extraGroups = [ "networkmanager" "wheel" "docker" "dialout" "plugdev"];
+    extraGroups = [
+      "networkmanager"
+      "wheel"
+      "docker"
+      "dialout"
+      "plugdev"
+    ];
     shell = pkgs.fish;
   };
 
@@ -26,16 +32,24 @@
 
   programs.fish.enable = true;
   programs.starship.enable = true;
-  environment.shellAliases = { vim = "nvim"; };
+  environment.shellAliases = {
+    vim = "nvim";
+  };
   virtualisation.docker = {
     enable = true;
-    extraOptions = "";
+    # extraOptions = "-b=br0";
+    daemon.settings = {
+      insecure-registries = [ "v-00.37mnc02.com:443" ];
+    };
   };
 
   environment.localBinInPath = true;
   # nixpkgs.config.allowUnfree = true;
 
-  nix.settings.experimental-features = [ "nix-command" "flakes" ];
+  nix.settings.experimental-features = [
+    "nix-command"
+    "flakes"
+  ];
 
   nix.settings = {
     substituters = [
@@ -45,10 +59,13 @@
     ];
     trusted-public-keys = [
       "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
-       "ros.cachix.org-1:dSyZxI8geDCJrwgvCOHDoAfOm5sV1wCPjBkKL+38Rvo="
+      "ros.cachix.org-1:dSyZxI8geDCJrwgvCOHDoAfOm5sV1wCPjBkKL+38Rvo="
     ];
   };
-  nix.settings.trusted-users = [ "root" "gkiviv" ];
+  nix.settings.trusted-users = [
+    "root"
+    "gkiviv"
+  ];
 
   services.pcscd.enable = true;
 }
