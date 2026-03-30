@@ -5,9 +5,6 @@
     nix-ld.url = "github:Mic92/nix-ld";
     nix-ld.inputs.nixpkgs.follows = "nixpkgs";
 
-    emacs-overlay.url = "github:nix-community/emacs-overlay";
-    # emacs-overlay.inputs.nixpkgs.follows = "nixpkgs";
-
     nixvim = {
       url = "github:nix-community/nixvim";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -19,7 +16,7 @@
     };
   };
 
-  outputs = { self, nixpkgs, nix-ld, nixvim, home-manager, emacs-overlay, ... }@inputs:
+  outputs = { self, nixpkgs, nix-ld, nixvim, home-manager, ... }@inputs:
     let system = "x86_64-linux";
     in {
       nixosConfigurations.default = nixpkgs.lib.nixosSystem {
