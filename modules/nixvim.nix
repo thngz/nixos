@@ -19,6 +19,7 @@ in
 
     globals = {
       mapleader = " ";
+      maplocalleader = ",";
     };
 
     opts = {
@@ -48,7 +49,9 @@ in
           vue_ls.enable = true;
           html.enable = true;
           htmx.enable = true;
+          nil_ls.enable = true;
           templ.enable = true;
+          clojure_lsp.enable = true;
           tinymist.enable = true;
           rust_analyzer = {
             enable = true;
@@ -81,13 +84,25 @@ in
               };
             };
           };
+          clangd.enable = true;
         };
       };
+
+      conjure.enable = true;
       lualine.enable = true;
       comment.enable = true;
       fugitive.enable = true;
       lazygit.enable = true;
-      autoclose.enable = true;
+      autoclose = {
+        enable = true;
+        settings = {
+          keys = {
+            "'" = {
+              close = false;
+            };
+          };
+        };
+      };
       nvim-lighbulb.enable = true;
       better-escape.enable = true;
       oil.enable = true;
@@ -175,6 +190,7 @@ in
             python = [ "black" ];
             typescript = [ "prettier" ];
             vue = [ "prettier" ];
+            clojure = [ "cljfmt" ];
           };
         };
       };
@@ -511,6 +527,9 @@ in
     ];
     extraConfigLua = ''
       vim.lsp.set_log_level("off")
+      -- g:conjure#client#python#stdio#command
+      vim.g["conjure#client#python#stdio#command"] = "ipython --classic"
+      -- let g:conjure#filetypes = ["clojure", "janet"]
       local _99 = require("99")
       local cwd = vim.uv.cwd()
       local basename = vim.fs.basename(cwd)

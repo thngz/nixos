@@ -29,7 +29,8 @@
     fd
     zellij
     lazygit
-    sqlit-tui
+    lazydocker
+    claude-code
   ];
 
   programs.tmux = {

@@ -1,7 +1,7 @@
 { pkgs, ... }: {
   networking.hostName = "nixos";
   networking.networkmanager.enable = true;
-  networking.nameservers = [ "1.1.1.1" "9.9.9.9" ];
+    #networking.nameservers = [ "1.1.1.1" "9.9.9.9" ];
   networking.firewall.allowPing = true;
   services.resolved.enable = true;
   networking.enableIPv6 = false;
@@ -10,9 +10,9 @@
     enable = true;
     checkReversePath = false;
 
-    allowedTCPPorts = [ 22 8080 ]; # SSH, TurtleBot web interface
+    allowedTCPPorts = [ 22 8080 10001 ]; # SSH, TurtleBot web interface
     allowedUDPPorts =
-      [ 7400 7401 7402 7403 11811 ]; # FastRTPS + Discovery Server
+      [ 7400 7401 7402 7403 11811 10001]; # FastRTPS + Discovery Server
     allowedUDPPortRanges = [{
       from = 7400;
       to = 7499;

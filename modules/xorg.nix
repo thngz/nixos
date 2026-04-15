@@ -200,6 +200,7 @@ in
                           }
 
                           order += "disk /"
+                          order += "disk /run/media/gkiviv/main"
                           order += "battery 0"
                           order += "memory"
                           order += "tztime tallinn"
@@ -226,7 +227,12 @@ in
                                   format_degraded = "MEMORY: %free"
                           }
 
+
                           disk "/" {
+                                  format = "%free"
+                          }
+
+                          disk "/run/media/gkiviv/main" {
                                   format = "%free"
                           }
                         ''}
