@@ -6,6 +6,7 @@
     ./crypto.nix
     ./xorg.nix
     ./wayland.nix
+    ./sway.nix
     ./development.nix
     ./fonts.nix
     ./networking.nix
