@@ -47,56 +47,60 @@ let
   '';
 
   i3FocusBindings = ''
-    # change focus
-    bindsym $mod+h focus left
+    # change focus (horizontal goes through papersway to scroll paper columns)
+    bindsym $mod+h exec papersway-msg focus left
     bindsym $mod+k focus up
     bindsym $mod+j focus down
-    bindsym $mod+l focus right
+    bindsym $mod+l exec papersway-msg focus right
 
     # alternatively, you can use the cursor keys:
-    bindsym $mod+Left focus left
+    bindsym $mod+Left exec papersway-msg focus left
     bindsym $mod+Down focus down
     bindsym $mod+Up focus up
-    bindsym $mod+Right focus right
+    bindsym $mod+Right exec papersway-msg focus right
   '';
 
   i3MoveBindings = ''
-    # move focused window
-    bindsym $mod+Shift+h move left
+    # move focused window (horizontal goes through papersway)
+    bindsym $mod+Shift+h exec papersway-msg move left
     bindsym $mod+Shift+j move down
     bindsym $mod+Shift+k move up
-    bindsym $mod+Shift+l move right
+    bindsym $mod+Shift+l exec papersway-msg move right
 
     # alternatively, you can use the cursor keys:
-    bindsym $mod+Shift+Left move left
+    bindsym $mod+Shift+Left exec papersway-msg move left
     bindsym $mod+Shift+Down move down
     bindsym $mod+Shift+Up move up
-    bindsym $mod+Shift+Right move right
+    bindsym $mod+Shift+Right exec papersway-msg move right
   '';
 
+  # Note: split / stacking / tabbed / layout / focus-parent bindings are
+  # intentionally omitted because they conflict with papersway's column model
+  # (per App::papersway(1p) recommendations).
   i3LayoutBindings = ''
-    # split in horizontal orientation
-    #bindsym $mod+h split h
-
-    # split in vertical orientation
-    bindsym $mod+v split v
-
     # enter fullscreen mode for the focused container
     bindsym $mod+f fullscreen toggle
-
-    # change container layout (stacked, tabbed, toggle split)
-    bindsym $mod+s layout stacking
-    bindsym $mod+w layout tabbed
-    bindsym $mod+e layout toggle split
 
     # toggle tiling / floating
     bindsym $mod+Shift+space floating toggle
 
     # change focus between tiling / floating windows
     bindsym $mod+space focus mode_toggle
+  '';
 
-    # focus the parent container
-    bindsym $mod+a focus parent
+  i3PaperswayBindings = ''
+    # create a new empty paper workspace to the right
+    bindsym $mod+n exec papersway-msg fresh-workspace
+    # same, but drag the focused window along
+    bindsym $mod+Shift+n exec papersway-msg fresh-workspace take
+
+    # change how many columns are visible at once
+    bindsym $mod+equal exec papersway-msg cols incr
+    bindsym $mod+minus exec papersway-msg cols decr
+
+    # merge focused window into neighbor column / expel back out
+    bindsym $mod+comma exec papersway-msg absorb-expel left
+    bindsym $mod+period exec papersway-msg absorb-expel right
   '';
 
   i3Workspaces = ''
@@ -215,10 +219,12 @@ let
     }
   '';
 
+  # papersway --i3status runs `exec "i3status"` with no args, so it reads
+  # i3status's default config at /etc/xdg/i3status/config (installed below via
+  # environment.etc). That's how we keep the disk/battery/memory/time layout.
   i3Bar = ''
     bar {
-        #status_command papersway --i3status
-        status_command ${pkgs.i3status}/bin/i3status -c ${i3StatusConfig}
+        status_command ${pkgs.perl5Packages.Apppapersway}/bin/papersway --i3status
     }
   '';
 in
@@ -234,6 +240,10 @@ in
   };
 
   config = lib.mkIf cfg.enable {
+
+    # Installed system-wide so `papersway --i3status`, which execs i3status
+    # without arguments, still picks up our custom disk/battery/memory layout.
+    environment.etc."xdg/i3status/config".source = i3StatusConfig;
 
     services.xserver.enable = true;
     services.xserver.xautolock.time = 40;
@@ -260,12 +270,16 @@ in
 
         font pango:Jetbrains Mono 12
 
+        # papersway recommends disabling focus wrap-around
+        focus_wrapping no
+
         ${i3Startup}
         ${i3AudioBindings}
         ${i3WindowBindings}
         ${i3FocusBindings}
         ${i3MoveBindings}
         ${i3LayoutBindings}
+        ${i3PaperswayBindings}
         ${i3Workspaces}
         ${i3ControlBindings}
         ${i3ResizeMode}
