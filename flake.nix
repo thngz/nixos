@@ -35,8 +35,10 @@
             home-manager.extraSpecialArgs = {inherit inputs;};
           }
           {
-            xorg.enable = true;
-            xorg.modKey = "Mod1";
+            xorg.enable = false;
+            # xorg.modKey = "Mod1";
+            sway.enable = true; 
+            sway.modKey = "Mod1";
             system.stateVersion = "23.11";
             development.enable = true;
           }

@@ -25,6 +25,9 @@ let
   '';
 
   swayStartup = ''
+    exec systemctl --user import-environment WAYLAND_DISPLAY DISPLAY SWAYSOCK XDG_CURRENT_DESKTOP XDG_SESSION_TYPE
+    exec dbus-update-activation-environment --systemd WAYLAND_DISPLAY DISPLAY SWAYSOCK XDG_CURRENT_DESKTOP XDG_SESSION_TYPE
+
     exec dex-autostart --autostart --environment sway
 
     # idle / lock / sleep (replaces xss-lock + i3lock)
@@ -42,6 +45,9 @@ let
 
     # notifications
     exec mako
+
+    # papersway IPC daemon (scroll layout)
+    exec ${pkgs.perl5Packages.Apppapersway}/bin/papersway
   '';
 
   swayAudioBindings = ''
@@ -100,9 +106,6 @@ let
     bindsym $mod+Shift+Right exec papersway-msg move right
   '';
 
-  # Note: split / stacking / tabbed / layout / focus-parent bindings are
-  # intentionally omitted because they conflict with papersway's column model
-  # (per App::papersway(1p) recommendations).
   swayLayoutBindings = ''
     # enter fullscreen mode for the focused container
     bindsym $mod+f fullscreen toggle
@@ -168,7 +171,6 @@ let
     bindsym $mod+Shift+0 move container to workspace number $ws10
   '';
 
-  # Dropped `restart` — sway has no `restart` command; use `reload` or log out.
   swayControlBindings = ''
     # reload the configuration file
     bindsym $mod+Shift+c reload
@@ -265,11 +267,8 @@ in
 
   config = lib.mkIf cfg.enable {
 
-    # Installed system-wide so `papersway --i3status`, which execs i3status
-    # without arguments, still picks up our custom disk/battery/memory layout.
     environment.etc."xdg/i3status/config".source = swayStatusConfig;
 
-    # The sway config itself.
     environment.etc."sway/config".source = pkgs.writeText "sway.config" ''
       set $mod ${cfg.modKey}
 
@@ -304,7 +303,7 @@ in
         sway-contrib.grimshot
         wl-clipboard
         # launcher
-        rofi-wayland
+        rofi
         # screenshots
         grim
         slurp
@@ -330,10 +329,10 @@ in
       ];
     };
 
-    # Display manager — SDDM with Wayland support.
-    services.displayManager.sddm.enable = true;
-    services.displayManager.sddm.wayland.enable = true;
-    services.displayManager.defaultSession = "sway";
+    services.greetd = {
+      enable = true;
+      settings.default_session.command = "${pkgs.tuigreet}/bin/tuigreet --cmd sway";
+    };
 
     # XDG portals (screen share, file pickers).
     xdg.portal = {
@@ -344,13 +343,10 @@ in
       ];
     };
 
-    # PAM entry so swaylock can authenticate.
     security.pam.services.swaylock = { };
 
-    # Keyring (replaces xfce4-session's keyring role).
     services.gnome.gnome-keyring.enable = true;
 
-    # Session-wide env vars for Wayland-native apps + libxkbcommon defaults.
     environment.sessionVariables = {
       NIXOS_OZONE_WL = "1";
       MOZ_ENABLE_WAYLAND = "1";
