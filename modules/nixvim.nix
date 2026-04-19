@@ -87,7 +87,28 @@ in
           clangd.enable = true;
         };
       };
+      minuet = {
+        enable = true;
 
+        settings = {
+          provider = "codestral";
+          provider_options = {
+            codestral = {
+              api_key = "CODESTRAL_API_KEY";
+              stream = true;
+              optional = {
+                max_tokens = 256;
+                stop = "\n\n";
+              };
+            };
+          };
+
+          virtualtext = {
+            auto_trigger_ft = "*";
+            # accept = "<C-f>";
+          };
+        };
+      };
       conjure.enable = true;
       lualine.enable = true;
       comment.enable = true;
@@ -138,6 +159,7 @@ in
       web-devicons.enable = true;
       harpoon.enable = true;
       flash.enable = true;
+
       blink-cmp = {
         enable = true;
         settings = {
@@ -170,6 +192,14 @@ in
               Value = "󰦨";
               Variable = "󰆦";
             };
+          };
+          sources = {
+            default = [
+              "lsp"
+              "path"
+              "snippets"
+              "buffer"
+            ];
           };
         };
       };
@@ -523,6 +553,11 @@ in
         mode = "v";
         key = "<leader>fr";
         action = ":<C-u>lua require('grug-far').with_visual_selection()<CR>";
+      }
+      {
+        mode = "i"; # Insert mode
+        key = "<C-f>";
+        action = "<cmd>lua require('minuet.virtualtext').action.accept()<CR>";
       }
     ];
     extraConfigLua = ''

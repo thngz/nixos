@@ -16,9 +16,19 @@
     };
   };
 
-  outputs = { self, nixpkgs, nix-ld, nixvim, home-manager, ... }@inputs:
-    let system = "x86_64-linux";
-    in {
+  outputs =
+    {
+      self,
+      nixpkgs,
+      nix-ld,
+      nixvim,
+      home-manager,
+      ...
+    }@inputs:
+    let
+      system = "x86_64-linux";
+    in
+    {
       nixosConfigurations.default = nixpkgs.lib.nixosSystem {
         specialArgs = { inherit inputs; };
 
@@ -32,12 +42,12 @@
           nixvim.nixosModules.nixvim
           home-manager.nixosModules.home-manager
           {
-            home-manager.extraSpecialArgs = {inherit inputs;};
+            home-manager.extraSpecialArgs = { inherit inputs; };
           }
           {
             xorg.enable = false;
             # xorg.modKey = "Mod1";
-            sway.enable = true; 
+            sway.enable = true;
             sway.modKey = "Mod1";
             system.stateVersion = "23.11";
             development.enable = true;
