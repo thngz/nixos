@@ -1,5 +1,4 @@
 { lib, pkgs, ... }:
-
 let
   compile-mode = pkgs.vimUtils.buildVimPlugin {
     name = "compile-mode-nvim";
@@ -87,6 +86,7 @@ in
           clangd.enable = true;
         };
       };
+      marks.enable = true;
       minuet = {
         enable = true;
 
@@ -104,13 +104,33 @@ in
           };
 
           virtualtext = {
-            auto_trigger_ft = "*";
+            auto_trigger_ft = [
+              "typescript"
+              "python"
+              "go"
+              "rust"
+              "vue"
+              "sql"
+            ];
+            #auto_trigger_ignore_ft = ["text"];
             # accept = "<C-f>";
           };
         };
       };
       conjure.enable = true;
-      lualine.enable = true;
+      lualine = {
+        enable = true;
+        settings = {
+          sections.lualine_c = [
+            {
+              name = "filename";
+              extraConfig = {
+                path = 1;
+              };
+            }
+          ];
+        };
+      };
       comment.enable = true;
       fugitive.enable = true;
       lazygit.enable = true;
@@ -564,7 +584,9 @@ in
       vim.lsp.set_log_level("off")
       -- g:conjure#client#python#stdio#command
       vim.g["conjure#client#python#stdio#command"] = "ipython --classic"
-      -- let g:conjure#filetypes = ["clojure", "janet"]
+      vim.g["conjure#mapping#doc_word"] = "gk"
+      vim.g["conjure#filetypes"] = {"clojure", "python"}
+
       local _99 = require("99")
       local cwd = vim.uv.cwd()
       local basename = vim.fs.basename(cwd)

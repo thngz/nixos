@@ -65,16 +65,15 @@ let
 
     bindsym $mod+Shift+Return exec ghostty
 
+    bindsym $mod+Escape swaylock
+
     # kill focused window
     bindsym $mod+Shift+q kill
 
-    # launcher (rofi-wayland is a drop-in for rofi)
     bindsym $mod+d exec "rofi -modi drun,run -show drun"
 
-    # clipboard history: cliphist fronted by rofi, paste via wl-copy
     bindsym $mod+Shift+v exec sh -c 'cliphist list | rofi -dmenu | cliphist decode | wl-copy'
 
-    # screenshots: slurp picks a region, grim captures it, swappy opens for edit/annotate
     bindsym $mod+Shift+s exec sh -c 'grim -g "$(slurp)" - | swappy -f -'
   '';
 
