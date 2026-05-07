@@ -101,16 +101,18 @@ in
                 stop = "\n\n";
               };
             };
+
+            notify = false;
           };
 
           virtualtext = {
             auto_trigger_ft = [
-              "typescript"
-              "python"
-              "go"
-              "rust"
-              "vue"
-              "sql"
+              # "typescript"
+              # "python"
+              # "go"
+              # "rust"
+              # "vue"
+              # "sql"
             ];
             #auto_trigger_ignore_ft = ["text"];
             # accept = "<C-f>";

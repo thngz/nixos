@@ -12,10 +12,11 @@
     wireshark
     libreoffice-qt6-still
     kdePackages.filelight
+    kdePackages.gwenview
     kdePackages.kdenlive
     safeeyes
     zotero
-    temurin-jre-bin-17
+    jre21_minimal
     mullvad-vpn
     bruno
     flameshot
