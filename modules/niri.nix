@@ -108,27 +108,6 @@ in
     home-manager.users.gkiviv = { lib, ... }: {
       programs.waybar = {
         enable = true;
-        style = ''
-          .cffi-niri-windows .tile {
-            background-color: rgba(255, 255, 255, 0.5);
-          }
-
-          .cffi-niri-windows .tile:hover {
-            background-color: rgba(255, 255, 255, 0.7);
-          }
-
-          .cffi-niri-windows .tile:active {
-            background-color: rgb(255, 255, 255);
-          }
-
-          .cffi-niri-windows .column {
-            border: 1px solid rgba(255, 255, 255, 0.85);
-          }
-
-          .cffi-niri-windows .floating {
-            border: 2px solid rgba(255, 255, 255, 0.85);
-          }
-        '';
         settings.mainBar = {
           layer = "top";
           position = "top";
