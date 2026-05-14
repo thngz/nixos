@@ -7,6 +7,7 @@
     ./xorg.nix
     ./wayland.nix
     ./sway.nix
+    ./niri.nix
     ./development.nix
     ./fonts.nix
     ./networking.nix

@@ -14,6 +14,11 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    niri-flake = {
+      url = "github:sodiboo/niri-flake";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
@@ -23,6 +28,7 @@
       nix-ld,
       nixvim,
       home-manager,
+      niri-flake,
       ...
     }@inputs:
     let
@@ -41,6 +47,7 @@
           nix-ld.nixosModules.nix-ld
           nixvim.nixosModules.nixvim
           home-manager.nixosModules.home-manager
+          niri-flake.nixosModules.niri
           {
             home-manager.extraSpecialArgs = { inherit inputs; };
           }
@@ -67,6 +74,7 @@
           #       pkgs = pkgs;
           #  }
           nix-ld.nixosModules.nix-ld
+          niri-flake.nixosModules.niri
 
           ./hosts/laptop2/hardware-configuration.nix
           {
@@ -87,6 +95,7 @@
         };
         modules = [
           nix-ld.nixosModules.nix-ld
+          niri-flake.nixosModules.niri
 
           nixvim.nixosModules.nixvim
           ./hosts/p16/hardware-configuration.nix
@@ -98,7 +107,9 @@
                         #wayland_desktop.enable = false;
                         #wayland_desktop.modKey = "Mod1";
 
-            sway.enable = true;
+            sway.enable = false;
+            niri.enable = true;
+            niri.modKey = "Mod1";
             sway.modKey = "Mod1";
             system.stateVersion = "25.11";
             development.enable = true;
