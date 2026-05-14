@@ -152,26 +152,11 @@ in
       nvim-surround.enable = true;
       nvim-tree-lua.enable = true;
       undotree.enable = true;
-      telescope = {
+      fzf-lua = {
         enable = true;
-        extensions = {
-          file-browser.enable = true;
-          media-files = {
-            enable = true;
-            settings = {
-              filetypes = [
-                "png"
-                "webp"
-                "jpg"
-                "jpeg"
-              ];
-
-            };
-          };
-        };
         settings = {
           file_ignore_patterns = [
-            "^node_modules/"
+            "node_modules/"
             ".wwwroot/"
             ".bin/"
             ".obj/"
@@ -504,47 +489,52 @@ in
       {
         mode = "n";
         key = "<leader>ff";
-        action = "<cmd>Telescope find_files<CR>";
+        action = "<cmd>FzfLua files<CR>";
       }
       {
         mode = "n";
         key = "<leader>fg";
-        action = "<cmd>Telescope live_grep<CR>";
+        action = "<cmd>FzfLua live_grep<CR>";
       }
       {
         mode = "n";
         key = "<leader>fo";
-        action = "<cmd>Telescope current_buffer_fuzzy_find<CR>";
+        action = "<cmd>FzfLua blines<CR>";
       }
       {
         mode = "n";
         key = "<leader>rr";
-        action = "<cmd>Telescope lsp_references<CR>";
+        action = "<cmd>FzfLua lsp_references<CR>";
       }
       {
         mode = "n";
         key = "<leader>dd";
-        action = "<cmd>Telescope diagnostics<CR>";
+        action = "<cmd>FzfLua diagnostics_document<CR>";
       }
       {
         mode = "n";
         key = "<leader>gc";
-        action = "<cmd>Telescope git_commits<CR>";
+        action = "<cmd>FzfLua git_commits<CR>";
       }
       {
         mode = "n";
         key = "<leader>gb";
-        action = "<cmd>Telescope git_branches<CR>";
+        action = "<cmd>FzfLua git_branches<CR>";
       }
       {
         mode = "n";
         key = "<leader>vm";
-        action = "<cmd>Telescope media_files<CR>";
+        action = "<cmd>FzfLua files<CR>";
       }
       {
         mode = "n";
         key = "<leader>gd";
-        action = "<cmd>Telescope git_status<CR>";
+        action = "<cmd>FzfLua git_status<CR>";
+      }
+      {
+        mode = "n";
+        key = "<leader>fh";
+        action = "<cmd>FzfLua oldfiles<CR>";
       }
       {
         mode = "n";

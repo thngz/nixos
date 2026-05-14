@@ -31,6 +31,7 @@
     lazygit
     lazydocker
     claude-code
+    imv
   ];
 
   programs.tmux = {
