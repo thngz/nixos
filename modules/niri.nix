@@ -7,7 +7,7 @@
 let
   cfg = config.niri;
 
-  waybar-niri-windows = pkgs.stdenv.mkDerivation {
+  waybar-niri-windows = pkgs.buildGoModule {
     pname = "waybar-niri-windows";
     version = "unstable";
 
@@ -18,19 +18,22 @@ let
       hash = "sha256-7OEyJ4K7JXCdMILxcY5g3ldmSMPAiea5OZcsyvDdL9k=";
     };
 
-    nativeBuildInputs = with pkgs; [ go pkg-config ];
+    vendorHash = "sha256-jK87vZYfUe8znk65SmJ1mN8qP5K3dtt950hKGWTYXs4=";
+
+    nativeBuildInputs = with pkgs; [ pkg-config ];
     buildInputs = with pkgs; [ gtk3 ];
 
     buildPhase = ''
-      export HOME=$TMPDIR
-      export GOCACHE=$TMPDIR/go-cache
-      export GOPATH=$TMPDIR/go
-      make
+      runHook preBuild
+      go build -buildmode=c-shared -o waybar-niri-windows.so ./main
+      runHook postBuild
     '';
 
     installPhase = ''
+      runHook preInstall
       mkdir -p $out/lib
       cp waybar-niri-windows.so $out/lib/
+      runHook postInstall
     '';
   };
 in
