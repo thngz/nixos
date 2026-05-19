@@ -135,7 +135,6 @@ in
       };
       comment.enable = true;
       fugitive.enable = true;
-      lazygit.enable = true;
       autoclose = {
         enable = true;
         settings = {
@@ -343,7 +342,7 @@ in
       {
         mode = "n";
         key = "<leader>gs";
-        action = "<cmd>LazyGit<CR>";
+        action = "<cmd>Git<CR>";
       }
       {
         mode = "n";
