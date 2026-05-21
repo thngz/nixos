@@ -15,6 +15,11 @@ in
   programs.nixvim = {
 
     enable = true;
+    nixpkgs = {
+      config = {
+        allowUnfree = true;
+      };
+    };
 
     globals = {
       mapleader = " ";
@@ -257,9 +262,30 @@ in
           };
         };
       };
+      neotest = {
+        enable = true;
+        adapters.jest = {
+          enable = true;
+          settings = {
+            jestCommand = "npm test --";
+            jestConfigFile = "jest.config.ts";
+            jestTestDiscovery = false;
+          };
+        };
+      };
     };
     dependencies.tree-sitter.enable = true;
-    colorschemes.modus.enable = true;
+    # colorschemes.modus.enable = true;
+    colorschemes.monokai-pro = {
+      enable = true;
+      settings = {
+        filter = "light";
+        terminal_colors = true;
+        transparent_background = false;
+        devicons = true;
+      };
+    };
+    # colorschemes.catppuccin.enable = true;
     extraPlugins = [
       pkgs.vimPlugins.plenary-nvim
       (pkgs.vimUtils.buildVimPlugin {
@@ -358,6 +384,11 @@ in
         mode = "n";
         key = "<leader>fe";
         action = "<cmd>Oil .<CR>";
+      }
+      {
+        mode = "n";
+        key = "<leader>feh";
+        action = "<cmd>Oil %:p:h<CR>";
       }
       {
         mode = "n";
@@ -569,6 +600,26 @@ in
         mode = "i"; # Insert mode
         key = "<C-f>";
         action = "<cmd>lua require('minuet.virtualtext').action.accept()<CR>";
+      }
+      {
+        mode = "n";
+        key = "<leader>rt";
+        action = "<cmd>lua require('neotest').run.run()<CR>";
+      }
+      {
+        mode = "n";
+        key = "<leader>rf";
+        action = "<cmd>lua require('neotest').run.run(vim.fn.expand('%'))<CR>";
+      }
+      {
+        mode = "n";
+        key = "<leader>ts";
+        action = "<cmd>lua require('neotest').summary.toggle()<CR>";
+      }
+      {
+        mode = "n";
+        key = "<leader>to";
+        action = "<cmd>lua require('neotest').output.open()<CR>";
       }
     ];
     extraConfigLua = ''
