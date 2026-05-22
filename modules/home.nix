@@ -34,6 +34,32 @@
       enable = true;
     };
 
+    programs.ghostty = {
+      enable = true;
+      settings = {
+        font-size = 16;
+        font-family = "iosevka";
+        theme = "Monokai Pro Light Sun";
+      };
+      enableFishIntegration = true;
+    };
+
+    programs.lazygit = {
+      enable = true;
+
+      enableFishIntegration = true;
+
+      settings = {
+        git = {
+          pagers = [
+            {
+              pager = "delta --light true --paging=never --side-by-side";
+            }
+          ];
+        };
+      };
+    };
+
   };
 
 }
