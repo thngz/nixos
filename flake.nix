@@ -52,13 +52,7 @@
             home-manager.extraSpecialArgs = { inherit inputs; };
           }
           {
-            xorg.enable = false;
-            sway.enable = false;
-            sway.modKey = "Mod1";
-            
             niri.enable = true;
-            niri.modKey = "Mod1";
-                        
             system.stateVersion = "23.11";
             development.enable = true;
           }
@@ -73,16 +67,12 @@
           config.allowUnfree = true; # This works.
         };
         modules = [
-          # home-manager.nixosModules.default {
-          #       pkgs = pkgs;
-          #  }
           nix-ld.nixosModules.nix-ld
           niri-flake.nixosModules.niri
 
           ./hosts/laptop2/hardware-configuration.nix
           {
             xorg.enable = true;
-            xorg.modKey = "Mod1";
             system.stateVersion = "23.11";
             development.enable = true;
           }
@@ -103,17 +93,7 @@
           nixvim.nixosModules.nixvim
           ./hosts/p16/hardware-configuration.nix
           {
-            xorg.enable = false;
-            # xorg.enable = true;
-            # xorg.modKey = "Mod1";
-            #wayland_desktop.enable = true;
-                        #wayland_desktop.enable = false;
-                        #wayland_desktop.modKey = "Mod1";
-
-            sway.enable = false;
             niri.enable = true;
-            niri.modKey = "Mod1";
-            sway.modKey = "Mod1";
             system.stateVersion = "25.11";
             development.enable = true;
           }
