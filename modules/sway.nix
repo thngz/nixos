@@ -262,7 +262,7 @@ in
   options.sway = {
     enable = lib.mkEnableOption "enable sway";
     modKey = lib.mkOption {
-      default = "Mod4";
+      default = "Mod1";
       description = ''
         main orchestrator key
       '';

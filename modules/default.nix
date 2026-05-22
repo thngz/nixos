@@ -5,7 +5,7 @@
     ./confs.nix
     ./crypto.nix
     ./xorg.nix
-    ./wayland.nix
+    ./cosmic.nix
     ./sway.nix
     ./niri.nix
     ./development.nix

@@ -232,7 +232,7 @@ in
   options.xorg = {
     enable = lib.mkEnableOption "enable xorg";
     modKey = lib.mkOption {
-      default = "Mod4";
+      default = "Mod1";
       description = ''
         main orchestrator key
       '';

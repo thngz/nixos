@@ -53,9 +53,12 @@
           }
           {
             xorg.enable = false;
-            # xorg.modKey = "Mod1";
-            sway.enable = true;
+            sway.enable = false;
             sway.modKey = "Mod1";
+            
+            niri.enable = true;
+            niri.modKey = "Mod1";
+                        
             system.stateVersion = "23.11";
             development.enable = true;
           }
