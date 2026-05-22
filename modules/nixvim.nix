@@ -281,7 +281,7 @@ in
       settings = {
         filter = "light";
         terminal_colors = true;
-        transparent_background = false;
+        transparent_background = true;
         devicons = true;
       };
     };
