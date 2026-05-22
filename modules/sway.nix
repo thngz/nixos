@@ -250,6 +250,11 @@ let
   swayBar = ''
     bar {
         status_command ${pkgs.perl5Packages.Apppapersway}/bin/papersway --i3status
+
+        tray {
+            icon_theme Adwaita
+            tray_padding 2
+        }
     }
   '';
 in

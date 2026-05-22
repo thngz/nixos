@@ -2,7 +2,6 @@
 
 {
   environment.systemPackages = with pkgs; [
-    neofetch
     ghostty
     tree
     direnv
@@ -32,6 +31,7 @@
     lazydocker
     claude-code
     imv
+    delta
   ];
 
   programs.tmux = {
