@@ -41,7 +41,7 @@ in
   options.niri = {
     enable = lib.mkEnableOption "enable niri";
     modKey = lib.mkOption {
-      default = "Mod4";
+      default = "Mod1";
       description = "main orchestrator key";
     };
   };
