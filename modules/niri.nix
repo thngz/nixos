@@ -120,6 +120,9 @@ in
         XKB_DEFAULT_LAYOUT = "us,ee";
         XKB_DEFAULT_OPTIONS = "ctrl:nocaps,grp:rctrl_toggle";
         XCURSOR_SIZE = "12";
+        GDK_BACKEND = "wayland";
+        QT_QPA_PLATFORM = "wayland";
+        DISPLAY = ":0";
       };
 
       home-manager.users.gkiviv =

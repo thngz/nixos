@@ -382,12 +382,12 @@ in
       }
       {
         mode = "n";
-        key = "<leader>fe";
+        key = "<leader>fer";
         action = "<cmd>Oil .<CR>";
       }
       {
         mode = "n";
-        key = "<leader>feh";
+        key = "<leader>fec";
         action = "<cmd>Oil %:p:h<CR>";
       }
       {

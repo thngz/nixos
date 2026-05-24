@@ -26,7 +26,6 @@
     nixfmt
     snixembed
     fd
-    zellij
     lazygit
     lazydocker
     claude-code
