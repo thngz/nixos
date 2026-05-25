@@ -5,10 +5,10 @@
   ...
 }:
 let
-  cfg = config.wayland_desktop;
+  cfg = config.cosmic;
 in
 {
-  options.wayland_desktop = {
+  options.cosmic = {
     enable = lib.mkEnableOption "enable wayland";
     modKey = lib.mkOption {
       default = "Mod1";
