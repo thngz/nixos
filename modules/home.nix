@@ -11,10 +11,24 @@
     programs.git = {
       enable = true;
       lfs.enable = true;
-      settings.user = {
-        name = "gkiviv";
-        email = "georgkivivali7@gmail.com";
+      settings = {
+        user = {
+          name = "gkiviv";
+          email = "georgkivivali7@gmail.com";
+        };
+
+        merge.tool = "meld";
+        mergetool.keepBackup = false;
+        mergetool.meld.cmd = "meld $LOCAL $BASE $REMOTE --output $MERGED";
       };
+
+      # extraConfig = {
+      # };
+    };
+
+    programs.delta = {
+      enable = true;
+      enableGitIntegration = true;
     };
 
     services.syncthing = {

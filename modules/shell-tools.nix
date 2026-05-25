@@ -30,7 +30,6 @@
     lazydocker
     claude-code
     imv
-    delta
   ];
 
   programs.tmux = {
