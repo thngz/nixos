@@ -116,10 +116,11 @@ in
                   "${mod}+Shift+Return".action.spawn = [ "ghostty" ];
                   # "${mod}+Escape".action.spawn = [ "swaylock" ];
                   "${mod}+Escape".action.spawn = noctalia "lockScreen lock";
+                  "${mod}+Shift+E".action.spawn = noctalia "sessionMenu toggle";
                   "${mod}+Shift+Q".action.close-window = { };
                   "${mod}+Shift+D".action.spawn = noctalia "launcher toggle";
                   "${mod}+Shift+V".action.spawn = noctalia "launcher clipboard";
-                                        
+
                   "${mod}+Shift+S".action.spawn = [
                     "sh"
                     "-c"
@@ -156,8 +157,6 @@ in
                   "${mod}+Comma".action.consume-window-into-column = { };
                   "${mod}+Period".action.expel-window-from-column = { };
 
-                  "${mod}+Shift+E".action.spawn = [ "niri-power-menu" ];
-
                   "${mod}+R".action.switch-preset-column-width = { };
                 }
                 (builtins.listToAttrs (
@@ -176,72 +175,7 @@ in
 
             spawn-at-startup = [
               { command = [ "noctalia-shell" ]; }
-              # { command = [ "waybar" ]; }
-              # {
-              #   command = [
-              #     "swayidle"
-              #     "-w"
-              #     "timeout"
-              #     "300"
-              #     "swaylock -f"
-              #     "timeout"
-              #     "600"
-              #     "niri msg action power-off-monitors"
-              #     "resume"
-              #     "niri msg action power-on-monitors"
-              #     "before-sleep"
-              #     "swaylock -f"
-              #   ];
-              # }
-              # {
-              #   command = [
-              #     "nm-applet"
-              #     "--indicator"
-              #   ];
-              # }
-              # {
-              #   command = [
-              #     "wl-paste"
-              #     "--type"
-              #     "text"
-              #     "--watch"
-              #     "cliphist"
-              #     "store"
-              #   ];
-              # }
-              # {
-              #   command = [
-              #     "wl-paste"
-              #     "--type"
-              #     "image"
-              #     "--watch"
-              #     "cliphist"
-              #     "store"
-              #   ];
-              # }
-              # { command = [ "${pkgs.polkit_gnome}/libexec/polkit-gnome-authentication-agent-1" ]; }
-              # { command = [ "mako" ];
-              # {
-              #   command = [
-              #     "dex"
-              #     "--autostart"
-              #     "--environment"
-              #     "niri"
-              #   ];
-              # }
-              # {
-              #   command = [
-              #     "systemctl --user import-environment WAYLAND_DISPLAY DISPLAY SWAYSOCK XDG_CURRENT_DESKTOP XDG_SESSION_TYPE"
-              #   ];
-              # }
-              #
-              # {
-              #   command = [
-              #     "dbus-update-activation-environment --systemd WAYLAND_DISPLAY DISPLAY SWAYSOCK XDG_CURRENT_DESKTOP XDG_SESSION_TYPE"
-              #   ];
-              # }
             ];
-
             prefer-no-csd = true;
 
             cursor.size = 12;
