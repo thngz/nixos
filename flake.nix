@@ -19,6 +19,11 @@
       url = "github:sodiboo/niri-flake";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    noctalia = {
+      url = "github:noctalia-dev/noctalia-shell";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
@@ -29,6 +34,7 @@
       nixvim,
       home-manager,
       niri-flake,
+      noctalia,
       ...
     }@inputs:
     let
@@ -40,7 +46,7 @@
 
         pkgs = import nixpkgs {
           system = system;
-          config.allowUnfree = true; # This works.
+          config.allowUnfree = true;
         };
         modules = [
           ./hosts/default/hardware-configuration.nix

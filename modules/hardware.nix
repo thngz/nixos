@@ -21,7 +21,10 @@
     pulse.enable = true;
   };
 
-  environment.systemPackages = with pkgs; [ pavucontrol clinfo ];
+  environment.systemPackages = with pkgs; [
+    pavucontrol
+    clinfo
+  ];
   # nix.settings = {
   #   cores = 10;
   #   max-jobs = 4;

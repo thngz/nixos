@@ -1,4 +1,5 @@
 {
+  inputs,
   lib,
   config,
   pkgs,
@@ -6,36 +7,14 @@
 }:
 let
   cfg = config.niri;
-
-  waybar-niri-windows = pkgs.buildGoModule {
-    pname = "waybar-niri-windows";
-    version = "unstable";
-
-    src = pkgs.fetchFromGitHub {
-      owner = "calico32";
-      repo = "waybar-niri-windows";
-      rev = "main";
-      hash = "sha256-7OEyJ4K7JXCdMILxcY5g3ldmSMPAiea5OZcsyvDdL9k=";
-    };
-
-    vendorHash = "sha256-jK87vZYfUe8znk65SmJ1mN8qP5K3dtt950hKGWTYXs4=";
-
-    nativeBuildInputs = with pkgs; [ pkg-config ];
-    buildInputs = with pkgs; [ gtk3 ];
-
-    buildPhase = ''
-      runHook preBuild
-      go build -buildmode=c-shared -o waybar-niri-windows.so ./main
-      runHook postBuild
-    '';
-
-    installPhase = ''
-      runHook preInstall
-      mkdir -p $out/lib
-      cp waybar-niri-windows.so $out/lib/
-      runHook postInstall
-    '';
-  };
+  noctalia =
+    cmd:
+    [
+      "noctalia-shell"
+      "ipc"
+      "call"
+    ]
+    ++ (pkgs.lib.splitString " " cmd);
 in
 {
   options.niri = {
@@ -56,15 +35,6 @@ in
         else
           cfg.modKey;
 
-      powerMenu = pkgs.writeShellScriptBin "niri-power-menu" ''
-        choice=$(echo -e "Logout\nSuspend\nReboot\nShutdown" | ${pkgs.rofi}/bin/rofi -dmenu -p "Power Menu")
-        case "$choice" in
-          Logout) niri msg action quit;;
-          Suspend) systemctl suspend;;
-          Reboot) systemctl reboot;;
-          Shutdown) systemctl poweroff;;
-        esac
-      '';
     in
     {
       programs.niri = {
@@ -75,8 +45,7 @@ in
       };
 
       environment.systemPackages = with pkgs; [
-        swaylock
-        swayidle
+        inputs.noctalia.packages.${pkgs.stdenv.hostPlatform.system}.default
         wl-clipboard
         rofi
         grim
@@ -89,8 +58,7 @@ in
         brightnessctl
         polkit_gnome
         dex
-        waybar
-        powerMenu
+        xwayland-satellite
       ];
 
       services.greetd = {
@@ -114,107 +82,9 @@ in
 
       services.gnome.gnome-keyring.enable = true;
 
-      environment.sessionVariables = {
-        NIXOS_OZONE_WL = "1";
-        MOZ_ENABLE_WAYLAND = "1";
-        XKB_DEFAULT_LAYOUT = "us,ee";
-        XKB_DEFAULT_OPTIONS = "ctrl:nocaps,grp:rctrl_toggle";
-        XCURSOR_SIZE = "12";
-        GDK_BACKEND = "wayland";
-        QT_QPA_PLATFORM = "wayland";
-        DISPLAY = ":0";
-      };
-
       home-manager.users.gkiviv =
         { lib, ... }:
         {
-          programs.waybar = {
-            enable = true;
-            settings.mainBar = {
-              layer = "top";
-              position = "top";
-              height = 30;
-              modules-left = [
-                "niri/workspaces"
-                "cffi/niri-windows"
-              ];
-              modules-center = [ "clock" ];
-              modules-right = [
-                "disk#root"
-                "disk#main"
-                "memory"
-                "battery"
-                "tray"
-              ];
-
-              "niri/workspaces" = {
-                format = "{name}";
-              };
-              "niri/window" = {
-                max-length = 50;
-              };
-              "cffi/niri-windows" = {
-                module_path = "${waybar-niri-windows}/lib/waybar-niri-windows.so";
-                options = {
-                  mode = "graphical";
-                  show-floating = "auto";
-                  floating-position = "right";
-                  minimum-size = 1;
-                  spacing = 1;
-                  icon-minimum-size = 0;
-                  column-borders = 0;
-                  floating-borders = 0;
-                  on-tile-click = "FocusWindow";
-                  on-tile-middle-click = "CloseWindow";
-                  on-tile-right-click = "";
-                  rules = [ ];
-                };
-                actions = {
-                  on-scroll-up = "FocusColumnLeft";
-                  on-scroll-down = "FocusColumnRight";
-                };
-              };
-              clock = {
-                format = "{:%Y-%m-%d %H:%M:%S %Z}";
-                timezone = "Europe/Tallinn";
-                interval = 1;
-              };
-              "disk#root" = {
-                path = "/";
-                format = "{free}";
-                interval = 30;
-              };
-              "disk#main" = {
-                path = "/run/media/gkiviv/main";
-                format = "{free}";
-                interval = 30;
-              };
-              memory = {
-                format = "USED RAM: {used:0.1f}G";
-                interval = 5;
-              };
-              battery = {
-                format = "{icon} {capacity}%, remaining: {time}";
-                format-charging = "⚡ CHR {capacity}%, remaining: {time}";
-                format-icons = [
-                  "🔋"
-                  "🔋"
-                  "🔋"
-                  "🔋"
-                  "🔋"
-                ];
-                states = {
-                  warning = 15;
-                  critical = 10;
-                };
-              };
-              tray = {
-                icon-size = 16;
-                spacing = 2;
-              };
-            };
-          };
-
           programs.niri.settings = {
             input = {
               keyboard.xkb = {
@@ -244,49 +114,16 @@ in
               (mkMerge [
                 {
                   "${mod}+Shift+Return".action.spawn = [ "ghostty" ];
-                  "${mod}+Escape".action.spawn = [ "swaylock" ];
+                  # "${mod}+Escape".action.spawn = [ "swaylock" ];
+                  "${mod}+Escape".action.spawn = noctalia "lockScreen lock";
                   "${mod}+Shift+Q".action.close-window = { };
-                  "${mod}+D".action.spawn = [
-                    "rofi"
-                    "-modi"
-                    "drun,run"
-                    "-show"
-                    "drun"
-                  ];
-                  "${mod}+Shift+V".action.spawn = [
-                    "sh"
-                    "-c"
-                    "cliphist list | rofi -dmenu | cliphist decode | wl-copy"
-                  ];
+                  "${mod}+Shift+D".action.spawn = noctalia "launcher toggle";
+                  "${mod}+Shift+V".action.spawn = noctalia "launcher clipboard";
+                                        
                   "${mod}+Shift+S".action.spawn = [
                     "sh"
                     "-c"
                     "grim -g \"$(slurp)\" - | swappy -f -"
-                  ];
-
-                  "XF86AudioRaiseVolume".action.spawn = [
-                    "pactl"
-                    "set-sink-volume"
-                    "@DEFAULT_SINK@"
-                    "+10%"
-                  ];
-                  "XF86AudioLowerVolume".action.spawn = [
-                    "pactl"
-                    "set-sink-volume"
-                    "@DEFAULT_SINK@"
-                    "-10%"
-                  ];
-                  "XF86AudioMute".action.spawn = [
-                    "pactl"
-                    "set-sink-mute"
-                    "@DEFAULT_SINK@"
-                    "toggle"
-                  ];
-                  "XF86AudioMicMute".action.spawn = [
-                    "pactl"
-                    "set-source-mute"
-                    "@DEFAULT_SOURCE@"
-                    "toggle"
                   ];
 
                   "${mod}+H".action.focus-column-left = { };
@@ -338,70 +175,71 @@ in
               ]);
 
             spawn-at-startup = [
-              { command = [ "waybar" ]; }
-              {
-                command = [
-                  "swayidle"
-                  "-w"
-                  "timeout"
-                  "300"
-                  "swaylock -f"
-                  "timeout"
-                  "600"
-                  "niri msg action power-off-monitors"
-                  "resume"
-                  "niri msg action power-on-monitors"
-                  "before-sleep"
-                  "swaylock -f"
-                ];
-              }
-              {
-                command = [
-                  "nm-applet"
-                  "--indicator"
-                ];
-              }
-              {
-                command = [
-                  "wl-paste"
-                  "--type"
-                  "text"
-                  "--watch"
-                  "cliphist"
-                  "store"
-                ];
-              }
-              {
-                command = [
-                  "wl-paste"
-                  "--type"
-                  "image"
-                  "--watch"
-                  "cliphist"
-                  "store"
-                ];
-              }
-              { command = [ "${pkgs.polkit_gnome}/libexec/polkit-gnome-authentication-agent-1" ]; }
-              { command = [ "mako" ]; }
-              {
-                command = [
-                  "dex"
-                  "--autostart"
-                  "--environment"
-                  "niri"
-                ];
-              }
-              {
-                command = [
-                  "systemctl --user import-environment WAYLAND_DISPLAY DISPLAY SWAYSOCK XDG_CURRENT_DESKTOP XDG_SESSION_TYPE"
-                ];
-              }
-
-              {
-                command = [
-                  "dbus-update-activation-environment --systemd WAYLAND_DISPLAY DISPLAY SWAYSOCK XDG_CURRENT_DESKTOP XDG_SESSION_TYPE"
-                ];
-              }
+              { command = [ "noctalia-shell" ]; }
+              # { command = [ "waybar" ]; }
+              # {
+              #   command = [
+              #     "swayidle"
+              #     "-w"
+              #     "timeout"
+              #     "300"
+              #     "swaylock -f"
+              #     "timeout"
+              #     "600"
+              #     "niri msg action power-off-monitors"
+              #     "resume"
+              #     "niri msg action power-on-monitors"
+              #     "before-sleep"
+              #     "swaylock -f"
+              #   ];
+              # }
+              # {
+              #   command = [
+              #     "nm-applet"
+              #     "--indicator"
+              #   ];
+              # }
+              # {
+              #   command = [
+              #     "wl-paste"
+              #     "--type"
+              #     "text"
+              #     "--watch"
+              #     "cliphist"
+              #     "store"
+              #   ];
+              # }
+              # {
+              #   command = [
+              #     "wl-paste"
+              #     "--type"
+              #     "image"
+              #     "--watch"
+              #     "cliphist"
+              #     "store"
+              #   ];
+              # }
+              # { command = [ "${pkgs.polkit_gnome}/libexec/polkit-gnome-authentication-agent-1" ]; }
+              # { command = [ "mako" ];
+              # {
+              #   command = [
+              #     "dex"
+              #     "--autostart"
+              #     "--environment"
+              #     "niri"
+              #   ];
+              # }
+              # {
+              #   command = [
+              #     "systemctl --user import-environment WAYLAND_DISPLAY DISPLAY SWAYSOCK XDG_CURRENT_DESKTOP XDG_SESSION_TYPE"
+              #   ];
+              # }
+              #
+              # {
+              #   command = [
+              #     "dbus-update-activation-environment --systemd WAYLAND_DISPLAY DISPLAY SWAYSOCK XDG_CURRENT_DESKTOP XDG_SESSION_TYPE"
+              #   ];
+              # }
             ];
 
             prefer-no-csd = true;
