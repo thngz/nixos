@@ -42,6 +42,7 @@ in
         package = pkgs.niri.overrideAttrs {
           doCheck = false;
         };
+
       };
 
       environment.systemPackages = with pkgs; [
@@ -97,6 +98,20 @@ in
               };
             };
 
+            environment = {
+              CLUTTER_BACKEND = "wayland";
+              GDK_BACKEND = "wayland,x11";
+              MOZ_ENABLE_WAYLAND = "1";
+              NIXOS_OZONE_WL = "1";
+              QT_QPA_PLATFORM = "wayland";
+              QT_WAYLAND_DISABLE_WINDOWDECORATION = "1";
+              ELECTRON_OZONE_PLATFORM_HINT = "auto";
+
+              XDG_SESSION_TYPE = "wayland";
+              XDG_CURRENT_DESKTOP = "niri";
+              DISPLAY = ":0";
+            };
+
             layout = {
               gaps = 8;
               center-focused-column = "on-overflow";
@@ -118,7 +133,7 @@ in
                   "${mod}+Escape".action.spawn = noctalia "lockScreen lock";
                   "${mod}+Shift+E".action.spawn = noctalia "sessionMenu toggle";
                   "${mod}+Shift+Q".action.close-window = { };
-                  "${mod}+Shift+D".action.spawn = noctalia "launcher toggle";
+                  "${mod}+D".action.spawn = noctalia "launcher toggle";
                   "${mod}+Shift+V".action.spawn = noctalia "launcher clipboard";
 
                   "${mod}+Shift+S".action.spawn = [
